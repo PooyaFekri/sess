@@ -6,7 +6,7 @@ export default {
     titleTemplate: '%s - sess',
     title: 'sess',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'fa'
     },
     meta: [
       { charset: 'utf-8' },
@@ -33,7 +33,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    ['@nuxtjs/vuetify', {rtl:true}],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

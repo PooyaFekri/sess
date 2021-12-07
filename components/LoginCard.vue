@@ -1,7 +1,7 @@
 <template>
-  <v-card elevation="4" color="#154C79F0" shaped>
+  <v-card elevation="4" color="#154C79CC" shaped>
     <v-container>
-      <v-text-field  outlined label="شناسه ورود" id="id"></v-text-field>
+      <v-text-field outlined label="شناسه ورود" id="id"></v-text-field>
       <v-text-field outlined type="password" label="رمز ورود" id="id"></v-text-field>
     </v-container>
     <v-card-actions>

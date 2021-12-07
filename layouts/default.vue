@@ -1,13 +1,22 @@
 <template>
-  <v-app>
+  <v-app style="position: relative">
+    <v-main class="app-content">
+      <Nuxt />
+    </v-main>
     <RightSidebar />
-    <Nuxt />
   </v-app>
 </template>
 
 <script>
 import RightSidebar from '@/components/RightSidebar.vue'
 export default {
-  components: [RightSidebar]
+  components: [RightSidebar],
 }
 </script>
+
+<style scoped>
+.app-content {
+  min-height: 100vh;
+  display: grid;
+}
+</style>

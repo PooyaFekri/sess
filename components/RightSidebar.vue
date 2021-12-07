@@ -4,8 +4,10 @@
       absolute
       permanent
       right
+      app
       color="#154C79"
       class="rounded-lg"
+      fixed
     >
       <template>
         <v-row style="height: 15%" dense justify="center">
@@ -18,14 +20,14 @@
         <v-row dense align="center" style="height: 15%">
           <v-list dense>
             <v-list-item>
-              <v-list-item-conten>
+              <v-list-item-content>
                 <p>نام کاربری</p>
-              </v-list-item-conten>
+              </v-list-item-content>
             </v-list-item>
             <v-list-item>
-              <v-list-item-conten>
+              <v-list-item-content>
                 <p>شماره دانشجویی</p>
-              </v-list-item-conten>
+              </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-row>

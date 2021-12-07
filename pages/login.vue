@@ -1,23 +1,20 @@
 <template class="as">
-  <v-container>
-    <v-row>
-      <v-col offset="4">
-    <LoginCard />
-    </v-col>
+  
+    <v-row style="height: 65%;" no-gutters align="center" justify="center">
+      <v-col cols="3" class="text-center">
+        <LoginCard />
+      </v-col>
     </v-row>
-  </v-container>
+  
 </template>
 
 <script>
-import LoginCard from "@/components/LoginCard.vue";
+import LoginCard from '@/components/LoginCard.vue'
 export default {
-  layout: "login",
+  layout: 'login',
   components: { LoginCard },
-  mounted () {
-    this.$vuetify.rtl = true;
-  }
+  mounted() {},
 }
 </script>
 
-<style>
-</style>
+<style></style>

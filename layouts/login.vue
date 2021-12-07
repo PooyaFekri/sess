@@ -1,29 +1,28 @@
 <template>
-  <div class="main">
-    <div class="center_logo">
-      <div class="logo">
-        <img
-          class="logo-image logo-big img-responsive"
-          src="../static/logo-rtl.png"
-          alt="دانشگاه شیراز"
-        />
+  <v-app>
+    <div class="main overflow-y-hidden">
+      <div class="center_logo">
+        <div class="logo">
+          <img
+            class="logo-image logo-big img-responsive"
+            src="../static/logo-rtl.png"
+            alt="دانشگاه شیراز"
+          />
+        </div>
       </div>
+      <Nuxt />
     </div>
-    <Nuxt />
-  </div>
+  </v-app>
 </template>
 <script>
 export default {
-  created() {
-    this.$vuetify.rtl = this.$i18n.locale === "fa";
-    this.$vuetify.lang.current = this.$i18n.locale;
-  },
-};
+  created() {},
+}
 </script>
 
 <style scoped>
 .main {
-  background-image: url("@/static/loginBackGround2.jpg");
+  background-image: url('@/static/loginBackGround2.jpg');
   /* background-position: center; */
   background-repeat: no-repeat;
   background-size: cover;

@@ -6,9 +6,6 @@ export default {
   head: {
     titleTemplate: '%s - sess',
     title: 'sess',
-    htmlAttrs: {
-      lang: 'fa'
-    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -26,7 +23,6 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '@/plugins/i18n.js'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -34,30 +30,36 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    // https://go.nuxtjs.dev/eslint
+    '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
-    ['@nuxtjs/vuetify'],
+    '@nuxtjs/vuetify',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/i18n',
+    // https://go.nuxtjs.dev/axios
+    '@nuxtjs/axios',
+    // https://go.nuxtjs.dev/pwa
+    '@nuxtjs/pwa',
   ],
 
-  i18n: {
-    locales: [
-      {
-        code: 'fa',
-        name: 'فارسی',
-        file: 'fa.js',
-        dir: 'rtl'
-      },
-    ],
-    defaultLocale: 'fa',
-    langDir: '~/locales/'
+  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {},
+
+  // PWA module configuration: https://go.nuxtjs.dev/pwa
+  pwa: {
+    manifest: {
+      lang: 'fa'
+    }
   },
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
+  	rtl: true,
     customVariables: ['~/assets/variables.scss'],
+    // treeShake: true,
+    // customProperties: true,
     theme: {
       dark: true,
       themes: {
@@ -71,13 +73,8 @@ export default {
           success: colors.green.accent3
         }
       }
-    },
-    lang: {
-      locales : {fa},
-      current: 'fa'
-    },
+    }
   },
-  
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import fa from 'vuetify/lib/locale/fa'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -25,6 +26,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '@/plugins/i18n.js'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -33,13 +35,26 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    ['@nuxtjs/vuetify', {rtl:true}],
+    ['@nuxtjs/vuetify'],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/i18n',
   ],
 
+  i18n: {
+    locales: [
+      {
+        code: 'fa',
+        name: 'فارسی',
+        file: 'fa.js',
+        dir: 'rtl'
+      },
+    ],
+    defaultLocale: 'fa',
+    langDir: '~/locales/'
+  },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -56,8 +71,13 @@ export default {
           success: colors.green.accent3
         }
       }
-    }
+    },
+    lang: {
+      locales : {fa},
+      current: 'fa'
+    },
   },
+  
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

@@ -2,3 +2,24 @@
 //
 // The variables you want to modify
 // $font-size-root: 20px;
+@font-face {
+    font-family: "Yekan";
+    src: url(~assets/fonts/Yekan.woff);
+  }
+  html {
+    font-family: "Yekan" !important;
+  }
+  body {
+    font-family: "Yekan" !important;
+  }
+  .v-application .font-weight-light {
+    font-family: "Yekan";
+  }
+  .v-application * {
+    font-family: "Yekan" !important;
+  }
+  .v-application .text-h5 {
+    font-family: "Yekan" !important;
+  }
+
+  

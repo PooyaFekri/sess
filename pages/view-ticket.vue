@@ -1,5 +1,9 @@
 <template>
-  <ViewTicket />
+  <div>
+    <ViewTicket />
+    <ChooseTicket />
+    <CreateTicket />
+  </div>
 </template>
 
 <script>

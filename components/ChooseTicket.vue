@@ -37,8 +37,6 @@
             v-model="selected"
             return-object
         ></v-select>
-        
-        <Icon icon="mdi:close" color="white" />
        
         <v-card-actions  class="justify-center" >
           <v-btn   

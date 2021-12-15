@@ -1,7 +1,69 @@
 <template>
   <div class="text-center">
     <v-dialog 
-      v-model="dialog"
+      v-model="dialog_first"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="red lighten-2"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          ChooseTicket
+        </v-btn>
+      </template>
+
+      <v-card class="ticket_background">
+        <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
+          ایجاد تیکت
+          <v-spacer></v-spacer>
+          <v-btn
+              class="ml-n2"
+              icon
+              dark
+              @click="dialog_first = false"
+            >
+              <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        
+
+        
+        <v-select        
+            class="ma-10 mb-0"
+            placeholder="نوع تیکت را انتخاب کنید"
+            :items="items"
+            solo
+            v-model="selected"
+            return-object
+        ></v-select>
+       
+        <v-card-actions  class="justify-center" >
+          <v-btn   
+            text   
+            class="terminate_ticket mb-3"    
+            @click="submitFirstDialog"
+          >
+            تایید
+          </v-btn>
+          <v-btn   
+            text   
+            class="cancel_ticket mb-3"    
+            @click="cancelOnClick"
+          >
+            لغو
+          </v-btn>
+        </v-card-actions>
+
+        
+      </v-card>
+    </v-dialog>
+
+
+    <v-dialog 
+      v-model="dialog_second"
       width="700"
     >
       <template v-slot:activator="{ on, attrs }">
@@ -24,7 +86,7 @@
               class="ml-n2"
               icon
               dark
-              @click="dialog = false"
+              @click="dialog_second = false"
             >
               <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -36,7 +98,7 @@
                     <v-text-field
                         v-model="message2"
                         solo
-                        label="درخواست درس از بخش دیگر"
+                        :label="selected"
                         clearable
                         disabled
                         color="#3F505E"
@@ -109,14 +171,14 @@
           <v-btn   
             text   
             class="terminate_ticket mb-3"    
-            @click="dialog = false"
+            @click="dialog_second = false"
           >
             تایید
           </v-btn>
           <v-btn   
             text   
             class="cancel_ticket mb-3"    
-            @click="dialog = false"
+            @click="dialog_second = false"
           >
             لغو
           </v-btn>
@@ -130,14 +192,27 @@
 export default {
     data () {
         return {
-            items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+            items: ['درخواست افزایش ظرفیت', 'درخواست تغییر ساعت کلاس', 'درخواست تغییر ساعت امتحان ', ' درخواست درس از ارشد', 'درخواست درس از گرایش دیگر(کارشناسی ارشد)', 'درخواست درس خارج از بخش'],
             selected:"",
-            dialog: false,
+            dialog_first: false,
+            dialog_second: false,
             title:"",
           }
         },
     methods: {
-        
+      cancelOnClick(){
+        this.dialog_first = false
+        this.selected = ""
+      },
+      submitFirstDialog(){
+        if (this.selected !== ""){
+          this.dialog_first = false;
+          this.dialog_second = true;
+        } else {
+          // TODO: show error 
+          console.log('can not change')
+        }
+      }
     }
 };
 </script>

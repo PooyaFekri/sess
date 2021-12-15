@@ -1,5 +1,4 @@
 <template>
-
   <div class="text-center">
     <v-dialog 
       v-model="dialog"
@@ -16,110 +15,80 @@
         </v-btn>
       </template>
 
-      <v-card class="ticket_background">
+      <v-card class="ticket_background ">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
           نوع تیکت
           <v-spacer></v-spacer>
+          
           <v-btn
-            text
-            @click="dialog = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
+              icon
+              dark
+              @click="dialog = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
         </v-card-title>
         
-  
-        <v-card-text>
-          <v-stepper alt-labels>
-            <v-stepper-header>
-              <v-stepper-step step="1" color="#366991">
-                Ad unit details
-              </v-stepper-step>
+        <v-container class="mt-n10">
+            <v-card-text class="justify-center">
+              <v-row class="mb-n10">
+                <v-col cols="12">
+                <v-stepper  alt-labels style="background: transparent; border: none;" outlined >
+                  <v-stepper-header>
+                    <template v-for="n in 5">
+                      <v-stepper-step
+                        :key="`${n}-step`"
+                        :step="n" 
+                        complete-icon="$complete"
+                        color="#366991"
+                        style="font-size: 1.5em"
+                      >
+                        Step {{ n }}
+                      </v-stepper-step>
 
-              <v-divider></v-divider>
-
-              <v-stepper-step step="2">
-                Ad sizes
-              </v-stepper-step>
-
-              <v-divider></v-divider>
-
-              <v-stepper-step step="3">
-                Ad templates
-              </v-stepper-step>
-            </v-stepper-header>
-          </v-stepper>
-        </v-card-text>
-
-        <v-card-text v-for="comment in comments" :key="comment">
-          <v-card flat height="80px">
-            <v-card-text class="comments_color">
-              {{comment}}
+                      <v-divider
+                        v-if="n !== 5"
+                        :key="n"
+                      ></v-divider>
+                    </template>
+                  </v-stepper-header>
+                </v-stepper>
+                </v-col>
+              </v-row>
             </v-card-text>
-          </v-card>
-        </v-card-text>
-        
-        
-       
-        <v-card-actions  class="justify-center">
-          <v-btn   
-            text   
-            class="terminate_ticket"    
-            @click="dialog = false"
-          >
-            خاتمه فرآیند
-          </v-btn>
-        </v-card-actions>
 
         
+          <v-card-text class="justify-center"  v-for="comment in comments" :key="comment">
+            <v-row justify="center">
+              <v-col cols="8">
+                <v-card flat height="68px" class="mb-n5">
+                  <v-card-text class="comments_color" style="font-size: 1.3em">
+                    {{comment}}
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>             
+          </v-card-text>
+          
+          <v-row justify="center" class="mt-5">
+              <v-col cols="6">
+                <v-card-actions  class="justify-center">
+                  <v-btn   
+                    text   
+                    class="terminate_ticket mb-3"    
+                    @click="dialog = false"
+                  >
+                    خاتمه فرآیند
+                  </v-btn>
+                </v-card-actions>
+              </v-col>
+            </v-row>  
+
+        </v-container>
+  
       </v-card>
     </v-dialog>
   </div>
-    <!-- <v-dialog
-        width="700"
-      >
-      <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            color="red lighten-2"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
-            Click Me
-          </v-btn>
-      </template>
-      <v-card>
-        <v-card-title color="#3F505E">
-          <v-card-actions>
-            <v-btn
-              icon
-              dark
-              @click="dialog = false"
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-card-actions>
-          <v-spacer></v-spacer>
-          <v-toolbar-title color="#FFF">نوع تیکت 2</v-toolbar-title>
-        </v-v-card-title>
-
-        <v-card-text>
-          hello
-        </v-card-text>
-        
-        <v-card-actions>
-            <v-btn
-              icon
-              dark
-              @click="dialog = false"
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-card-actions>
-
-      </v-card>
-    </v-dialog> -->
-
 
 </template>
 
@@ -127,7 +96,8 @@
 export default {
   data () {
       return {
-        comments: ['مرحله 3', 'مرحله 2', 'مرحله 1:'],
+        comments: ['مرحله 1', 'مرحله 2', 'مرحله 3', 'مرحله 4'],
+        // comments: ['step 1', 'step 2', 'step 3'],
         dialog: false,
       }
     },

@@ -20,19 +20,20 @@
           ایجاد تیکت
           <v-spacer></v-spacer>
           <v-btn
-            text
-            @click="dialog = false"
-          >
-            <v-icon white>mdi-close</v-icon>
-          </v-btn>
+              icon
+              dark
+              @click="dialog = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
         </v-card-title>
         
 
         
-        <v-select
+        <v-select        
             class="ma-10 mb-0"
+            placeholder="نوع تیکت را انتخاب کنید"
             :items="items"
-            label="نوع تیکت"
             solo
             v-model="selected"
             return-object
@@ -49,7 +50,7 @@
           <v-btn   
             text   
             class="cancel_ticket mb-3"    
-            @click="dialog = false"
+            @click="cancelOnClick"
           >
             لغو
           </v-btn>
@@ -65,13 +66,16 @@
 export default {
     data () {
         return {
-            items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-            selected:"Bar",
+            items: ['درخواست افزایش ظرفیت', 'درخواست تغییر ساعت کلاس', 'درخواست تغییر ساعت امتحان ', ' درخواست درس از ارشد', 'درخواست درس از گرایش دیگر(کارشناسی ارشد)', 'درخواست درس خارج از بخش'],
+            selected: '',
             dialog: false,
             }
         },
     methods: {
-        
+      cancelOnClick(){
+        this.dialog = false
+        this.selected = false
+      }
     }
 };
 </script>

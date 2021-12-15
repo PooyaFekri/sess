@@ -11,7 +11,7 @@
           v-bind="attrs"
           v-on="on"
         >
-          Click Me
+          ChooseTicket
         </v-btn>
       </template>
 
@@ -20,12 +20,13 @@
           ایجاد تیکت
           <v-spacer></v-spacer>
           <v-btn
+              class="ml-n2"
               icon
               dark
               @click="dialog = false"
             >
               <v-icon>mdi-close</v-icon>
-            </v-btn>
+          </v-btn>
         </v-card-title>
         
 

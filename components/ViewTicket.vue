@@ -11,25 +11,29 @@
           v-bind="attrs"
           v-on="on"
         >
-          Click Me
+          ViewTicket
         </v-btn>
       </template>
 
       <v-card class="ticket_background ">
-        <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
-          نوع تیکت
-          <v-spacer></v-spacer>
           
-          <v-btn
-              icon
-              dark
-              @click="dialog = false"
-            >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-        </v-card-title>
+          <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5 justify-center" >
+            <v-spacer class="mr-10"></v-spacer>
+            نوع تیکت
+            <v-spacer></v-spacer>
+            
+            <v-btn
+                class="ml-n2"
+                icon
+                dark
+                @click="dialog = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+          </v-card-title>
         
         <v-container class="mt-n10">
+        
             <v-card-text class="justify-center">
               <v-row class="mb-n10">
                 <v-col cols="12">
@@ -60,8 +64,8 @@
         
           <v-card-text class="justify-center"  v-for="comment in comments" :key="comment">
             <v-row justify="center">
-              <v-col cols="8">
-                <v-card flat height="68px" class="mb-n5">
+              <v-col cols="9">
+                <v-card flat height="70px" class="mb-n7">
                   <v-card-text class="comments_color" style="font-size: 1.3em">
                     {{comment}}
                   </v-card-text>

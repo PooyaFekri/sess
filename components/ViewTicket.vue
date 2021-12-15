@@ -100,7 +100,7 @@
 export default {
   data () {
       return {
-        comments: ['مرحله 1', 'مرحله 2', 'مرحله 3', 'مرحله 4'],
+        comments: ['مرحله 1', 'مرحله 2', 'مرحله 3', 'مرحله 4', 'مرحله 1', 'مرحله 2', 'مرحله 3', 'مرحله 4'],
         // comments: ['step 1', 'step 2', 'step 3'],
         dialog: false,
       }

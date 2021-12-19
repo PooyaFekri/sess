@@ -2,12 +2,20 @@
   <div>
     <ViewTicket />
     <ChooseTicket />
-    <div v-if="selected==1">
-      <CreateTicket :selected_ticket_name=selected />
+    <!--<div v-if="selected==1">
+      <LessonFromAnotherSection />
     </div>
     <div v-else>
-      <CreateTicket :selected_ticket_name="111" />
-    </div>
+      <LessonFromAnotherSection />
+    </div>-->
+    <CapacityIncrease class="pa-5"/>
+    <ChangeClassTime class="pa-5"/>
+    <ChangeExamTime class="pa-5"/>
+    <CourseFromAnotherOrientation class="pa-5"/>
+    <LessonFromAnotherSection class="pa-5"/>
+    <MasterCourseRequest class="pa-5"/>
+    <NormalTicket class="pa-5"/>
+
   </div>
 </template>
 

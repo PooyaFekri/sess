@@ -1,66 +1,5 @@
 <template>
   <div class="text-center">
-    <v-dialog 
-      v-model="dialog_first"
-      width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="red lighten-2"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          ChooseTicket
-        </v-btn>
-      </template>
-
-      <v-card class="ticket_background">
-        <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
-          ایجاد تیکت
-          <v-spacer></v-spacer>
-          <v-btn
-              class="ml-n2"
-              icon
-              dark
-              @click="dialog_first = false"
-            >
-              <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
-        
-
-        
-        <v-select        
-            class="ma-10 mb-0"
-            placeholder="نوع تیکت را انتخاب کنید"
-            :items="items"
-            solo
-            v-model="selected"
-            return-object
-        ></v-select>
-       
-        <v-card-actions  class="justify-center" >
-          <v-btn   
-            text   
-            class="terminate_ticket mb-3"    
-            @click="submitFirstDialog"
-          >
-            تایید
-          </v-btn>
-          <v-btn   
-            text   
-            class="cancel_ticket mb-3"    
-            @click="cancelOnClick"
-          >
-            لغو
-          </v-btn>
-        </v-card-actions>
-
-        
-      </v-card>
-    </v-dialog>
-
 
     <v-dialog 
       v-model="dialog_second"
@@ -96,9 +35,8 @@
             <v-row class="justify-center mb-n12">
                 <v-col cols="5">
                     <v-text-field
-                        v-model="message2"
                         solo
-                        :label="selected"
+                        :label="selected_ticket_name"
                         clearable
                         disabled
                         color="#3F505E"
@@ -107,7 +45,7 @@
                 <v-col cols="5">
                     <v-text-field
                         color="#3F505E"
-                        v-model="message2"
+                        v-model="department_name"
                         solo
                         label="نام بخش"
                         clearable
@@ -117,19 +55,13 @@
             <v-row class="justify-center mb-n14">
                 <v-col cols="5">
                     <v-text-field
-                        v-model="message2"
+                        v-model="course_name"
                         solo
                         label="نام درس"
                         clearable
                     ></v-text-field>
                 </v-col>
                 <v-col cols="5">
-                    <!--<v-text-field
-                        v-model="message2"
-                        solo
-                        label="Solo"
-                        clearable
-                    ></v-text-field>-->
                     <v-file-input
                         truncate-length="15"
                         label="افزودن فایل ضمیمه"
@@ -139,20 +71,13 @@
             <v-row class="ma-4 mb-n15 justify-center ">
               <v-col cols="11">
                   <v-textarea
+                    v-model="description"
                     placeholder="در صورت لزوم متن اضافه کنید."
                     class=" pt-5 pr-2"
                     color="#3F505E"
                     solo
                     no-resize
                   ></v-textarea>
-                  <!-- <v-textarea
-                      v-model="title"
-                      label="در صورت لزوم متن اضافه کنید."
-                      class="closeWhite"
-                      counter
-                      maxlength="120"
-                      single-line
-                  ></v-textarea> -->
               </v-col>
             </v-row>
             <v-row class="justify-end ml-10">
@@ -190,30 +115,20 @@
 
 <script>
 export default {
-    data () {
-        return {
-            items: ['درخواست افزایش ظرفیت', 'درخواست تغییر ساعت کلاس', 'درخواست تغییر ساعت امتحان ', ' درخواست درس از ارشد', 'درخواست درس از گرایش دیگر(کارشناسی ارشد)', 'درخواست درس خارج از بخش'],
-            selected:"",
-            dialog_first: false,
-            dialog_second: false,
-            title:"",
-          }
-        },
-    methods: {
-      cancelOnClick(){
-        this.dialog_first = false
-        this.selected = ""
-      },
-      submitFirstDialog(){
-        if (this.selected !== ""){
-          this.dialog_first = false;
-          this.dialog_second = true;
-        } else {
-          // TODO: show error 
-          console.log('can not change')
+  // TODO: add upload and download files
+  props:['selected_ticket_name'],
+  data () {
+      return {
+          items: ['درخواست افزایش ظرفیت', 'درخواست تغییر ساعت کلاس', 'درخواست تغییر ساعت امتحان ', ' درخواست درس از ارشد', 'درخواست درس از گرایش دیگر(کارشناسی ارشد)', 'درخواست درس خارج از بخش'],
+          dialog_second: false,
+          department_name:"",
+          course_name:"",
+          description:""
         }
-      }
-    }
+      },
+  methods: {
+    
+  }
 };
 </script>
 

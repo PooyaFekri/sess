@@ -36,7 +36,7 @@
             placeholder="نوع تیکت را انتخاب کنید"
             :items="items"
             solo
-            v-model="selected"
+            v-model="selected_ticket_name"
             return-object
         ></v-select>
        
@@ -65,19 +65,20 @@
 
 <script>
 export default {
-    data () {
-        return {
-            items: ['درخواست افزایش ظرفیت', 'درخواست تغییر ساعت کلاس', 'درخواست تغییر ساعت امتحان ', ' درخواست درس از ارشد', 'درخواست درس از گرایش دیگر(کارشناسی ارشد)', 'درخواست درس خارج از بخش'],
-            selected: '',
-            dialog: false,
-            }
-        },
-    methods: {
-      cancelOnClick(){
-        this.dialog = false
-        this.selected = false
-      }
+  components: true,
+  data () {
+      return {
+          items: ['درخواست افزایش ظرفیت', 'درخواست تغییر ساعت کلاس', 'درخواست تغییر ساعت امتحان ', ' درخواست درس از ارشد', 'درخواست درس از گرایش دیگر(کارشناسی ارشد)', 'درخواست درس خارج از بخش'],
+          selected_ticket_name: '',
+          dialog: false,
+          }
+      },
+  methods: {
+    cancelOnClick(){
+      this.dialog = false
+      this.selected_ticket_name = ''
     }
+  }
 };
 </script>
 

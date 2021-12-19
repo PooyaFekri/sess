@@ -44,7 +44,7 @@
           <v-btn   
             text   
             class="terminate_ticket mb-3"    
-            @click="dialog = false"
+            @click="submit"
           >
             تایید
           </v-btn>
@@ -68,7 +68,15 @@ export default {
   components: true,
   data () {
       return {
-          items: ['درخواست افزایش ظرفیت', 'درخواست تغییر ساعت کلاس', 'درخواست تغییر ساعت امتحان ', ' درخواست درس از ارشد', 'درخواست درس از گرایش دیگر(کارشناسی ارشد)', 'درخواست درس خارج از بخش'],
+          items: [
+            'درخواست افزایش ظرفیت'
+            , 'درخواست تغییر ساعت کلاس'
+            , 'درخواست تغییر ساعت امتحان '
+            , 'درخواست درس از گرایش دیگر(کارشناسی ارشد)'
+            , 'درخواست درس خارج از بخش'
+            , 'درخواست درس از ارشد'
+            ,'درخواست متفرقه'  
+          ],
           selected_ticket_name: '',
           dialog: false,
           }
@@ -77,6 +85,16 @@ export default {
     cancelOnClick(){
       this.dialog = false
       this.selected_ticket_name = ''
+    },
+    submit(){
+      this.dialog = false;
+      const index = this.items.findIndex((element) => {
+        if (element === this.selected_ticket_name){
+          return true;
+        }
+        return false;
+      });
+      this.$emit("ticket-selected", {index, name:this.selected_ticket_name});
     }
   }
 };

@@ -1,21 +1,23 @@
 <template>
   <div>
     <ViewTicket />
-    <ChooseTicket />
-    <!--<div v-if="selected==1">
-      <LessonFromAnotherSection />
-    </div>
-    <div v-else>
-      <LessonFromAnotherSection />
-    </div>-->
-    <CapacityIncrease class="pa-5"/>
-    <ChangeClassTime class="pa-5"/>
-    <ChangeExamTime class="pa-5"/>
-    <CourseFromAnotherOrientation class="pa-5"/>
-    <LessonFromAnotherSection class="pa-5"/>
-    <MasterCourseRequest class="pa-5"/>
-    <NormalTicket class="pa-5"/>
-
+    <ChooseTicket @ticket-selected="ticketHandler" />
+    <CapacityIncrease :visible="CapacityIncrease" @close="CapacityIncrease=false" />
+    <ChangeClassTime :visible="ChangeClassTime" @close="ChangeClassTime=false" />
+    <ChangeExamTime :visible="ChangeExamTime" @close="ChangeExamTime=false" />
+    <CourseFromAnotherOrientation
+      :visible="CourseFromAnotherOrientation"
+      @close="CourseFromAnotherOrientation=false"
+    />
+    <LessonFromAnotherSection
+      :visible="LessonFromAnotherSection"
+      @close="LessonFromAnotherSection=false"
+    />
+    <MasterCourseRequest
+      :visible="MasterCourseRequest"
+      @close="MasterCourseRequest=false"
+    />
+    <NormalTicket :visible="NormalTicket" @close="NormalTicket=false" />
   </div>
 </template>
 
@@ -25,7 +27,43 @@ export default {
   components: true,
   data (){
     return {
-      selected:17
+      CapacityIncrease:false,
+      ChangeClassTime:false,
+      ChangeExamTime:false,
+      CourseFromAnotherOrientation:false,
+      LessonFromAnotherSection:false,
+      MasterCourseRequest:false,
+      NormalTicket:false
+    }
+  },
+  methods:{
+    ticketHandler(event){
+      console.log(event);
+      switch (event.index) {
+        case 0:
+          this.CapacityIncrease = true;
+          break;
+        case 1:
+          this.ChangeClassTime = true;
+          break;
+        case 2:
+          this.ChangeExamTime = true;
+          break;
+        case 3:
+          this.CourseFromAnotherOrientation = true;
+          break;
+        case 4:
+          this.LessonFromAnotherSection = true;
+          break;
+        case 5:
+          this.MasterCourseRequest = true;
+          break;
+        case 6:
+          this.NormalTicket = true;
+          break;
+        default:
+          break;
+      }
     }
   }
 }

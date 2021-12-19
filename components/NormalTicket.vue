@@ -1,15 +1,15 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" width="700">
-      <template v-slot:activator="{ on, attrs }">
+    <v-dialog v-model="show" width="700">
+      <!--<template v-slot:activator="{ on, attrs }">
         <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">متفرقه</v-btn>
-      </template>
+      </template>-->
 
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
           <v-spacer class="mr-10"></v-spacer>ایجاد تیکت
           <v-spacer></v-spacer>
-          <v-btn class="ml-n2" icon dark @click="dialog = false">
+          <v-btn class="ml-n2" icon dark @click="show = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -66,8 +66,8 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="dialog = false">تایید</v-btn>
-          <v-btn text class="cancel_ticket mb-3" @click="dialog = false">لغو</v-btn>
+          <v-btn text class="terminate_ticket mb-3" @click="show = false">تایید</v-btn>
+          <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -77,9 +77,9 @@
 <script>
 export default {
   // TODO: add upload and download files
+  props:['visible'],
   data () {
       return {
-          dialog: false,
           selected_ticket_name:"نوع تیکت خود را وارد کنید",
           ticket_name:"",
           department_name:"",
@@ -87,6 +87,18 @@ export default {
           description:""
         }
       },
+  computed: {
+    show: {
+      get() {
+        return this.visible;
+      }, 
+      set(value) {
+        if (!value){
+          this.$emit('close');
+        }
+      }
+    }
+  },
   methods: {
     
   }

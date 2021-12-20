@@ -25,7 +25,7 @@
 
         <v-container>
           <v-row class="mb-n12">
-            <v-col cols="5">
+            <v-col cols="10" class="mr-15">
               <v-text-field 
               solo 
               :label="selected_ticket_name" 
@@ -35,7 +35,7 @@
             
           </v-row>
           <v-row class="justify-center mb-n14">
-            <v-col cols="5">
+            <v-col cols="5" class="mr-1">
               <v-text-field
                 color="#3F505E"
                 v-model="department_name"
@@ -44,7 +44,7 @@
                 clearable
               ></v-text-field>
             </v-col>
-            <v-col cols="5">
+            <v-col cols="5" class="mr-n1">
               <v-text-field 
               v-model="course_name"
               solo label="نام درس" 

@@ -15,20 +15,22 @@
         </v-card-title>
 
         <v-container>
-          <v-row class="justify-center mb-n12">
-            <v-col cols="5">
+          <v-row class="mb-n12 " justify="center">
+            <v-col cols="10" >
               <v-text-field solo :label="selected_ticket_name" clearable disabled color="#3F505E"></v-text-field>
             </v-col>
-            <v-col cols="5">
+          </v-row>
+          <v-row class="justify-center mb-n16">          
+            <v-col cols="5" class="mr-1">
               <v-text-field color="#3F505E" v-model="orientation" solo label="گرایش" clearable></v-text-field>
             </v-col>
-          </v-row>
-          <v-row class="justify-center mb-n14">
-            <v-col cols="5">
+
+            <v-col cols="5" class="mr-n1">
               <v-text-field v-model="course_name" solo label="نام درس" clearable></v-text-field>
             </v-col>
           </v-row>
-          <v-row class="justify-center">
+
+          <v-row class="justify-center mb-n5">
             <v-col cols="10">
               <v-textarea
                 v-model="description"

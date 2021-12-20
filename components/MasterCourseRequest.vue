@@ -19,8 +19,8 @@
         </v-card-title>
 
         <v-container>
-          <v-row class="mb-n12">
-            <v-col cols="5">
+          <v-row class="mb-n12" justify="center">
+            <v-col cols="10" >
               <v-text-field 
               solo 
               :label="selected_ticket_name" 

@@ -20,12 +20,24 @@
               <v-text-field solo :label="selected_ticket_name" clearable disabled color="#3F505E"></v-text-field>
             </v-col>
             <v-col cols="5">
-              <v-text-field color="#3F505E" v-model="orientation" solo label="گرایش" clearable></v-text-field>
+              <v-text-field
+                v-model="orientation"
+                color="#3F505E"
+                label="نام گرایش"
+                solo
+                disabled
+              ></v-text-field>
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n14">
             <v-col cols="5">
-              <v-text-field v-model="course_name" solo label="نام درس" clearable></v-text-field>
+              <v-select
+                v-model="course"
+                :items="courses"
+                :item-text="courseText"
+                label="نام درس" 
+                solo
+              ></v-select>
             </v-col>
             <v-col cols="5">
               <v-text-field
@@ -67,8 +79,8 @@ export default {
       return {
           dialog: false,
           selected_ticket_name:"درخواست تغییر ساعت امتحان",
-          orientation:"",
-          course_name:"",
+          course:"",
+          courses:[],
           conflicted_course_name:"",
           description:""
         }
@@ -83,10 +95,34 @@ export default {
           this.$emit('close');
         }
       }
+    },
+    orientation: {
+      get(){
+        if (this.course !== ""){
+          const course = this.courses.find((element) =>{
+            return element.course === this.course;
+          })
+          return `${course.list_orientation[0].name_orientation}`;
+        } 
+        return "";
+      }
     }
   },
+  async mounted() {
+    await this.getCourses();
+  },
   methods: {
-    
+    async getCourses() {
+      try {
+        const courses = await this.$axios.$get('/get-courses');
+        this.courses = courses;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    courseText(course) {
+      return `${course.course}`;
+    }
   }
 };
 </script>

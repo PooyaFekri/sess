@@ -11,6 +11,9 @@
 <script>
 import Table from '@/components/Table.vue'
 export default {
-  components: [Table],
+  components: { Table },
+  mounted() {
+    console.log(this.$store.getters['auth/user']);
+  },
 }
 </script>

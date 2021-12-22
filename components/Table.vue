@@ -13,7 +13,7 @@
 <script>
 import TableRow from '@/components/TableRow.vue'
 export default {
-  components: [TableRow],
+  components: {TableRow},
   props: ['title'],
 }
 </script>

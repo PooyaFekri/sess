@@ -10,7 +10,7 @@
 <script>
 import RightSidebar from '@/components/RightSidebar.vue'
 export default {
-  components: [RightSidebar],
+  components: {RightSidebar},
 }
 </script>
 

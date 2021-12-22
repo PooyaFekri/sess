@@ -23,6 +23,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '@/plugins/axios.js'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,11 +43,18 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    'cookie-universal-nuxt'
   ],
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
-
+  axios: {
+    baseURL: 'http://127.0.0.1:5000',
+  },
+  middleware: [
+    'customAuth'
+  ],
+  router: {
+    middleware: 'customAuth',
+  },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {

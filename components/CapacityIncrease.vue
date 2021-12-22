@@ -36,6 +36,7 @@
                 v-model="course"
                 :items="courses"
                 :item-text="courseText"
+                item-value="list_orientation"
                 label="نام درس" 
                 solo
               ></v-select>
@@ -57,7 +58,7 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="show = false">تایید</v-btn>
+          <v-btn text class="terminate_ticket mb-3" @click="createTicket">تایید</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -100,6 +101,17 @@ export default {
         } 
         return "";
       }
+    },
+    idCourse: {
+      get(){
+        if (this.course !== ""){
+          const course = this.courses.find((element) =>{
+            return element.course === this.course;
+          })
+          return `${course.list_orientation[0].id_course}`;
+        } 
+        return "";
+      }
     }
   },
   async mounted() {
@@ -116,6 +128,25 @@ export default {
     },
     courseText(course) {
       return `${course.course}`;
+    },
+    async createTicket(){
+      console.log('we are in create ticket');
+      console.log(`${this.course}`);
+      try {
+        const {data} = await this.$axios.post('/create-ticket',{
+          receiver_id : "Tohidi@gmail.com",
+          subject : "capacity_increase",
+          description: this.description,
+          course_id : this.idCourse
+        },{
+            headers: this.$store.getters.tokenHeader
+        })
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+
+      this.show = false;
     }
   }
 };

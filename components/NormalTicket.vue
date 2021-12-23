@@ -77,7 +77,9 @@
 <script>
 export default {
   // TODO: add upload and download files
-  props:['visible'],
+  props:{
+    visible:{type:Boolean}
+  },
   data () {
       return {
           selected_ticket_name:"نوع تیکت خود را وارد کنید",

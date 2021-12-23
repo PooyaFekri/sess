@@ -81,7 +81,7 @@
 export default {
   // TODO: add upload and download files
   props:{
-    visible:Boolean
+    visible:{type:Boolean}
   },
   data () {
       return {

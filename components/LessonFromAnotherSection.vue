@@ -71,7 +71,9 @@
 <script>
 export default {
   // TODO: add upload and download files
-  props:['visible'],
+  props:{
+    visible:{type:Boolean}
+  },
   data () {
       return {
           dialog: false,

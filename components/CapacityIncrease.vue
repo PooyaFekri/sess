@@ -20,24 +20,25 @@
               <v-text-field solo :label="selected_ticket_name" clearable disabled color="#3F505E"></v-text-field>
             </v-col>
           </v-row>
-          <v-row class="justify-center mb-n16">          
-            <v-col cols="5" class="mr-1">
-              <v-text-field 
-              v-model="orientation" 
-              color="#3F505E" 
-              solo 
-              label="گرایش" 
-              disabled
-              ></v-text-field>
-            </v-col>
-
+          <v-row class="justify-center mb-n16">  
             <v-col cols="5" class="mr-n1">
               <v-select
                 v-model="course"
                 :items="courses"
                 :item-text="courseText"
-                item-value="list_orientation"
                 label="نام درس" 
+                solo
+              ></v-select>
+            </v-col>
+
+            <v-col cols="5" class="mr-n1">
+              <v-select
+                v-model="orientation"
+                color="#3F505E" 
+                :items="orientations"
+                :item-text="orientationText"
+                item-value="id_course"
+                label="نام گرایش" 
                 solo
               ></v-select>
             </v-col>
@@ -70,14 +71,15 @@
 export default {
   // TODO: add upload and download files
   props:{
-    visible:Boolean
+    visible:{type:Boolean}
   },
   data () {
     return {
       selected_ticket_name:"درخواست افزایش ظرفیت",
       course:"",
       courses:[],
-      description:""
+      description:"",
+      orientation:""
     }
   },
   computed: {
@@ -91,26 +93,15 @@ export default {
         }
       }
     },
-    orientation: {
+    orientations:{
       get(){
         if (this.course !== ""){
           const course = this.courses.find((element) =>{
             return element.course === this.course;
           })
-          return `${course.list_orientation[0].name_orientation}`;
+          return course.list_orientation;
         } 
-        return "";
-      }
-    },
-    idCourse: {
-      get(){
-        if (this.course !== ""){
-          const course = this.courses.find((element) =>{
-            return element.course === this.course;
-          })
-          return `${course.list_orientation[0].id_course}`;
-        } 
-        return "";
+        return [];
       }
     }
   },
@@ -129,18 +120,21 @@ export default {
     courseText(course) {
       return `${course.course}`;
     },
+    orientationText(orientation){
+      return `${orientation.name_orientation}`;
+    },
     async createTicket(){
       console.log('we are in create ticket');
       console.log(`${this.course}`);
+      const body = {
+        receiver_id : "Tohidi@gmail.com",
+        subject : "capacity_increase",
+        description: this.description,
+        course_id : this.orientation
+      }
+      console.log(body);
       try {
-        const {data} = await this.$axios.post('/create-ticket',{
-          receiver_id : "Tohidi@gmail.com",
-          subject : "capacity_increase",
-          description: this.description,
-          course_id : this.idCourse
-        },{
-            headers: this.$store.getters.tokenHeader
-        })
+        const {data} = await this.$axios.post('/create-ticket', body)
         console.log(data);
       } catch (error) {
         console.log(error);

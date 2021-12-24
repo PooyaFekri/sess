@@ -1,25 +1,38 @@
 <template>
     <v-container>
         
-        <v-card width="100%" justify="center" style="background: #DCE4EB;">
-            <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
-            لیست تیکت ها
-            </v-card-title>
+      <v-card width="100%" justify="center" style="background: #DCE4EB;">
+          <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
+          لیست تیکت ها
+          </v-card-title>
 
-            <v-row justify="center">
-                <v-col cols="11">
-                    <v-data-table
-                        :headers="headers"
-                        :items="desserts"
-                        sort-by="calories"
-                        class="elevation-1"
-                    >
+          <v-row justify="center">
+              <v-col cols="11">
+                  <v-data-table
+                      :headers="headers"
+                      :items="tickets"
+                      sort-by="rowNum"
+                      class="elevation-1"
+                      
+                  >
 
-                    </v-data-table>
-                </v-col>
-            </v-row>
-            
-        </v-card>
+
+                  </v-data-table>
+              </v-col>
+          </v-row>            
+      </v-card>
+        <!-- <template #[`item.actions`]="{ item }" > -->
+        <template v-slot:item.actions="{ item }">
+          <v-icon
+            color="black"
+            small
+            class="mr-2"
+            @click="editItem(item)"
+          >
+            mdi-pencil
+          </v-icon>          
+        </template>
+
     </v-container>
 </template>
 
@@ -30,22 +43,76 @@ export default {
     data() {
         return {
             headers: [
-                {
-                text: 'ردیف',
-                align: 'start',
-                value: 'name',
-                },
-                { text: 'نوع تیکت', value: 'calories', sortable: false  },
-                { text: 'تاریخ', value: 'fat', sortable: false  },
-                { text: 'فرستنده', value: 'carbs', sortable: false  },
-                { text: 'توضیحات', value: 'protein', sortable: false  },
-                { text: 'وضعیت', value: 'actions', sortable: false },
-                { text: '', value: 'actions', sortable: false }
+                { text: 'ردیف', align: 'start', value: 'rowNum', },
+                { text: 'نوع تیکت', value: 'ticketType', sortable: false  },
+                { text: 'تاریخ', value: 'date',  },
+                { text: 'نام فرستنده', value: 'senderName', sortable: false  },
+                { text: 'شماره دانشجویی', value: 'senderNum'},
+                { text: 'توضیحات', value: 'caption', sortable: false  },
+                { text: 'وضعیت', value: 'status', sortable: false },
+                { text: 'Actions', value: 'actions', sortable: false }
             ],
 
+            tickets: [],
+            number_of_steps: 0,
             
         }
     },
+
+    async mounted() {
+      await this.getTickets();
+    },
+
+
+    methods: {
+      async getTickets() {
+        try {
+          const tickets = await this.$axios.$get('/get-tickets');
+          const ticketsList = tickets
+          
+          console.log((ticketsList[0]).all_steps)
+          console.log(Object.keys((ticketsList[0]).all_steps).length)
+          let rowIndex = 1
+          ticketsList.forEach(ticket => {
+            
+            console.log(this.determineTicketType(ticket.type_ticket));
+            this.tickets.push({
+              rowNum: rowIndex,
+              ticketType: this.determineTicketType(ticket.type_ticket),
+              date: ticket.created_date,
+              senderName: 'waitForBack',
+              senderNum: 'waitForBack',
+              caption: 'waitForBack',
+              status: 'waitForBack',
+              actions: 'مشاهده',
+            })
+            rowIndex += 1;
+          });
+        }
+        catch(error) {
+          console.log(error);
+        }
+      },
+
+      determineTicketType(ticketType){
+        switch(ticketType){
+          case 'capacity_increase':
+            return "درخواست افزایش ظرفیت";           
+          case 'lessons_from_another_section': 
+            return "درخواست درس خارج از بخش";
+          case 'exam_time_change': 
+            return "درخواست تغییر ساعت امتحان"; 
+          case 'master_course_request': 
+            return "درخواست درس از ارشد"; 
+          case 'course_from_another_orientation': 
+            return " درخواست درس دانشجویان ارشد از بخش دیگر"; 
+          case 'class_change_time': 
+            return "درخواست تغییر ساعت کلاس";
+        }
+      },
+
+      
+    }
 }
 </script>
 

@@ -1,15 +1,27 @@
 <template>
   <div>
     <TicketsTable />
+    <ViewTicket />
+    
   </div>
 </template>
 
 <script>
-import TicketsTable from '~/components/TicketsTable.vue'
+
 
 export default {
-  components: TicketsTable
+  components: true,
+
+  data() {
+    return{
+      viewTicketBool: false,
+    }
+  }
+  
 }
 </script>
 
 <style></style>
+
+    Test_table
+    ViewTicket

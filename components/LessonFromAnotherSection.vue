@@ -60,7 +60,7 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="show = false">تایید</v-btn>
+          <v-btn text class="terminate_ticket mb-3" @click="createTicket">تایید</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -96,7 +96,25 @@ export default {
     }
   },
   methods: {
-    
+    async createTicket(){
+      console.log('we are in create ticket');
+      console.log(`${this.course}`);
+      const body = {
+        receiver_id : "Hossainy",
+        subject : "lessons_from_another_section",
+        description: this.description,
+        url: 'this for test'
+      }
+      console.log(body);
+      try {
+        const {data} = await this.$axios.post('/create-ticket', body)
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+
+      this.show = false;
+    }
   }
 };
 </script>

@@ -20,22 +20,24 @@
               <v-text-field solo :label="selected_ticket_name" clearable disabled color="#3F505E"></v-text-field>
             </v-col>
             <v-col cols="5">
-              <v-text-field
-                v-model="orientation"
-                color="#3F505E"
-                label="نام گرایش"
-                solo
-                disabled
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row class="justify-center mb-n14">
-            <v-col cols="5">
               <v-select
                 v-model="course"
                 :items="courses"
                 :item-text="courseText"
                 label="نام درس" 
+                solo
+              ></v-select>
+            </v-col>
+          </v-row>
+          <v-row class="justify-center mb-n14">
+            <v-col cols="5">
+              <v-select
+                v-model="orientation"
+                color="#3F505E" 
+                :items="orientations"
+                :item-text="orientationText"
+                item-value="id_course"
+                label="نام گرایش" 
                 solo
               ></v-select>
             </v-col>
@@ -84,7 +86,8 @@ export default {
           course:"",
           courses:[],
           conflicted_course_name:"",
-          description:""
+          description:"",
+          orientation:""
         }
       },
   computed: {
@@ -98,15 +101,15 @@ export default {
         }
       }
     },
-    orientation: {
+    orientations:{
       get(){
         if (this.course !== ""){
           const course = this.courses.find((element) =>{
             return element.course === this.course;
           })
-          return `${course.list_orientation[0].name_orientation}`;
+          return course.list_orientation;
         } 
-        return "";
+        return [];
       }
     }
   },
@@ -124,6 +127,29 @@ export default {
     },
     courseText(course) {
       return `${course.course}`;
+    },
+    orientationText(orientation){
+      return `${orientation.name_orientation}`;
+    },
+    async createTicket(){
+      console.log('we are in create ticket');
+      console.log(`${this.course}`);
+      const body = {
+        receiver_id : "Hossainy",
+        subject : "exam_time_change",
+        description: this.description,
+        course_id : this.orientation,
+        conflicted_course_name: this.conflicted_course_name
+      }
+      console.log(body);
+      try {
+        const {data} = await this.$axios.post('/create-ticket', body)
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+
+      this.show = false;
     }
   }
 };

@@ -70,7 +70,7 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="show = false">تایید</v-btn>
+          <v-btn text class="terminate_ticket mb-3" @click="createTicket">تایید</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>

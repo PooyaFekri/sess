@@ -108,7 +108,7 @@ export default {
     },
   },
   mounted() {
-    console.log(ticket.all_steps);
+    // console.log(ticket.all_steps);
   },
   data () {
       return {

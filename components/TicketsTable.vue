@@ -30,9 +30,10 @@
               </v-col>
           </v-row>            
       </v-card>
-        <!-- <template #[`item.actions`]="{ item }" > -->
       
       <ViewTicket  :visible="dialogFlag" @close="dialogFlag=false" />
+
+        
     </v-container>
 
 </template>
@@ -72,8 +73,8 @@ export default {
           const tickets = await this.$axios.$get('/get-tickets');
           const ticketsList = tickets
           
-          console.log((ticketsList[0]).all_steps)
-          console.log(Object.keys((ticketsList[0]).all_steps).length)
+          // console.log((ticketsList[0]).all_steps)
+          // console.log(Object.keys((ticketsList[0]).all_steps).length)
           let rowIndex = 1
           ticketsList.forEach(ticket => {
             

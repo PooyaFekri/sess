@@ -21,12 +21,12 @@
           <v-list dense>
             <v-list-item>
               <v-list-item-content>
-                <p>نام کاربری</p>
+                <p>{{ fullname }}</p>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item>
+            <v-list-item color="primary">
               <v-list-item-content>
-                <p>شماره دانشجویی</p>
+                <p>{{ username }}</p>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -35,8 +35,8 @@
       <v-divider></v-divider>
       <template>
         <v-row style="height: 40%" align="center" dense>
-          <v-list >
-            <v-list-item v-for="item in items" :key="item.title">
+          <v-list>
+            <v-list-item v-for="item in navbarItem" :key="item.title">
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -48,17 +48,22 @@
           </v-list>
         </v-row>
       </template>
-      <template absolute class="bottom-0">
-        <v-list dense class="logout">
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <p>خروج</p>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
+
+      <template>
+        <v-row>
+          <v-col cols="12">
+            <v-list dense justify="center">
+              <v-list-item @click="logout" class="v-clickable">
+                <v-list-item-icon>
+                  <v-icon>mdi-logout</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <p>خروج</p>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-col>
+        </v-row>
       </template>
     </v-navigation-drawer>
   </div>
@@ -67,13 +72,42 @@
 export default {
   data() {
     return {
-      items: [
-        { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
-        { title: 'چارت', icon: 'mdi-account' },
-        { title: 'تیکت', icon: 'mdi-account-group-outline' },
-        { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
-      ],
+
+      items: {
+        student: [
+          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'چارت', icon: 'mdi-account' },
+          { title: 'تیکت', icon: 'mdi-account-group-outline' },
+          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
+        ],
+        professor: [
+          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'چارت', icon: 'mdi-account' },
+          { title: 'تیکت', icon: 'mdi-account-group-outline' },
+          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
+        ],
+      },
     }
+  },
+  computed:{
+      user(){
+        return this.$store.getters['auth/user']
+      },
+      fullname() {
+        return this.user.first_name+ ' ' + this.user.last_name
+      },
+      username (){
+        return this.user.username
+      },
+      navbarItem(){
+        return this.items[this.user.role.name_role];
+      }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout')
+      this.$router.push('/login')
+    },
   },
 }
 </script>
@@ -82,5 +116,9 @@ export default {
 .logout {
   position: absolute;
   bottom: 0%;
+}
+
+.v-clickable {
+  cursor: pointer;
 }
 </style>

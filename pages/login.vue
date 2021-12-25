@@ -1,7 +1,7 @@
 <template class="as">
   
     <v-row style="height: 65%;" no-gutters align="center" justify="center">
-      <v-col cols="3" class="text-center">
+      <v-col cols="4" class="text-center">
         <LoginCard />
       </v-col>
     </v-row>

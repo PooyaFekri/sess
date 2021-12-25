@@ -1,19 +1,23 @@
 <template>
   <v-card elevation="4" color="#154C79CC" shaped>
-    <v-container>
+    <v-container class="pt-5">
       <v-text-field
         outlined
+        solo
+        dense
         v-model="username"
         label="شناسه ورود"
       ></v-text-field>
       <v-text-field
         outlined
+        solo
+        dense
         type="password"
         v-model="password"
         label="رمز ورود"
       ></v-text-field>
     </v-container>
-    <v-card-actions>
+    <v-card-actions class="mr-3">
       <v-btn color="Blue" @click="login">ورود</v-btn>
     </v-card-actions>
   </v-card>

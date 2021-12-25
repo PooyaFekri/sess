@@ -27,8 +27,11 @@
             </v-col>
             <v-col cols="5">
               <v-select
-                v-model="orientation"
-                color="#3F505E" 
+                v-model="receiver"
+                color="#3F505E"
+                :items="receivers"
+                :item-text="receiverText"
+                item-value="id"
                 label="گیرنده" 
                 solo
               ></v-select>
@@ -37,14 +40,28 @@
           <v-row class="justify-center mb-n14">
             <v-col cols="5">
               <v-select
-                v-model="orientation"
-                color="#3F505E" 
+                v-model="course"
+                :items="courses"
+                :item-text="courseText"
                 label="نام درس" 
                 solo
               ></v-select>
             </v-col>
             <v-col cols="5">
               <v-file-input truncate-length="15" label="افزودن فایل ضمیمه"></v-file-input>
+            </v-col>
+          </v-row>
+          <v-row class="justify-center mb-n14">
+            <v-col cols="5">
+              <v-select
+                v-model="orientation"
+                color="#3F505E" 
+                :items="orientations"
+                :item-text="orientationText"
+                item-value="id_course"
+                label="نام گرایش" 
+                solo
+              ></v-select>
             </v-col>
           </v-row>
           <v-row class="ma-4 mb-n15 justify-center">
@@ -81,9 +98,6 @@
 <script>
 export default {
   // TODO: add upload and download files
-  rules: {
-    'no-console': 'off',
-  },
   props:{
     visible:{type:Boolean}
   },
@@ -92,8 +106,11 @@ export default {
           selected_ticket_name:"موضوع تیکت خود را وارد کنید",
           subject:"",
           department_name:"",
-          course_name:"",
+          course:"",
+          courses:[],
           description:"",
+          receiver:"",
+          receivers:[],
           orientation:""
         }
       },
@@ -107,16 +124,56 @@ export default {
           this.$emit('close');
         }
       }
+    },
+    orientations:{
+      get(){
+        if (this.course !== ""){
+          const course = this.courses.find((element) =>{
+            return element.course === this.course;
+          })
+          return course.list_orientation;
+        } 
+        return [];
+      }
     }
   },
+  async mounted() {
+    await this.getReceivers();
+    await this.getCourses();
+  },
   methods: {
-    async getReceivers(){},
-    async getCourses(){},
+    async getReceivers(){
+      try {
+        const receivers = await this.$axios.$get('/get-receivers');
+        this.receivers = receivers;
+        console.log(receivers);
+      } catch (error) {
+        console.log(error);
+      }
+
+    },
+    async getCourses() {
+      try {
+        const courses = await this.$axios.$get('/get-courses');
+        this.courses = courses;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    courseText(course) {
+      return `${course.course}`;
+    },
+    orientationText(orientation){
+      return `${orientation.name_orientation}`;
+    },
+    receiverText(receiver){
+      return `${receiver.fname} ${receiver.lname}`;
+    },
     async createTicket(){
       console.log('we are in create ticket');
       console.log(`${this.course}`);
       const body = {
-        receiver_id : "Tohidi@gmail.com",
+        receiver_id : this.receiver,
         subject : this.subject,
         description: this.description,
         course_id : this.orientation

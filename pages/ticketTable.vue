@@ -1,7 +1,6 @@
 <template>
   <div>
     <TicketsTable />
-    <ViewTicket />
     
   </div>
 </template>

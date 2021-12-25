@@ -1,10 +1,7 @@
 <template>
   <div class="text-center">
-    <v-dialog 
-      v-model="dialog"
-      width="700"
-    >
-      <template v-slot:activator="{ on, attrs }">
+    <v-dialog v-model="show" width="700" >
+      <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn
           color="red lighten-2"
           dark
@@ -13,7 +10,7 @@
         >
           ViewTicket
         </v-btn>
-      </template>
+      </template> -->
 
       <v-card class="ticket_background ">
           
@@ -26,7 +23,7 @@
                 class="ml-n2"
                 icon
                 dark
-                @click="dialog = false"
+                @click="show = false"
               >
                 <v-icon>mdi-close</v-icon>
               </v-btn>
@@ -80,7 +77,7 @@
                   <v-btn   
                     text   
                     class="terminate_ticket mb-3"    
-                    @click="dialog = false"
+                    @click="show = false"
                   >
                     خاتمه فرآیند
                   </v-btn>
@@ -98,17 +95,32 @@
 
 <script>
 export default {
+  computed: {
+    show: {
+      get() {
+        return this.visible;
+      }, 
+      set(value) {
+        if (!value){
+          this.$emit('close');
+        }
+      }
+    },
+  },
+  mounted() {
+    console.log(ticket.all_steps);
+  },
   data () {
       return {
         comments: ['مرحله 1', 'مرحله 2', 'مرحله 3', 'مرحله 4'],
         // comments: ['step 1', 'step 2', 'step 3'],
-        dialog: false,
+        
       }
     },
 
     props: {
-      title: String,
-      ticket: Object
+      ticket: Object,
+      visible: Boolean,
     },
 
     methods: {

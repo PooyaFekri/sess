@@ -18,26 +18,30 @@
           <v-row class="justify-center mb-n12">
             <v-col cols="5">
               <v-text-field
+                v-model="subject"
                 solo
                 :label="selected_ticket_name"
                 clearable
-                v-model="ticket_name"
                 color="#3F505E"
               ></v-text-field>
             </v-col>
             <v-col cols="5">
-              <v-text-field
-                color="#3F505E"
-                v-model="department_name"
+              <v-select
+                v-model="orientation"
+                color="#3F505E" 
+                label="گیرنده" 
                 solo
-                label="نام بخش"
-                clearable
-              ></v-text-field>
+              ></v-select>
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n14">
             <v-col cols="5">
-              <v-text-field v-model="course_name" solo label="نام درس" clearable></v-text-field>
+              <v-select
+                v-model="orientation"
+                color="#3F505E" 
+                label="نام درس" 
+                solo
+              ></v-select>
             </v-col>
             <v-col cols="5">
               <v-file-input truncate-length="15" label="افزودن فایل ضمیمه"></v-file-input>
@@ -66,7 +70,7 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="show = false">تایید</v-btn>
+          <v-btn text class="terminate_ticket mb-3" @click="createTicket">تایید</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -77,14 +81,20 @@
 <script>
 export default {
   // TODO: add upload and download files
-  props:['visible'],
+  rules: {
+    'no-console': 'off',
+  },
+  props:{
+    visible:{type:Boolean}
+  },
   data () {
       return {
-          selected_ticket_name:"نوع تیکت خود را وارد کنید",
-          ticket_name:"",
+          selected_ticket_name:"موضوع تیکت خود را وارد کنید",
+          subject:"",
           department_name:"",
           course_name:"",
-          description:""
+          description:"",
+          orientation:""
         }
       },
   computed: {
@@ -100,7 +110,27 @@ export default {
     }
   },
   methods: {
-    
+    async getReceivers(){},
+    async getCourses(){},
+    async createTicket(){
+      console.log('we are in create ticket');
+      console.log(`${this.course}`);
+      const body = {
+        receiver_id : "Tohidi@gmail.com",
+        subject : this.subject,
+        description: this.description,
+        course_id : this.orientation
+      }
+      console.log(body);
+      try {
+        const {data} = await this.$axios.post('/create-ticket', body)
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+
+      this.show = false;
+    }
   }
 };
 </script>

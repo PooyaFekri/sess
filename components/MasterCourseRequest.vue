@@ -24,7 +24,9 @@
               <v-text-field 
               solo 
               :label="selected_ticket_name" 
-              clearable disabled color="#3F505E"
+              clearable 
+              disabled 
+              color="#3F505E"
               ></v-text-field>
             </v-col>
             
@@ -32,19 +34,21 @@
           <v-row class="justify-center mb-n14">
             <v-col cols="5">
               <v-text-field
+                v-model="orientation"
                 color="#3F505E"
-                v-model="department_name"
-                solo
                 label="نام گرایش"
-                clearable
+                solo
+                disabled
               ></v-text-field>
             </v-col>
             <v-col cols="5">
-              <v-text-field 
-              v-model="course_name"
-              solo label="نام درس" 
-              clearable
-              ></v-text-field>
+              <v-select
+                v-model="course"
+                :items="courses"
+                :item-text="courseText"
+                label="نام درس" 
+                solo
+              ></v-select>
             </v-col>
           </v-row>
           <v-row class="justify-center">
@@ -73,16 +77,18 @@
 <script>
 export default {
   // TODO: add upload and download files
-  props:['visible'],
+  props:{
+    visible:Boolean
+  },
   data () {
-      return {
-          dialog: false,
-          selected_ticket_name:"درخواست درس از ارشد",
-          department_name:"",
-          course_name:"",
-          description:""
-        }
-      },
+    return {
+      dialog: false,
+      courses: [],
+      selected_ticket_name:"درخواست درس از ارشد",
+      course:"",
+      description:""
+    }
+  },
   computed: {
     show: {
       get() {
@@ -93,10 +99,34 @@ export default {
           this.$emit('close');
         }
       }
+    },
+    orientation: {
+      get(){
+        if (this.course !== ""){
+          const course = this.courses.find((element) =>{
+            return element.course === this.course;
+          })
+          return `${course.list_orientation[0].name_orientation}`;
+        } 
+        return "";
+      }
     }
   },
+  async mounted() {
+    await this.getCourses();
+  },
   methods: {
-    
+    async getCourses() {
+      try {
+        const courses = await this.$axios.$get('/get-courses');
+        this.courses = courses;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    courseText(course) {
+      return `${course.course}`;
+    }
   }
 };
 </script>

@@ -22,11 +22,24 @@
           </v-row>
           <v-row class="justify-center mb-n16">          
             <v-col cols="5" class="mr-1">
-              <v-text-field color="#3F505E" v-model="orientation" solo label="گرایش" clearable></v-text-field>
+              <v-text-field 
+              v-model="orientation" 
+              color="#3F505E" 
+              solo 
+              label="گرایش" 
+              disabled
+              ></v-text-field>
             </v-col>
 
             <v-col cols="5" class="mr-n1">
-              <v-text-field v-model="course_name" solo label="نام درس" clearable></v-text-field>
+              <v-select
+                v-model="course"
+                :items="courses"
+                :item-text="courseText"
+                item-value="list_orientation"
+                label="نام درس" 
+                solo
+              ></v-select>
             </v-col>
           </v-row>
 
@@ -45,7 +58,7 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="show = false">تایید</v-btn>
+          <v-btn text class="terminate_ticket mb-3" @click="createTicket">تایید</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -56,12 +69,14 @@
 <script>
 export default {
   // TODO: add upload and download files
-  props:['visible'],
+  props:{
+    visible:Boolean
+  },
   data () {
     return {
       selected_ticket_name:"درخواست افزایش ظرفیت",
-      orientation:"",
-      course_name:"",
+      course:"",
+      courses:[],
       description:""
     }
   },
@@ -75,10 +90,64 @@ export default {
           this.$emit('close');
         }
       }
+    },
+    orientation: {
+      get(){
+        if (this.course !== ""){
+          const course = this.courses.find((element) =>{
+            return element.course === this.course;
+          })
+          return `${course.list_orientation[0].name_orientation}`;
+        } 
+        return "";
+      }
+    },
+    idCourse: {
+      get(){
+        if (this.course !== ""){
+          const course = this.courses.find((element) =>{
+            return element.course === this.course;
+          })
+          return `${course.list_orientation[0].id_course}`;
+        } 
+        return "";
+      }
     }
   },
+  async mounted() {
+    await this.getCourses();
+  },
   methods: {
-    
+    async getCourses() {
+      try {
+        const courses = await this.$axios.$get('/get-courses');
+        this.courses = courses;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    courseText(course) {
+      return `${course.course}`;
+    },
+    async createTicket(){
+      console.log('we are in create ticket');
+      console.log(`${this.course}`);
+      try {
+        const {data} = await this.$axios.post('/create-ticket',{
+          receiver_id : "Tohidi@gmail.com",
+          subject : "capacity_increase",
+          description: this.description,
+          course_id : this.idCourse
+        },{
+            headers: this.$store.getters.tokenHeader
+        })
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+
+      this.show = false;
+    }
   }
 };
 </script>

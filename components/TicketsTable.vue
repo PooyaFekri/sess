@@ -44,11 +44,12 @@
                           <v-stepper-header>
                             <template v-for="(n,index) in steps">
                               <v-stepper-step
+                              
                                 :key="`${index}-step`"
-                                :step="index" 
+                                :step="`${index}-step`" 
                                 complete-icon="$complete"
                                 color="#366991"
-                                style="font-size: 1.5em"
+                                style="font-size: 1em"
                               >
                                  {{ n }}
                               </v-stepper-step>
@@ -77,20 +78,33 @@
                     </v-row>             
                   </v-card-text>
                   
-                  <v-row justify="center" class="mt-5">
+                  <v-row v-if="role==='student'" justify="center" class="mt-5">
                       <v-col cols="6">
-                        <v-card-actions  class="justify-center">
+                        <v-card-actions >
                           <v-btn   
                             text   
                             class="terminate_ticket mb-3"    
                             @click="dialogFlag=false"
+                          >
+                            خاتمه فرایند
+                          </v-btn>
+                        </v-card-actions>
+                      </v-col>
+                  </v-row>  
+                  <v-row v-else justify="center" class="mt-5">
+                      <v-col cols="6">
+                        <v-card-actions >
+                          <v-btn   
+                            text   
+                            class="terminate_ticket mb-3"    
+                            @click="approveTicket()"
                           >
                             تایید
                           </v-btn>
                         </v-card-actions>
                       </v-col>
                       <v-col cols="6">
-                        <v-card-actions  class="justify-center">
+                        <v-card-actions>
                           <v-btn   
                             text   
                             class="terminate_ticket mb-3"    
@@ -167,8 +181,18 @@ export default {
 
     async mounted() {
       await this.getTickets();
+      console.log(this.role)
     },
 
+    computed: {
+      user(){
+        return this.$store.getters['auth/user'];
+      },
+
+      role(){
+        return this.user.role.name_role;
+      }
+    },
 
     methods: {
       async getTickets() {
@@ -204,14 +228,32 @@ export default {
         this.dialogFlag = true;
         this.current_ticket = ticket.ticketObject;
         this.steps = ticket.ticketObject.all_steps;
-        this.comments = ticket.ticketObject.descriptions;
+        // this.comments = ticket.ticketObject.descriptions;
         // this.comments = ticket.message;
         // console.log(ticket.message);
         // console.log(ticket.descriptions);
         // this.number_of_steps = Object.keys(ticket.all_steps).length;
         // console.log(ticket.ticketObject.all_steps);
-        console.log(ticket.ticketObject.descriptions);
+        // console.log(ticket.ticketObject.descriptions);
         // console.log(this.current_ticket);
+      },
+
+      async approveTicket(){
+        // console.log(this.current_ticket.id);        
+        const body = {
+          'step': 'accept',
+          'massage': 'ok',
+          "id_ticket": this.current_ticket.id,
+          "url":""
+        }
+        try{
+          const {data} = await this.$axios.post('/step-ticket', body);
+          console.log(data);
+        }
+        catch (error) {
+          console.log(error);
+        }
+        this.dialogFlag = false;
       },
 
       determineTicketType(ticketType){

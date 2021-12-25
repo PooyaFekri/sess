@@ -1,6 +1,5 @@
 <template>
   <div justify-center>
-    <ViewTicket class="ma-5"/>
     <ChooseTicket @ticket-selected="ticketHandler" />
     <CapacityIncrease :visible="CapacityIncrease" @close="CapacityIncrease=false" />
     <ChangeClassTime :visible="ChangeClassTime" @close="ChangeClassTime=false" />

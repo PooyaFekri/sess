@@ -85,7 +85,7 @@
                           <v-btn   
                             text   
                             class="terminate_ticket mb-3"    
-                            @click="terminateTicket()"
+                            @click="finishTicket()"
                           >
                             خاتمه فرایند
                           </v-btn>
@@ -268,13 +268,13 @@ export default {
       async approveTicket(){
         // console.log(this.current_ticket.id);        
         const body = {
-          'step': 'accept',
-          'massage': 'ok',
-          "id_ticket": this.current_ticket.id,
-          "url":""
+          step: 'accept',
+          massage: 'ok',
+          id_ticket: this.current_ticket.id,
+          url:""
         }
         try{
-          const {data} = await this.$axios.post('/step-ticket', body);
+          const {data} = await this.$axios.put('/step-ticket', body);
           console.log(data);
         }
         catch (error) {
@@ -285,11 +285,26 @@ export default {
 
       async terminateTicket(){
         const body = {
-          'step': 'reject',
-          'id_ticket': this.current_ticket.id
+          step: 'reject',
+          id_ticket: this.current_ticket.id,
+          message:"ok"
         }
         try{
-          const {data} = await this.$axios.post('/step-ticket', body);
+          const {data} = await this.$axios.put('/step-ticket', body);
+          console.log(data);
+        }
+        catch(error){
+          console.log(error);
+        }
+        this.dialogFlag = false;
+      },
+
+      async finishTicket(){
+        const body = {
+          id_ticket: this.current_ticket.id,
+        }
+        try{
+          const {data} = await this.$axios.delete('/step-ticket', body);
           console.log(data);
         }
         catch(error){

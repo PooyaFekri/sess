@@ -11,7 +11,13 @@
           v-bind="attrs"
           v-on="on"
         >
-          ChooseTicket
+          <v-icon           
+            circle
+            color="white"
+            small                  
+          >
+            mdi-plus
+          </v-icon>
         </v-btn>
       </template>
 
@@ -32,11 +38,11 @@
 
         
         <v-select        
+            v-model="selected_ticket_name"
             class="ma-10 mb-0"
             placeholder="نوع تیکت را انتخاب کنید"
             :items="items"
             solo
-            v-model="selected_ticket_name"
             return-object
         ></v-select>
        

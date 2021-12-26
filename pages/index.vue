@@ -1,6 +1,5 @@
 <template>
   <div justify-center>
-    <ViewTicket class="ma-5"/>
     <ChooseTicket @ticket-selected="ticketHandler" />
     <CapacityIncrease :visible="CapacityIncrease" @close="CapacityIncrease=false" />
     <ChangeClassTime :visible="ChangeClassTime" @close="ChangeClassTime=false" />
@@ -20,9 +19,14 @@
     <NormalTicket :visible="NormalTicket" @close="NormalTicket=false" />
 
 
-    <v-row justify="center" class="mt-1">
+    <!-- <v-row justify="center" class="mt-1">
       <v-col cols="10">
         <Table title="فرآیندها" />
+      </v-col>
+    </v-row> -->
+    <v-row justify="center" class="mt-1">
+      <v-col cols="11">
+        <TicketsTable />
       </v-col>
     </v-row>
   </div>

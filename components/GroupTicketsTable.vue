@@ -3,7 +3,7 @@
         
       <v-card width="100%" justify="center" style="background: #DCE4EB;">
           <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
-          تیکت های بررسی نشده
+          لیست تیکت ها
           </v-card-title>
           <!-- <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -22,7 +22,7 @@
                   
                   <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5 justify-center" >
                     <v-spacer class="mr-10"></v-spacer>
-                    {{determineTicketType(current_ticket.type_ticket)}}
+                    لیست دانشجویان
                     <v-spacer></v-spacer>
                     
                     <v-btn
@@ -46,9 +46,8 @@
                               <v-stepper-step
                               
                                 :key="`${index}-step`"
-                                :step="index"
+                                :step="`${index}-step`" 
                                 complete-icon="$complete"
-                                :complete ="current_step > index"
                                 color="#366991"
                                 style="font-size: 1em"
                               >
@@ -56,8 +55,8 @@
                               </v-stepper-step>
 
                               <v-divider
-                                v-if="(index < number_of_steps-1)"
-                                :key="`${index}-divider`"
+                                v-if="n !== 5"
+                                :key="n"
                               ></v-divider>
                             </template>
                           </v-stepper-header>
@@ -93,7 +92,7 @@
                       </v-col>
                   </v-row>  
                   <v-row v-else justify="center" class="mt-5">
-                      <v-col cols="3">
+                      <v-col cols="6">
                         <v-card-actions >
                           <v-btn   
                             text   
@@ -104,9 +103,7 @@
                           </v-btn>
                         </v-card-actions>
                       </v-col>
-                                            
-                      
-                      <v-col cols="2">
+                      <v-col cols="6">
                         <v-card-actions>
                           <v-btn   
                             text   
@@ -153,6 +150,7 @@
                   circle
                   color="white"
                   small                  
+                  @click="null"
                 >
                   mdi-plus
                 </v-icon>
@@ -198,10 +196,15 @@ export default {
             comments: [],
             number_of_steps: 0,        
             steps: [],
-            current_step: 0,
             
         }
     },
+
+    async mounted() {
+      await this.getTickets();
+      console.log(this.role)
+    },
+
     computed: {
       user(){
         return this.$store.getters['auth/user'];
@@ -211,12 +214,6 @@ export default {
         return this.user.role.name_role;
       }
     },
-
-    async mounted() {
-      await this.getTickets();
-      console.log(this.role)
-    },
-
 
     methods: {
       async getTickets() {
@@ -251,10 +248,7 @@ export default {
       viewTicket(ticket){
         this.dialogFlag = true;
         this.current_ticket = ticket.ticketObject;
-        this.steps = ticket.ticketObject.all_steps;        
-        this.number_of_steps = Object.keys(this.steps).length;
-        this.current_step = Object.keys(this.current_ticket.current_step)[0];
-        // console.log(Object.keys(this.current_ticket.current_step)[0]);
+        this.steps = ticket.ticketObject.all_steps;
         // this.comments = ticket.ticketObject.descriptions;
         // this.comments = ticket.message;
         // console.log(ticket.message);
@@ -333,8 +327,7 @@ export default {
 <style scoped>
 
   .ticket_title_background {
-    background: #3F505E;    
-    /* background: #618AAB;     */
+    background: #618AAB;    
     color: white;
     display: flex;
     justify-content: center;
@@ -372,8 +365,7 @@ export default {
 
   /* the dialog styles */
   .ticket_title_background {
-    background: #3F505E;
-    /* background: #618AAB; */
+    background: #618AAB;
     color: white;
     display: flex;
     justify-content: center;

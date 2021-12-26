@@ -5,12 +5,7 @@
       width="500"
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="red lighten-2"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
+        <v-btn icon class="add_ticket_btn mt-5" v-bind="attrs" v-on="on" >
           <v-icon           
             circle
             color="white"
@@ -19,6 +14,21 @@
             mdi-plus
           </v-icon>
         </v-btn>
+        <!-- <v-btn
+          color="red lighten-2"
+                   
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          <v-icon           
+            
+            color="white"
+            small                  
+          >
+            mdi-plus
+          </v-icon>
+        </v-btn> -->
       </template>
 
       <v-card class="ticket_background">
@@ -138,6 +148,10 @@ export default {
   .comments_color {
     color: #3F505E;
     font-size: 24px;
+  }
+
+  .add_ticket_btn {
+    background: #3F505E;
   }
 
 </style>

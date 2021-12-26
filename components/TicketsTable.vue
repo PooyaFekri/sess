@@ -130,7 +130,7 @@
                       :headers="getHeaderByRole()"
                       :items="tickets"
                       sort-by="rowNum"
-                      class="elevation-1"                      
+                      class="elevation-1 mb-3"                      
                   >
 
 
@@ -146,7 +146,7 @@
                   </v-data-table>
               </v-col>
           </v-row>
-          <v-row v-if="role === 'student'" justify="end">
+          <!-- <v-row v-if="role === 'student'" justify="end">
             <v-col cols="1" class="ml-3">            
               <v-btn icon class="add_ticket_btn" >
                 <v-icon           
@@ -158,7 +158,7 @@
                 </v-icon>
               </v-btn>
             </v-col>           
-          </v-row>           
+          </v-row>            -->
       </v-card>
       
 

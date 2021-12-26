@@ -90,7 +90,6 @@ export default {
         student: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city',  link: ''},
           { title: 'چارت', icon: 'mdi-account' , link: ''},
-          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline', link: '' },
         ],
         professor: [

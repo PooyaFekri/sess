@@ -1,6 +1,13 @@
 <template>
   <div justify-center>
-    <ChooseTicket @ticket-selected="ticketHandler" />
+
+    <v-row justify="center" class="mt-1">
+      <v-col cols="11">
+        <TicketsTable />
+      </v-col>
+    </v-row>
+
+    <ChooseTicket v-if="role === 'student'" justify="end" @ticket-selected="ticketHandler" />
     <CapacityIncrease :visible="CapacityIncrease" @close="CapacityIncrease=false" />
     <ChangeClassTime :visible="ChangeClassTime" @close="ChangeClassTime=false" />
     <ChangeExamTime :visible="ChangeExamTime" @close="ChangeExamTime=false" />
@@ -24,11 +31,7 @@
         <Table title="فرآیندها" />
       </v-col>
     </v-row> -->
-    <v-row justify="center" class="mt-1">
-      <v-col cols="11">
-        <TicketsTable />
-      </v-col>
-    </v-row>
+    
   </div>
 </template>
 
@@ -46,6 +49,17 @@ export default {
       NormalTicket:false
     }
   },
+  
+  computed: {
+      user(){
+        return this.$store.getters['auth/user'];
+      },
+
+      role(){
+        return this.user.role.name_role;
+      }
+  },
+
   mounted() {
     console.log(this.$store.getters['auth/user']);
   },

@@ -48,7 +48,7 @@
                                 :key="`${index}-step`"
                                 :step="index"
                                 complete-icon="$complete"
-                                :complete ="current_step > index"
+                                :complete ="current_step >= index"
                                 color="#366991"
                                 style="font-size: 1em"
                               >
@@ -254,6 +254,7 @@ export default {
         this.steps = ticket.ticketObject.all_steps;        
         this.number_of_steps = Object.keys(this.steps).length;
         this.current_step = Object.keys(this.current_ticket.current_step)[0];
+        console.log(this.current_step);
         // console.log(Object.keys(this.current_ticket.current_step)[0]);
         // this.comments = ticket.ticketObject.descriptions;
         // this.comments = ticket.message;

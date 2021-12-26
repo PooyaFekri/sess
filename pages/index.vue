@@ -19,9 +19,14 @@
     <NormalTicket :visible="NormalTicket" @close="NormalTicket=false" />
 
 
-    <v-row justify="center" class="mt-1">
+    <!-- <v-row justify="center" class="mt-1">
       <v-col cols="10">
         <Table title="فرآیندها" />
+      </v-col>
+    </v-row> -->
+    <v-row justify="center" class="mt-1">
+      <v-col cols="10">
+        <TicketsTable />
       </v-col>
     </v-row>
   </div>

@@ -84,7 +84,7 @@
                           <v-btn   
                             text   
                             class="terminate_ticket mb-3"    
-                            @click="dialogFlag=false"
+                            @click="terminateTicket()"
                           >
                             خاتمه فرایند
                           </v-btn>
@@ -108,7 +108,7 @@
                           <v-btn   
                             text   
                             class="terminate_ticket mb-3"    
-                            @click="dialogFlag=false"
+                            @click="terminateTicket()"
                           >
                             رد
                           </v-btn>
@@ -123,12 +123,11 @@
           </div>
           <v-row justify="center">
               <v-col cols="11">
-                  <v-data-table
-                      :headers="headers"
+                  <v-data-table 
+                      :headers="getHeaderByRole()"
                       :items="tickets"
                       sort-by="rowNum"
-                      class="elevation-1"
-                      
+                      class="elevation-1"                      
                   >
 
 
@@ -143,7 +142,21 @@
                     </template>
                   </v-data-table>
               </v-col>
-          </v-row>            
+          </v-row>
+          <v-row v-if="role === 'student'" justify="end">
+            <v-col cols="1" class="ml-3">            
+              <v-btn icon class="add_ticket_btn" >
+                <v-icon           
+                  circle
+                  color="white"
+                  small                  
+                  @click="null"
+                >
+                  mdi-plus
+                </v-icon>
+              </v-btn>
+            </v-col>           
+          </v-row>           
       </v-card>
       
 
@@ -158,12 +171,20 @@
 export default {
     data() {
         return {
-            headers: [
+            nonStudHeader: [
                 { text: 'ردیف', align: 'start', value: 'rowNum', },
                 { text: 'نوع تیکت', value: 'ticketType', sortable: false  },
                 { text: 'تاریخ', value: 'date',  },
                 { text: 'نام فرستنده', value: 'senderName', sortable: false  },
                 { text: 'شماره دانشجویی', value: 'senderNum'},
+                // { text: 'توضیحات', value: 'caption', sortable: false  },
+                { text: 'وضعیت', value: 'status', sortable: false },
+                { text: 'Actions', value: 'actions', sortable: false }
+            ],
+            studHeader: [
+                { text: 'ردیف', align: 'start', value: 'rowNum', },
+                { text: 'نوع تیکت', value: 'ticketType', sortable: false  },
+                { text: 'تاریخ', value: 'date',  },                
                 // { text: 'توضیحات', value: 'caption', sortable: false  },
                 { text: 'وضعیت', value: 'status', sortable: false },
                 { text: 'Actions', value: 'actions', sortable: false }
@@ -215,7 +236,7 @@ export default {
               senderNum: ticket.sender_id,
               allSteps: ticket.all_steps,
               // caption: 'waitForBack',
-              status: 'waitForBack',              
+              status: 'درحال انجام',              
             })
             rowIndex += 1;
           });
@@ -256,6 +277,21 @@ export default {
         this.dialogFlag = false;
       },
 
+      async terminateTicket(){
+        const body = {
+          'step': 'reject',
+          'id_ticket': this.current_ticket.id
+        }
+        try{
+          const {data} = await this.$axios.post('/step-ticket', body);
+          console.log(data);
+        }
+        catch(error){
+          console.log(error);
+        }
+        this.dialogFlag = false;
+      },
+
       determineTicketType(ticketType){
         switch(ticketType){
           case 'capacity_increase':
@@ -272,7 +308,16 @@ export default {
             return "درخواست تغییر ساعت کلاس";
         }
       },
-
+      
+      getHeaderByRole(){
+        if(this.role === 'student'){
+          return this.studHeader
+        }
+        else {
+          return this.nonStudHeader
+        }
+        // return this.nonStudHeader
+      }
       
     }
 }
@@ -282,7 +327,7 @@ export default {
 <style scoped>
 
   .ticket_title_background {
-    background: #3F505E;
+    background: #618AAB;    
     color: white;
     display: flex;
     justify-content: center;
@@ -314,9 +359,13 @@ export default {
     font-size: 24px;
   }
 
+  .add_ticket_btn {
+    background: #3F505E;
+  }
+
   /* the dialog styles */
   .ticket_title_background {
-    background: #3F505E;
+    background: #618AAB;
     color: white;
     display: flex;
     justify-content: center;

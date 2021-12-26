@@ -72,7 +72,6 @@
 export default {
   data() {
     return {
-
       items: {
         student: [
           { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
@@ -86,22 +85,57 @@ export default {
           { title: 'تیکت', icon: 'mdi-account-group-outline' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
         ],
+        responsibleTrainings: [
+          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'چارت', icon: 'mdi-account' },
+          { title: 'تیکت', icon: 'mdi-account-group-outline' },
+          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
+        ],
+        advisers: [
+          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'چارت', icon: 'mdi-account' },
+          { title: 'تیکت', icon: 'mdi-account-group-outline' },
+          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
+        ],
+        supervisors: [
+          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'چارت', icon: 'mdi-account' },
+          { title: 'تیکت', icon: 'mdi-account-group-outline' },
+          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
+        ],
+        advisers_supervisors: [
+          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'چارت', icon: 'mdi-account' },
+          { title: 'تیکت', icon: 'mdi-account-group-outline' },
+          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
+        ],
+        educationAssistants: [
+          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'چارت', icon: 'mdi-account' },
+          { title: 'تیکت', icon: 'mdi-account-group-outline' },
+        ],
+        departmentHead: [
+          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'چارت', icon: 'mdi-account' },
+          { title: 'تیکت', icon: 'mdi-account-group-outline' },
+          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
+        ],
       },
     }
   },
-  computed:{
-      user(){
-        return this.$store.getters['auth/user']
-      },
-      fullname() {
-        return this.user.first_name+ ' ' + this.user.last_name
-      },
-      username (){
-        return this.user.username
-      },
-      navbarItem(){
-        return this.items[this.user.role.name_role];
-      }
+  computed: {
+    user() {
+      return this.$store.getters['auth/user']
+    },
+    fullname() {
+      return this.user.first_name + ' ' + this.user.last_name
+    },
+    username() {
+      return this.user.username
+    },
+    navbarItem() {
+      return this.items[this.user.role.name_role]
+    },
   },
   methods: {
     logout() {

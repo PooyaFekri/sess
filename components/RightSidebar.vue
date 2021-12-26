@@ -6,58 +6,72 @@
       right
       app
       color="#154C79"
-      class="rounded-lg"
+      class="rounded-lg rounded-r-0"
       fixed
     >
       <template>
-        <v-row style="height: 15%" dense justify="center">
+        <v-row style="height: 15%" dense justify="center" class="mb-5">
           <img src="../static/logo-rtl.png" alt="لوگوی دانشگاه شیراز" />
         </v-row>
       </template>
 
-      <v-divider></v-divider>
+      
       <template>
-        <v-row dense align="center" style="height: 15%">
+        <v-row dense align="center" style="height: 15%" class="mt-2">
           <v-list dense>
             <v-list-item>
-              <v-list-item-content>
+              <v-list-item-content class="sidebar_text">
                 <p>{{ fullname }}</p>
               </v-list-item-content>
             </v-list-item>
             <v-list-item color="primary">
-              <v-list-item-content>
-                <p>{{ username }}</p>
+              <v-list-item-content class="sidebar_text">
+                <!-- <p>{{ username }}</p> -->
+                <p> {{ persianRoleTitles[role] }} </p>
               </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-row>
       </template>
-      <v-divider></v-divider>
-      <template>
-        <v-row style="height: 40%" align="center" dense>
-          <v-list>
-            <v-list-item v-for="item in navbarItem" :key="item.title">
-              <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
+      
 
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-row>
-      </template>
-
+    
       <template>
-        <v-row>
-          <v-col cols="12">
-            <v-list dense justify="center">
-              <v-list-item @click="logout" class="v-clickable">
-                <v-list-item-icon>
-                  <v-icon>mdi-logout</v-icon>
+        <v-row  align="center" dense class="mt-5" >
+          <v-col >          
+            <v-list>
+              <v-list-item v-for="item in navbarItem" :key="item.title" @click="gotoPage(item.link)" class="pr-9">
+                            
+                <v-list-item-icon >
+                  <v-icon class="sidebar_text">{{ item.icon }}</v-icon>
                 </v-list-item-icon>
-                <v-list-item-content>
+                
+                <v-list-item-content class="sidebar_text">
+                  
+                  <v-list-item-title >{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-col>
+        </v-row>
+      </template>
+
+      <template>
+        <v-row style="height: 30%" >
+          <v-spacer></v-spacer>
+        </v-row>
+      </template>
+      
+      
+      <template>
+        <v-row justify="start" >
+          <v-col cols="7" class="mr-10">
+            <v-list dense >
+              <v-list-item @click="logout" class="v-clickable " justify="center">
+                <v-list-item-icon>
+                  <v-icon class="sidebar_text">mdi-logout</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content class="sidebar_text">
                   <p>خروج</p>
                 </v-list-item-content>
               </v-list-item>
@@ -74,53 +88,63 @@ export default {
     return {
       items: {
         student: [
-          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city',  },
           { title: 'چارت', icon: 'mdi-account' },
           { title: 'تیکت', icon: 'mdi-account-group-outline' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
         ],
         professor: [
-          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city' },
           { title: 'چارت', icon: 'mdi-account' },
           { title: 'تیکت', icon: 'mdi-account-group-outline' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
         ],
         responsibleTrainings: [
-          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city' },
           { title: 'چارت', icon: 'mdi-account' },
           { title: 'تیکت', icon: 'mdi-account-group-outline' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
         ],
         advisers: [
-          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city' },
           { title: 'چارت', icon: 'mdi-account' },
           { title: 'تیکت', icon: 'mdi-account-group-outline' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
         ],
         supervisors: [
-          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city' },
           { title: 'چارت', icon: 'mdi-account' },
           { title: 'تیکت', icon: 'mdi-account-group-outline' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
         ],
         advisers_supervisors: [
-          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city' },
           { title: 'چارت', icon: 'mdi-account' },
           { title: 'تیکت', icon: 'mdi-account-group-outline' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
         ],
         educationAssistants: [
-          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city', link: ''},
           { title: 'چارت', icon: 'mdi-account' },
-          { title: 'تیکت', icon: 'mdi-account-group-outline' },
-        ],
+          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
+        ], 
         departmentHead: [
-          { title: 'انتخاب واحد مقدماتی', icon: 'mdi-home-city' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city' },
           { title: 'چارت', icon: 'mdi-account' },
           { title: 'تیکت', icon: 'mdi-account-group-outline' },
           { title: 'درخواست گریدری', icon: 'mdi-account-group-outline' },
         ],
       },
+      persianRoleTitles : {
+        student: 'دانشجو',
+        professor: 'استاد',
+        responsibleTrainings: 'معاون آموزشی',
+        advisers: 'استاد مشاور',
+        supervisors: 'استاد راهنما',
+        advisers_supervisors: 'استاد مشاور،استاد راهنما',
+        educationAssistants: 'کارشناس بخش',
+        departmentHead: 'رئیس بخش',
+      }
     }
   },
   computed: {
@@ -136,12 +160,18 @@ export default {
     navbarItem() {
       return this.items[this.user.role.name_role]
     },
+    role(){
+        return this.user.role.name_role;
+    }
   },
   methods: {
     logout() {
       this.$store.dispatch('auth/logout')
       this.$router.push('/login')
     },
+    gotoPage(link) {
+      this.$router.push( `/${link}`);
+    }
   },
 }
 </script>
@@ -154,5 +184,12 @@ export default {
 
 .v-clickable {
   cursor: pointer;
+}
+
+.sidebar_text {
+  color: white;
+}
+.sidebar_divider {
+  background: white;
 }
 </style>

@@ -153,7 +153,6 @@
                   circle
                   color="white"
                   small                  
-                  @click="null"
                 >
                   mdi-plus
                 </v-icon>
@@ -203,12 +202,6 @@ export default {
             
         }
     },
-
-    async mounted() {
-      await this.getTickets();
-      console.log(this.role)
-    },
-
     computed: {
       user(){
         return this.$store.getters['auth/user'];
@@ -218,6 +211,12 @@ export default {
         return this.user.role.name_role;
       }
     },
+
+    async mounted() {
+      await this.getTickets();
+      console.log(this.role)
+    },
+
 
     methods: {
       async getTickets() {

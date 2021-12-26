@@ -25,7 +25,7 @@
       </v-col>
     </v-row> -->
     <v-row justify="center" class="mt-1">
-      <v-col cols="10">
+      <v-col cols="11">
         <TicketsTable />
       </v-col>
     </v-row>

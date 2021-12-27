@@ -12,11 +12,15 @@
       </div>
       <Nuxt />
     </div>
+    <app-snackbar ref="appSnackbar"></app-snackbar>
+
   </v-app>
 </template>
 <script>
 export default {
-  created() {},
+  mounted() {
+    this.$root.appSnackbar = this.$refs.appSnackbar
+  },
 }
 </script>
 

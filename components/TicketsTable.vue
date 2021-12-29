@@ -134,7 +134,7 @@
                   >
 
 
-                    <template v-slot:item.actions="{ item }">
+                    <template v-slot:[`item.actions`]="{ item }">
                       <v-icon
                         color="black"
                         small                        

@@ -2,6 +2,7 @@
   <v-snackbar
     v-model="snackbar"
     :timeout="snackbarTimeout"
+    :top="true"
     shaped
   >
     {{ message }}

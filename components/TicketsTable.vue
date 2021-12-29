@@ -305,7 +305,7 @@ export default {
           id_ticket: this.current_ticket.id,
         }
         try{
-          const {data} = await this.$axios.delete('/step-ticket', body);
+          const {data} = await this.$axios.post('/step-ticket', body);
           console.log(data);
         }
         catch(error){

@@ -11,8 +11,8 @@
 <script>
 import LoginCard from '@/components/LoginCard.vue'
 export default {
-  layout: 'login',
   components: { LoginCard },
+  layout: 'login',
   mounted() {},
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog 
+    <v-dialog
       v-model="dialog"
       width="500"
     >
@@ -13,22 +13,7 @@
           >
             mdi-plus
           </v-icon>
-        </v-btn>
-        <!-- <v-btn
-          color="red lighten-2"
-                   
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          <v-icon           
-            
-            color="white"
-            small                  
-          >
-            mdi-plus
-          </v-icon>
-        </v-btn> -->
+        </v-btn>         
       </template>
 
       <v-card class="ticket_background">
@@ -44,9 +29,9 @@
               <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        
 
-        
+
+
         <v-select        
             v-model="selected_ticket_name"
             class="ma-10 mb-0"
@@ -55,7 +40,7 @@
             solo
             return-object
         ></v-select>
-       
+
         <v-card-actions  class="justify-center" >
           <v-btn   
             text   
@@ -73,7 +58,7 @@
           </v-btn>
         </v-card-actions>
 
-        
+
       </v-card>
     </v-dialog>
   </div>
@@ -81,7 +66,6 @@
 
 <script>
 export default {
-  components: true,
   data () {
       return {
           items: [

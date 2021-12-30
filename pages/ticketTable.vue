@@ -7,10 +7,11 @@
 
 <script>
 
-
+import TicketsTable from '@/components/TicketsTable.vue'
 export default {
-  components: true,
-
+  components:{
+    TicketsTable
+  },
   data() {
     return{
       viewTicketBool: false,

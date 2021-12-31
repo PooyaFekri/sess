@@ -3,8 +3,15 @@
     <v-dialog v-model="show" width="700">
 
     <template v-slot:activator="{ on, attrs }">
-        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">{{selected_ticket_name}}</v-btn>
-      </template>
+        <v-btn icon class="add_ticket_btn"  v-bind="attrs" v-on="on">
+          <v-icon           
+            circle
+            color="white"                            
+          >
+            mdi-plus
+          </v-icon>
+        </v-btn>
+    </template>
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
           <v-spacer class="mr-10"></v-spacer>{{selected_ticket_name}}
@@ -151,4 +158,8 @@ export default {
   color: #3f505e;
   font-size: 24px;
 }
+
+.add_ticket_btn {
+    background: #3F505E;
+  }
 </style>

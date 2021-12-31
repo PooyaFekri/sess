@@ -30,6 +30,12 @@
               </v-row>
             </template>
           </v-data-table>
+
+          <v-row >
+            <v-col>
+              <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="type==='master' ? true : false" @close="AddCourseToElementary=false" />
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-card>

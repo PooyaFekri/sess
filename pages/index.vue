@@ -7,6 +7,11 @@
       </v-col>
     </v-row>
 
+    <EditTeacher :visible="EditTeacher" @close="EditTeacher=false"/>
+    <AddCourse :visible="AddCourse" @close="AddCourse=false"/>
+    <AddStudent :visible="AddStudent" @close="AddStudent=false"/>
+
+
     <ChooseTicket v-if="role === 'student'" justify="end" @ticket-selected="ticketHandler" />
     <CapacityIncrease :visible="CapacityIncrease" @close="CapacityIncrease=false" />
     <ChangeClassTime :visible="ChangeClassTime" @close="ChangeClassTime=false" />
@@ -45,6 +50,10 @@ import CourseFromAnotherOrientation from "@/components/CourseFromAnotherOrientat
 import LessonFromAnotherSection from "@/components/LessonFromAnotherSection.vue"
 import MasterCourseRequest from "@/components/MasterCourseRequest.vue"
 import NormalTicket from "@/components/NormalTicket.vue"
+import EditTeacher from "@/components/EditTeacher.vue"
+import AddCourse from "@/components/AddCourse.vue"
+import AddStudent from "@/components/AddStudent.vue"
+
 export default {
   components: {
     TicketsTable,
@@ -55,7 +64,10 @@ export default {
     CourseFromAnotherOrientation,
     LessonFromAnotherSection,
     MasterCourseRequest,
-    NormalTicket
+    NormalTicket,
+    EditTeacher,
+    AddCourse,
+    AddStudent
   },
   data (){
     return {
@@ -65,7 +77,12 @@ export default {
       CourseFromAnotherOrientation:false,
       LessonFromAnotherSection:false,
       MasterCourseRequest:false,
-      NormalTicket:false
+      NormalTicket:false,
+
+
+      EditTeacher:false,
+      AddCourse:false,
+      AddStudent:false
     }
   },
   

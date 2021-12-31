@@ -18,7 +18,7 @@
                 <v-icon
                   color="black"
                   small
-                  @click="viewTicket(item)"
+                  @click="editCourseProf=true"
                   class="mx-2"
                 >
                   mdi-pencil
@@ -34,6 +34,7 @@
           <v-row >
             <v-col>
               <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="type==='master' ? true : false" @close="AddCourseToElementary=false" />
+              <EditCourseProf :visible="editCourseProf" :item="{}" @close="editCourseProf=false"/>
             </v-col>
           </v-row>
         </v-col>
@@ -68,6 +69,8 @@ export default {
       selects: [],
       bachelorItems: [],
       masterItems: [],
+      editCourseProf: false,
+
     }
   },
   computed: {

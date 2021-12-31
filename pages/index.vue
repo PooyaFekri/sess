@@ -91,7 +91,7 @@ export default {
       AddCourse:false,
       AddStudent:false,
       AddProfessor:false,
-      AddCourseToElementary:true
+      AddCourseToElementary:false,
     }
   },
   

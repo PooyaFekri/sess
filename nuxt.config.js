@@ -82,11 +82,11 @@ export default {
                 },
                 light: {
                     primary: colors.shades.white,
-                    accent: colors.shades.white,
+                    accent: colors.red,
                     secondary: colors.shades.white,
                     info: colors.shades.white,
-                    warning: colors.shades.white,
-                    error: colors.shades.white,
+                    warning: colors.red,
+                    error: colors.red,
                     success: colors.shades.white
                 }
             },

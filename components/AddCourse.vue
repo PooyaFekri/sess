@@ -148,8 +148,8 @@ export default {
             prerequisites:this.prerequisites
         }
         try {
-            const courses = await this.$axios.$post('/add-course', data);
-            this.courses = courses;
+            const {courses} = await this.$axios.$post('/add-course', data);
+            console.log(courses)
         } catch (error) {
             console.log(error);
         }

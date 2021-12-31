@@ -1,5 +1,4 @@
 import colors from 'vuetify/es5/util/colors'
-import fa from 'vuetify/lib/locale/fa'
 
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
@@ -46,8 +45,16 @@ export default {
     ],
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: 'http://127.0.0.1:5000/api',
+        // baseURL: 'http://127.0.0.1:5000/api',
         // baseURL: 'http://193.176.242.58/api'
+        proxy: true,
+        prefix: '/api'
+    },
+    proxy: {
+        '/api': {
+            // target: 'http://193.176.242.58:8081'
+            target: 'http://127.0.0.1:5000/'
+        }
     },
     middleware: [
         'customAuth'

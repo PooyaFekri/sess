@@ -1,13 +1,13 @@
 <template>
-  <v-container grid-list-xs>
-    <v-app style="position: relative">
+  <v-app style="position: relative">
+    <v-container grid-list-xs>
       <v-main class="app-content">
         <Nuxt />
       </v-main>
       <RightSidebar />
       <app-snackbar ref="appSnackbar"></app-snackbar>
-    </v-app>
-  </v-container>
+    </v-container>
+  </v-app>
 </template>
 
 <script>

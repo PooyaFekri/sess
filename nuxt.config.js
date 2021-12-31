@@ -52,8 +52,8 @@ export default {
     },
     proxy: {
         '/api': {
-            // target: 'http://193.176.242.58:8081'
-            target: 'http://127.0.0.1:5000/'
+            target: 'http://193.176.242.58:8081'
+                // target: 'http://127.0.0.1:5000/'
         }
     },
     middleware: [

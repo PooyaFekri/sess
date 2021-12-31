@@ -6,6 +6,6 @@ export default function({ app, $axios, error, store }) {
         }
     })
     $axios.onError((e) => {
-        window.$nuxt.$root.appSnackbar.show({ message: e.response.data.status })
+        window.$nuxt.$root.appSnackbar.show({ message: e.response.data.message })
     })
 }

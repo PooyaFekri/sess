@@ -11,6 +11,9 @@
     <AddCourse :visible="AddCourse" @close="AddCourse=false"/>
     <AddStudent :visible="AddStudent" @close="AddStudent=false"/>
     <AddProfessor :visible="AddProfessor" @close="AddProfessor=false" />
+    <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="false" @close="AddCourseToElementary=false" />
+    <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="true" @close="AddCourseToElementary=false" />
+
 
 
     <ChooseTicket v-if="role === 'student'" justify="end" @ticket-selected="ticketHandler" />
@@ -54,6 +57,7 @@ import NormalTicket from "@/components/NormalTicket.vue"
 import EditCourseProf from "@/components/EditCourseProf.vue"
 import AddCourse from "@/components/AddCourse.vue"
 import AddStudent from "@/components/AddStudent.vue"
+import AddCourseToElementary from "@/components/AddCourseToElementary.vue"
 
 export default {
   components: {
@@ -66,9 +70,11 @@ export default {
     LessonFromAnotherSection,
     MasterCourseRequest,
     NormalTicket,
+
     EditCourseProf,
     AddCourse,
-    AddStudent
+    AddStudent,
+    AddCourseToElementary
   },
   data (){
     return {
@@ -84,7 +90,8 @@ export default {
       EditCourseProf:false,
       AddCourse:false,
       AddStudent:false,
-      AddProfessor:false
+      AddProfessor:false,
+      AddCourseToElementary:true
     }
   },
   

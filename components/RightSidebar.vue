@@ -15,7 +15,6 @@
         </v-row>
       </template>
 
-      
       <template>
         <v-row dense align="center" style="height: 15%" class="mt-2">
           <v-list dense>
@@ -27,28 +26,29 @@
             <v-list-item color="primary">
               <v-list-item-content class="sidebar_text">
                 <!-- <p>{{ username }}</p> -->
-                <p> {{ persianRoleTitles[role] }} </p>
+                <p>{{ persianRoleTitles[role] }}</p>
               </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-row>
       </template>
-      
 
-    
       <template>
-        <v-row  align="center" dense class="mt-5" >
-          <v-col >          
+        <v-row align="center" dense class="mt-5">
+          <v-col>
             <v-list>
-              <v-list-item v-for="item in navbarItem" :key="item.title" @click="gotoPage(item.link)" class="pr-9">
-                            
-                <v-list-item-icon >
+              <v-list-item
+                v-for="item in navbarItem"
+                :key="item.title"
+                @click="gotoPage(item.link)"
+                class="pr-9"
+              >
+                <v-list-item-icon>
                   <v-icon class="sidebar_text">{{ item.icon }}</v-icon>
                 </v-list-item-icon>
-                
+
                 <v-list-item-content class="sidebar_text">
-                  
-                  <v-list-item-title >{{ item.title }}</v-list-item-title>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -57,17 +57,16 @@
       </template>
 
       <template>
-        <v-row style="height: 30%" >
+        <v-row style="height: 30%">
           <v-spacer></v-spacer>
         </v-row>
       </template>
-      
-      
+
       <template>
-        <v-row justify="start" >
+        <v-row justify="start">
           <v-col cols="7" class="mr-10">
-            <v-list dense >
-              <v-list-item @click="logout" class="v-clickable " justify="center">
+            <v-list dense>
+              <v-list-item @click="logout" class="v-clickable" justify="center">
                 <v-list-item-icon>
                   <v-icon class="sidebar_text">mdi-logout</v-icon>
                 </v-list-item-icon>
@@ -88,53 +87,119 @@ export default {
     return {
       items: {
         student: [
-          { title: 'صفحه اصلی', icon: 'mdi-home-city',  link: ''},
-          { title: 'چارت', icon: 'mdi-account' , link: ''},
-          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline', link: '' },
+          { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
+          {
+            title: 'انتخاب واحد مقدماتی',
+            icon: 'mdi-account-group-outline',
+            link: 'elementray-selection',
+          },
+          { title: 'چارت', icon: 'mdi-account', link: '' },
+          {
+            title: 'درخواست گریدری',
+            icon: 'mdi-account-group-outline',
+            link: '',
+          },
         ],
         professor: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
           { title: 'چارت', icon: 'mdi-account', link: '' },
-          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
-          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline', link: '' },
+          {
+            title: 'تیکت',
+            icon: 'mdi-account-group-outline',
+            link: 'TicketTable',
+          },
+          {
+            title: 'درخواست گریدری',
+            icon: 'mdi-account-group-outline',
+            link: '',
+          },
         ],
         responsibleTrainings: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
           { title: 'چارت', icon: 'mdi-account', link: '' },
-          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
-          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline', link: '' },
+          {
+            title: 'تیکت',
+            icon: 'mdi-account-group-outline',
+            link: 'TicketTable',
+          },
+          {
+            title: 'درخواست گریدری',
+            icon: 'mdi-account-group-outline',
+            link: '',
+          },
         ],
         advisers: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
           { title: 'چارت', icon: 'mdi-account', link: '' },
-          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
-          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline', link: '' },
+          {
+            title: 'تیکت',
+            icon: 'mdi-account-group-outline',
+            link: 'TicketTable',
+          },
+          {
+            title: 'درخواست گریدری',
+            icon: 'mdi-account-group-outline',
+            link: '',
+          },
         ],
         supervisors: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
           { title: 'چارت', icon: 'mdi-account', link: '' },
-          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
-          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline', link: '' },
+          {
+            title: 'تیکت',
+            icon: 'mdi-account-group-outline',
+            link: 'TicketTable',
+          },
+          {
+            title: 'درخواست گریدری',
+            icon: 'mdi-account-group-outline',
+            link: '',
+          },
         ],
         advisers_supervisors: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
           { title: 'چارت', icon: 'mdi-account', link: '' },
-          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
-          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline', link: '' },
+          {
+            title: 'تیکت',
+            icon: 'mdi-account-group-outline',
+            link: 'TicketTable',
+          },
+          {
+            title: 'درخواست گریدری',
+            icon: 'mdi-account-group-outline',
+            link: '',
+          },
         ],
         educationAssistants: [
-          { title: 'صفحه اصلی', icon: 'mdi-home-city', link: ''},
-          { title: 'چارت', icon: 'mdi-account', link: ''},
-          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
-        ], 
+          { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
+          {
+            title: 'انتخاب واحد مقدماتی',
+            icon: 'mdi-account-group-outline',
+            link: 'elementray-selection',
+          },
+          { title: 'چارت', icon: 'mdi-account', link: '' },
+          {
+            title: 'تیکت',
+            icon: 'mdi-account-group-outline',
+            link: 'TicketTable',
+          },
+        ],
         departmentHead: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
           { title: 'چارت', icon: 'mdi-account', link: '' },
-          { title: 'تیکت', icon: 'mdi-account-group-outline', link: 'TicketTable' },
-          { title: 'درخواست گریدری', icon: 'mdi-account-group-outline', link: '' },
+          {
+            title: 'تیکت',
+            icon: 'mdi-account-group-outline',
+            link: 'TicketTable',
+          },
+          {
+            title: 'درخواست گریدری',
+            icon: 'mdi-account-group-outline',
+            link: '',
+          },
         ],
       },
-      persianRoleTitles : {
+      persianRoleTitles: {
         student: 'دانشجو',
         professor: 'استاد',
         responsibleTrainings: 'معاون آموزشی',
@@ -143,7 +208,7 @@ export default {
         advisers_supervisors: 'استاد مشاور،استاد راهنما',
         educationAssistants: 'کارشناس بخش',
         departmentHead: 'رئیس بخش',
-      }
+      },
     }
   },
   computed: {
@@ -159,9 +224,9 @@ export default {
     navbarItem() {
       return this.items[this.user.role.name_role]
     },
-    role(){
-        return this.user.role.name_role;
-    }
+    role() {
+      return this.user.role.name_role
+    },
   },
   methods: {
     logout() {
@@ -169,8 +234,8 @@ export default {
       this.$router.push('/login')
     },
     gotoPage(link) {
-      this.$router.push( `/${link}`);
-    }
+      this.$router.push(`/${link}`)
+    },
   },
 }
 </script>

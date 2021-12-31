@@ -61,11 +61,11 @@ export default {
   },
 
   mounted() {
-    console.log(this.$store.getters['auth/user']);
+    // console.log(this.$store.getters['auth/user']);
   },
   methods:{
     ticketHandler(event){
-      console.log(event);
+      // console.log(event);
       switch (event.index) {
         case 0:
           this.CapacityIncrease = true;

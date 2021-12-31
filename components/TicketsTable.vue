@@ -3,7 +3,7 @@
         
       <v-card width="100%" justify="center" style="background: #DCE4EB;">
           <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
-          تیکت های بررسی نشده
+          تیکت های
           </v-card-title>
           <!-- <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -20,67 +20,127 @@
 
               <v-card class="ticket_background ">
                   
-                  <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5 justify-center" >
-                    <v-spacer class="mr-10"></v-spacer>
-                    {{determineTicketType(current_ticket.type_ticket)}}
-                    <v-spacer></v-spacer>
-                    
-                    <v-btn
-                        class="ml-n2"
-                        icon
-                        dark
-                        @click="dialogFlag=false"
-                      >
-                        <v-icon>mdi-close</v-icon>
-                      </v-btn>
-                  </v-card-title>
+                <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5 justify-center" >
+                  <v-spacer class="mr-10"></v-spacer>
+                  {{determineTicketType(current_ticket.type_ticket)}}
+                  <v-spacer></v-spacer>
+                  
+                  <v-btn
+                      class="ml-n2"
+                      icon
+                      dark
+                      @click="dialogFlag=false"
+                    >
+                      <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </v-card-title>
                 
                 <v-container class="mt-n10">
-                
-                    <v-card-text class="justify-center">
-                      <v-row class="mb-n10">
-                        <v-col cols="12">
-                        <v-stepper  alt-labels style="background: transparent; border: none;" outlined >
-                          <v-stepper-header>
-                            <template v-for="(n,index) in steps">
-                              <v-stepper-step
-                              
-                                :key="`${index}-step`"
-                                :step="index"
-                                complete-icon="$complete"
-                                :complete ="current_step >= index"
-                                color="#366991"
-                                style="font-size: 1em"
-                              >
-                                 {{ n }}
-                              </v-stepper-step>
-
-                              <v-divider
-                                v-if="(index < number_of_steps-1)"
-                                :key="`${index}-divider`"
-                              ></v-divider>
-                            </template>
-                          </v-stepper-header>
-                        </v-stepper>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-
-                
-                  <v-card-text class="justify-center"  v-for="comment in comments" :key="comment">
-                    <v-row justify="center">
-                      <v-col cols="9">
-                        <v-card flat height="70px" class="mb-n7">
-                          <v-card-text class="comments_color" style="font-size: 1.3em">
-                            {{comment}}
-                          </v-card-text>
-                        </v-card>
+                  
+                  <!-- to do -->
+                  <v-card-text>
+                    
+                    <v-row justify="center" class="mt-3 mb-n7" style="text-align: center;">                     
+                      <v-col cols="8" style="font-size: 1.2rem; font-weight: bold; color: #3F505E;">                        
+                        وضعیت : {{ticket_status_text}}                        
                       </v-col>
-                    </v-row>             
+
+                      <v-col cols="6" style="font-size: 1.2rem;">
+                        <!-- <v-text-field flat solo :label="`نام درس : ${ticket_subject}`" clearable disabled color="#3F505E"></v-text-field> -->
+                        نام درس : {{ticket_subject}}
+                      </v-col>
+                    </v-row>
+                    
+                  </v-card-text>
+
+                  <!-- stepper -->
+                  <v-card-text class="justify-center">
+                    <v-row >
+                      <v-col cols="12">
+                      <v-stepper  alt-labels style="background: transparent; border: none;" outlined >
+                        <v-stepper-header>
+                          <template v-for="(n,index) in steps">
+                            <v-stepper-step
+                            
+                              :key="`${index}-step`"
+                              :step="`${index}`"
+                              complete-icon="$complete"
+                              :complete="(current_step > index) || (ticket_status_number === 7)"
+                              color="#366991"
+                              style="font-size: 1em"
+                            >
+                                {{ n }}
+                            </v-stepper-step>
+
+                            <v-divider
+                              v-if="(index < number_of_steps-1)"
+                              :key="`${index}-divider`"
+                            ></v-divider>
+                          </template>
+                        </v-stepper-header>                        
+                      </v-stepper>
+                      </v-col>
+                    </v-row>
                   </v-card-text>
                   
+                  <!-- comments -->
+                  <v-row class="mt-n10" justify="center">
+                    <v-col cols="10">
+                      <v-card-text class="justify-center"  v-for="comment in comments" :key="comment">
+                        
+                            <!-- <v-card flat height="70px" class="mb-n7">
+                              <v-card-text class="comments_color" style="font-size: 1.3em">
+                                {{comment}}
+                              </v-card-text>
+                            </v-card> -->
+
+                            <v-textarea
+                              v-model="description"
+                              disabled
+                              :placeholder="comment"
+                              class="pt-5 pr-2 mb-n16 mt-n3"
+                              height="80px"
+                              color="#3F505E"
+                              flat
+                              solo
+                              no-resize
+                            >                            
+                            </v-textarea>
+
+                      </v-card-text>
+                    </v-col>                   
+                  </v-row>
+
+                  <v-row v-if="role !== 'student' && ticket_status_number !== 4 && 
+                    ticket_status_number !== 6 && ticket_status_number !== 7 "
+                    class="justify-center mb-n5 mt-n7"
+                    >
+                    <v-col cols="10">
+                      <v-card-text class="justify-center" >                    
+                        <v-textarea
+                          v-model="step_message"
+                          placeholder="در صورت لزوم متن اضافه کنید."
+                          class="pt-5 pr-2 mt-n2"
+                          height="80px"
+                          color="#3F505E"
+                          flat
+                          solo
+                          no-resize
+                        ></v-textarea>
+                      </v-card-text>                    
+                    </v-col>
+                  </v-row>
+
+                  <v-row v-if="ticket_status_number === 4 || 
+                      ticket_status_number === 6 || ticket_status_number === 7 " class="mb-10">
+                    <v-spacer>
+                    </v-spacer>
+                  </v-row>
+                  
+                  <!-- buttons -->
                   <v-row v-if="role==='student'" justify="center" class="mt-5">
-                      <v-col cols="6">
+                      <v-col v-if="ticket_status_number !== 4 && 
+                      ticket_status_number !== 6 && ticket_status_number !== 7 " cols="3">
                         <v-card-actions >
                           <v-btn   
                             text   
@@ -93,7 +153,8 @@
                       </v-col>
                   </v-row>  
                   <v-row v-else justify="center" class="mt-5">
-                      <v-col cols="3">
+                      <v-col v-if="ticket_status_number !== 4 && 
+                      ticket_status_number !== 6 && ticket_status_number !== 7 " cols="3">
                         <v-card-actions >
                           <v-btn   
                             text   
@@ -106,24 +167,27 @@
                       </v-col>
                                             
                       
-                      <v-col cols="2">
+                      <v-col v-if="ticket_status_number !== 4 && 
+                      ticket_status_number !== 6 && ticket_status_number !== 7 " cols="2">
                         <v-card-actions>
                           <v-btn   
                             text   
                             class="terminate_ticket mb-3"    
-                            @click="terminateTicket()"
+                            @click="rejectTicket()"
                           >
                             رد
                           </v-btn>
                         </v-card-actions>
                       </v-col>
-                    </v-row>  
+                  </v-row>  
 
                 </v-container>
           
               </v-card>
             </v-dialog>
           </div>
+
+          <!-- the data table  -->
           <v-row justify="center">
               <v-col cols="11">
                   <v-data-table 
@@ -134,7 +198,7 @@
                   >
 
 
-                    <template v-slot:item.actions="{ item }">
+                    <template v-slot:[`item.actions`]="{ item }">
                       <v-icon
                         color="black"
                         small                        
@@ -175,20 +239,22 @@ export default {
         return {
             nonStudHeader: [
                 { text: 'ردیف', align: 'start', value: 'rowNum', },
-                { text: 'نوع تیکت', value: 'ticketType', sortable: false  },
+                { text: 'نوع تیکت', value: 'ticketType', },
+                { text: 'نام درس', value: 'ticket_course'},
                 { text: 'تاریخ', value: 'date',  },
                 { text: 'نام فرستنده', value: 'senderName', sortable: false  },
                 { text: 'شماره دانشجویی', value: 'senderNum'},
                 // { text: 'توضیحات', value: 'caption', sortable: false  },
-                { text: 'وضعیت', value: 'status', sortable: false },
+                // { text: 'وضعیت', value: 'status', sortable: false },
                 { text: 'Actions', value: 'actions', sortable: false }
             ],
             studHeader: [
                 { text: 'ردیف', align: 'start', value: 'rowNum', },
                 { text: 'نوع تیکت', value: 'ticketType', sortable: false  },
-                { text: 'تاریخ', value: 'date',  },                
+                { text: 'تاریخ', value: 'date',  },
+                { text: 'نام درس', value: 'ticket_course'},          
                 // { text: 'توضیحات', value: 'caption', sortable: false  },
-                { text: 'وضعیت', value: 'status', sortable: false },
+                // { text: 'وضعیت', value: 'status', sortable: false },
                 { text: 'Actions', value: 'actions', sortable: false }
             ],
 
@@ -199,6 +265,12 @@ export default {
             number_of_steps: 0,        
             steps: [],
             current_step: 0,
+
+            step_message: '',
+
+            ticket_subject: '',
+            ticket_status_text: '',
+            ticket_status_number: '',
             
         }
     },
@@ -229,7 +301,7 @@ export default {
           let rowIndex = 1
           ticketsList.forEach(ticket => {
             
-            console.log(this.determineTicketType(ticket.type_ticket));
+            // console.log(this.determineTicketType(ticket.type_ticket));
             this.tickets.push({
               ticketObject: ticket,
               rowNum: rowIndex,
@@ -238,8 +310,9 @@ export default {
               senderName: ticket.sender_lname + ' ' + ticket.sender_fname,
               senderNum: ticket.sender_id,
               allSteps: ticket.all_steps,
+              ticket_course: ticket.course,
               // caption: 'waitForBack',
-              status: 'درحال انجام',              
+              // status: 'درحال انجام',              
             })
             rowIndex += 1;
           });
@@ -249,12 +322,27 @@ export default {
         }
       },
       viewTicket(ticket){
+
         this.dialogFlag = true;
         this.current_ticket = ticket.ticketObject;
         this.steps = ticket.ticketObject.all_steps;        
         this.number_of_steps = Object.keys(this.steps).length;
         this.current_step = Object.keys(this.current_ticket.current_step)[0];
-        console.log(this.current_step);
+        
+        // comments
+        const commentsLength = Object.keys(this.current_ticket.descriptions).length;
+        this.comments = []
+        this.comments[0] = ticket.ticketObject.message;      
+        for (let i = 0; i < commentsLength; i++ ){
+          this.comments[i+1] = Object.values(this.current_ticket.descriptions)[i];
+        }
+        
+        this.ticket_subject = this.current_ticket.course;
+        this.ticket_status_text = this.checkStatus(this.current_ticket.status_step)
+        this.ticket_status_number = this.current_ticket.status_step
+           
+
+
         // console.log(Object.keys(this.current_ticket.current_step)[0]);
         // this.comments = ticket.ticketObject.descriptions;
         // this.comments = ticket.message;
@@ -266,13 +354,45 @@ export default {
         // console.log(this.current_ticket);
       },
 
+      checkStatus(status){
+        switch(status) {
+          case 1: 
+            return 'در جریان';
+          case 2: 
+            return 'در جریان';          
+          case 4: 
+            return 'درخواست رد شده';
+          case 6: 
+            return 'خاتمه یافته توسط دانشجو';
+          case 7: 
+            return 'با درخواست شما موافقت شده';
+          
+          
+        }
+      },
+
       async approveTicket(){
         // console.log(this.current_ticket.id);        
         const body = {
           step: 'accept',
-          massage: 'ok',
-          id_ticket: this.current_ticket.id,
-          url:""
+          massage: this.step_message,
+          id_ticket: this.current_ticket.id,          
+        }
+        try{
+          const {data} = await this.$axios.put('/step-ticket', body);
+          console.log(data);
+        }
+        catch (error) {
+          console.log(error);
+        }
+        this.dialogFlag = false;
+      },
+      async rejectTicket(){
+        // console.log(this.current_ticket.id);        
+        const body = {
+          step: 'reject',
+          massage: this.step_message,
+          id_ticket: this.current_ticket.id,          
         }
         try{
           const {data} = await this.$axios.put('/step-ticket', body);
@@ -284,28 +404,28 @@ export default {
         this.dialogFlag = false;
       },
 
-      async terminateTicket(){
-        const body = {
-          step: 'reject',
-          id_ticket: this.current_ticket.id,
-          message:"ok"
-        }
-        try{
-          const {data} = await this.$axios.put('/step-ticket', body);
-          console.log(data);
-        }
-        catch(error){
-          console.log(error);
-        }
-        this.dialogFlag = false;
-      },
+        // async rejectTicket(){
+        //   const body = {
+        //     step: 'reject',
+        //     message:"رد شد",
+        //     id_ticket: this.current_ticket.id,
+        //   }
+        //   try{
+        //     const {data} = await this.$axios.post('/step-ticket', body);
+        //     console.log(data);
+        //   }
+        //   catch(error){
+        //     console.log(error);
+        //   }
+        //   this.dialogFlag = false;
+        // },
 
       async finishTicket(){
         const body = {
           id_ticket: this.current_ticket.id,
         }
         try{
-          const {data} = await this.$axios.delete('/step-ticket', body);
+          const {data} = await this.$axios.post('/step-ticket', body);
           console.log(data);
         }
         catch(error){
@@ -353,7 +473,7 @@ export default {
     /* background: #618AAB;     */
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: center;  
   }
 
   .terminate_ticket {

@@ -7,9 +7,10 @@
       </v-col>
     </v-row>
 
-    <EditTeacher :visible="EditTeacher" @close="EditTeacher=false"/>
+    <EditCourseProf :visible="EditCourseProf" :item="{}" @close="EditCourseProf=false"/>
     <AddCourse :visible="AddCourse" @close="AddCourse=false"/>
     <AddStudent :visible="AddStudent" @close="AddStudent=false"/>
+    <AddProfessor :visible="AddProfessor" @close="AddProfessor=false" />
 
 
     <ChooseTicket v-if="role === 'student'" justify="end" @ticket-selected="ticketHandler" />
@@ -50,7 +51,7 @@ import CourseFromAnotherOrientation from "@/components/CourseFromAnotherOrientat
 import LessonFromAnotherSection from "@/components/LessonFromAnotherSection.vue"
 import MasterCourseRequest from "@/components/MasterCourseRequest.vue"
 import NormalTicket from "@/components/NormalTicket.vue"
-import EditTeacher from "@/components/EditTeacher.vue"
+import EditCourseProf from "@/components/EditCourseProf.vue"
 import AddCourse from "@/components/AddCourse.vue"
 import AddStudent from "@/components/AddStudent.vue"
 
@@ -65,7 +66,7 @@ export default {
     LessonFromAnotherSection,
     MasterCourseRequest,
     NormalTicket,
-    EditTeacher,
+    EditCourseProf,
     AddCourse,
     AddStudent
   },
@@ -80,9 +81,10 @@ export default {
       NormalTicket:false,
 
 
-      EditTeacher:false,
+      EditCourseProf:false,
       AddCourse:false,
-      AddStudent:false
+      AddStudent:false,
+      AddProfessor:false
     }
   },
   

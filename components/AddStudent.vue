@@ -1,9 +1,9 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="show" width="700">
-      <template v-slot:activator="{ on, attrs }">
+      <!--<template v-slot:activator="{ on, attrs }">
         <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">{{selected_ticket_name}}</v-btn>
-      </template>
+      </template>-->
 
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
@@ -18,19 +18,19 @@
           <v-row class="justify-center mb-n12">
             <v-col cols="5">
               <v-text-field
-              v-model="course"
+              v-model="name"
               solo 
-              label="نام درس" 
+              label="نام" 
               clearable 
               color="#3F505E"
               ></v-text-field>
             </v-col>
             <v-col cols="5">
               <v-text-field
-                v-model="course_units"
+                v-model="familyName"
                 color="#3F505E"
                 clearable
-                label="تعداد واحد" 
+                label="نام خانوادگی" 
                 solo
               ></v-text-field>
               
@@ -39,19 +39,19 @@
           <v-row class="justify-center mb-n12">
             <v-col cols="5">
               <v-text-field
-              v-model="course"
+              v-model="stdNum"
               solo 
-              label="نام درس" 
+              label="شماره دانشجویی" 
               clearable 
               color="#3F505E"
               ></v-text-field>
             </v-col>
             <v-col cols="5">
               <v-text-field
-                v-model="course_units"
+                v-model="password"
                 color="#3F505E"
                 clearable
-                label="تعداد واحد" 
+                label="کلمه عبور" 
                 solo
               ></v-text-field>
               
@@ -63,22 +63,20 @@
                 v-model="orientation"
                 color="#3F505E" 
                 :item-text="orientationText"
-                item-value="id_course"
-                label="لیست پیش نیاز ها" 
-                chips
-                multiple
+                :items="orientations"
+                item-value="name"
+                label="گرایش" 
                 solo
               ></v-select>
             </v-col>
             <v-col cols="5">
               <v-select
-                v-model="orientation"
+                v-model="grade"
                 color="#3F505E" 
-                :item-text="orientationText"
-                item-value="id_course"
-                label="لیست پیش نیاز ها" 
-                chips
-                multiple
+                :items="grades"
+                :item-text="(grade) => `${grade.persianName}`"
+                item-value="name"
+                label="مقطع" 
                 solo
               ></v-select>
             </v-col>
@@ -86,10 +84,10 @@
           <v-row class="justify-center">
             <v-col cols="10">
                 <v-text-field
-                v-model="course_units"
+                v-model="enteranceYear"
                 color="#3F505E"
                 clearable
-                label="تعداد واحد" 
+                label="سال ورود: مثلا 1401" 
                 solo
               ></v-text-field>
               
@@ -98,25 +96,23 @@
           <v-row class="justify-center mb-n14">
             <v-col cols="5">
               <v-select
-                v-model="orientation"
+                v-model="advisor"
                 color="#3F505E" 
-                :item-text="orientationText"
-                item-value="id_course"
-                label="لیست پیش نیاز ها" 
-                chips
-                multiple
+                :items="profs"
+                :item-text="(prof) => `${prof.fname} ${prof.lname}`"
+                item-value="id"
+                label="استاد مشاور" 
                 solo
               ></v-select>
             </v-col>
             <v-col cols="5">
               <v-select
-                v-model="orientation"
-                color="#3F505E" 
-                :item-text="orientationText"
-                item-value="id_course"
-                label="لیست پیش نیاز ها" 
-                chips
-                multiple
+                v-model="supervisor"
+                color="#3F505E"
+                :items="profs"
+                :item-text="(prof) => `${prof.fname} ${prof.lname}`"
+                item-value="id"
+                label="استاد راهنما" 
                 solo
               ></v-select>
             </v-col>
@@ -124,7 +120,7 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="addCourse">افزودن</v-btn>
+          <v-btn text class="terminate_ticket mb-3" @click="addStd">افزودن</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -140,11 +136,24 @@ export default {
   },
   data () {
         return {
-            selected_ticket_name:"افزودن دانشجو",
-            courses:[],
-            course:"",
-            course_units:"",
-            orientation:""
+          selected_ticket_name:"افزودن دانشجو",
+          courses:[],
+          orientations:[],
+          profs:[],
+          grades:[
+            {name:"master",persianName:"کارشناسی ارشد"},
+            {name:"bachelor",persianName:"کارشناسی"}
+          ],
+          name:"",
+          familyName:"",
+          stdNum:"",
+          password:"",
+          orientation:"",
+          grade:"",
+          enteranceYear:"",
+          advisor:"",
+          supervisor:null
+
         }
     },
   computed: {
@@ -157,30 +166,26 @@ export default {
           this.$emit('close');
         }
       }
-    },
-    course_orientations: {
-        get(){
-            // eslint-disable-next-line prefer-const
-            let neededCourse = [];
-            this.courses.forEach(element => {
-                neededCourse.push({
-                    course: element.course,
-                    id_course: element.list_orientation[0].id_course,
-                    name_orientation: element.list_orientation[0].name_orientation
-                });
-            });
-            return neededCourse;
-        }
     }
   },
   async mounted() {
-    await this.getCourses();
+    await this.getProfs();
+    await this.getOrientations();
   },
   methods: {
-    async getCourses() {
+    async getProfs() {
       try {
-        const courses = await this.$axios.$get('/get-courses');
-        this.courses = courses;
+        const profs = await this.$axios.$get('/get-professors');
+        this.profs = profs;
+        console.log(profs);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getOrientations() {
+      try {
+        const orientations = await this.$axios.$get('/get-orientations');
+        this.orientations = orientations;
       } catch (error) {
         console.log(error);
       }
@@ -188,11 +193,28 @@ export default {
     courseText(course) {
       return `${course.course}`;
     },
-    orientationText(course){
-      return `${course.course} - ${course.name_orientation}`;
+    orientationText(orientation){
+      return `${orientation.name}`;
     },
-    addCourse(){
-        this.show = false;
+    async addStd(){
+      const data = {
+        first_name:this.name,
+        last_name:this.familyName,
+        student_number:this.stdNum,
+        password:this.password,
+        orientation:this.orientation,
+        cross_section:this.grade,
+        enter_year:this.enteranceYear,
+        adviser_id:this.advisor,
+        superviser_id:this.supervisor
+      };
+      try {
+        const {std} = await this.$axios.$post('/add-student', data);
+        console.log(std);
+      } catch (error) {
+        console.log(error);
+      }
+      this.show = false;
     }
   }
 };

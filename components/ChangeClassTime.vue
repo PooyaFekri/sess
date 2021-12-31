@@ -82,7 +82,6 @@ export default {
   },
   data () {
       return {
-          dialog: false,
           selected_ticket_name:"درخواست تغییر ساعت کلاس",
           courses:[],
           course:"",

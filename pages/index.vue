@@ -7,6 +7,11 @@
       </v-col>
     </v-row>
 
+    <EditTeacher :visible="EditTeacher" @close="EditTeacher=false"/>
+    <AddCourse :visible="AddCourse" @close="AddCourse=false"/>
+    <AddStudent :visible="AddStudent" @close="AddStudent=false"/>
+
+
     <ChooseTicket v-if="role === 'student'" justify="end" @ticket-selected="ticketHandler" />
     <CapacityIncrease :visible="CapacityIncrease" @close="CapacityIncrease=false" />
     <ChangeClassTime :visible="ChangeClassTime" @close="ChangeClassTime=false" />
@@ -36,8 +41,34 @@
 </template>
 
 <script>
+import TicketsTable from "@/components/TicketsTable.vue"
+import ChooseTicket from "@/components/ChooseTicket.vue"
+import CapacityIncrease from "@/components/CapacityIncrease.vue"
+import ChangeClassTime from "@/components/ChangeClassTime.vue"
+import ChangeExamTime from "@/components/ChangeExamTime.vue"
+import CourseFromAnotherOrientation from "@/components/CourseFromAnotherOrientation.vue"
+import LessonFromAnotherSection from "@/components/LessonFromAnotherSection.vue"
+import MasterCourseRequest from "@/components/MasterCourseRequest.vue"
+import NormalTicket from "@/components/NormalTicket.vue"
+import EditTeacher from "@/components/EditTeacher.vue"
+import AddCourse from "@/components/AddCourse.vue"
+import AddStudent from "@/components/AddStudent.vue"
+
 export default {
-  components: true,
+  components: {
+    TicketsTable,
+    ChooseTicket,
+    CapacityIncrease,
+    ChangeClassTime,
+    ChangeExamTime,
+    CourseFromAnotherOrientation,
+    LessonFromAnotherSection,
+    MasterCourseRequest,
+    NormalTicket,
+    EditTeacher,
+    AddCourse,
+    AddStudent
+  },
   data (){
     return {
       CapacityIncrease:false,
@@ -46,7 +77,12 @@ export default {
       CourseFromAnotherOrientation:false,
       LessonFromAnotherSection:false,
       MasterCourseRequest:false,
-      NormalTicket:false
+      NormalTicket:false,
+
+
+      EditTeacher:false,
+      AddCourse:false,
+      AddStudent:false
     }
   },
   

@@ -36,8 +36,27 @@
 </template>
 
 <script>
+import TicketsTable from "@/components/TicketsTable.vue"
+import ChooseTicket from "@/components/ChooseTicket.vue"
+import CapacityIncrease from "@/components/CapacityIncrease.vue"
+import ChangeClassTime from "@/components/ChangeClassTime.vue"
+import ChangeExamTime from "@/components/ChangeExamTime.vue"
+import CourseFromAnotherOrientation from "@/components/CourseFromAnotherOrientation.vue"
+import LessonFromAnotherSection from "@/components/LessonFromAnotherSection.vue"
+import MasterCourseRequest from "@/components/MasterCourseRequest.vue"
+import NormalTicket from "@/components/NormalTicket.vue"
 export default {
-  components: true,
+  components: {
+    TicketsTable,
+    ChooseTicket,
+    CapacityIncrease,
+    ChangeClassTime,
+    ChangeExamTime,
+    CourseFromAnotherOrientation,
+    LessonFromAnotherSection,
+    MasterCourseRequest,
+    NormalTicket
+  },
   data (){
     return {
       CapacityIncrease:false,

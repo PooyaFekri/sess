@@ -87,15 +87,7 @@ export default {
                     error: colors.deepOrange.accent4,
                     success: colors.green.accent3
                 },
-                light: {
-                    primary: colors.shades.white,
-                    accent: colors.red,
-                    secondary: colors.shades.white,
-                    info: colors.shades.white,
-                    warning: colors.red,
-                    error: colors.red,
-                    success: colors.shades.white
-                }
+                
             },
         }
     },

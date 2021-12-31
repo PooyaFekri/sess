@@ -3,21 +3,21 @@
         
       <v-card width="100%" justify="center" style="background: #DCE4EB;">
           <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
-          {{tableTitle}}
+          لیست دروس
           </v-card-title>
           <v-row justify="center">
               <v-col cols="11">
                   <v-data-table 
-                      :headers="headers"
-                      :items="courses"
+                      :headers="headrs"
+                      :items="items"
                       sort-by="rowNum"
-                      class="elevation-1 mb-3"  
-                      :show-select='show-select'              
+                      class="elevation-1 mb-3"
+                      show-select
+                      v-model='selects'
+                      item-key="rowNum"
+                      loading
+                      loading-text="در حال دریافت اطلاعات"      
                   >
-
-
-                    <slot name='action'>
-                    </slot>
                   </v-data-table>
               </v-col>
           </v-row>
@@ -34,27 +34,28 @@
               </v-btn>
             </v-col>           
           </v-row>            -->
+          <v-card-actions class="justify-center">
+            <v-btn dark>
+              ثبت دروس انتخاب شده
+            </v-btn>
+          </v-card-actions>
       </v-card>
       
-
-        
     </v-container>
 
 </template>
 
 <script>
 
-
 export default {
-    props: ['tableTitle', 'headers', 'show-select'],
     data() {
         return {
-            studHeader: [
+            headrs: [
                 { text: 'ردیف', align: 'start', value: 'rowNum', },
-                { text: 'نام درس', value: 'ticketType', sortable: false  },
-                { text: 'نام گرایش', value: 'date', sortable: false},
-                { text: 'تعداد واحد', value: 'status', sortable: false },
-                { text: 'Actions', value: 'actions', sortable: false }
+                { text: 'نام درس', value: 'courseName', sortable: false  },
+                { text: 'نام گرایش', value: 'orientationName', sortable: false},
+                { text: 'تعداد واحد', value: 'uniteNumber', sortable: false },
+                { text: 'نام استاد', value: 'professorName', sortable: false},
             ],
             // studHeader: [
             //     { text: 'ردیف', align: 'start', value: 'rowNum', },
@@ -65,18 +66,12 @@ export default {
             //     { text: 'Actions', value: 'actions', sortable: false }
             // ],
 
-            courses: [
-                {
-
-                }
+            selects: [
+              
             ],
-            dialogFlag: false,
-            current_ticket: null,
-            comments: [],
-            number_of_steps: 0,        
-            steps: [],
-            current_step: 0,
-
+            items : [
+            ],
+            loading: true
             
         }
     },
@@ -91,9 +86,11 @@ export default {
     },
 
     mounted() {
-      console.log(this.role)
+      this.getItems();
     },
-
+    updated(){
+      console.log(this.selects);
+    },
 
     methods: {
       
@@ -105,6 +102,25 @@ export default {
           return this.nonStudHeader
         }
         // return this.nonStudHeader
+      },
+      async getItems(){
+        try{
+          const res = await this.$axios.$get('/get-permitted-course');
+          // this.loading = false
+          let rowNum = 1;
+          res.data.forEach(element => {
+            this.items.push({
+                rowNum: rowNum++,
+                courseName: element.course_name,
+                orientationName: element.orientation,
+                uniteNumber: element.unit_numbers,
+                professorName : element.name_professor,
+                id_permitted_course: element.id_permitted_course
+            })
+          });
+        }catch (e){
+          console.log(e.response.data.status);
+        }
       }
       
     }

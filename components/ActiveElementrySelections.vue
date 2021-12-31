@@ -2,7 +2,7 @@
   <v-container>
     <v-card width="100%" justify="center" style="background: #dce4eb">
       <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
-        لیست دروس کارشناسی
+        لیست انتخاب واحد‌های فعال
       </v-card-title>
       <v-row justify="center">
         <v-col cols="11">

@@ -11,7 +11,6 @@
             :items="items"
             sort-by="rowNum"
             class="elevation-1 mb-3"
-            item-key="item.name"
           >
             <template v-slot:[`item.actions`]="{ item }">
               <v-icon color="black" small @click="viewTicket(item)">

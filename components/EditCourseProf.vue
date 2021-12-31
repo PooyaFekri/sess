@@ -1,9 +1,9 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="show" width="700">
-      <!--<template v-slot:activator="{ on, attrs }">
-        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">درخواست افزایش ظرفیت</v-btn>
-      </template>-->
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">{{selected_ticket_name}}</v-btn>
+      </template>
 
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
@@ -18,7 +18,7 @@
           <v-row class="mb-n12 " justify="center">
             <v-col cols="5" >
               <v-text-field
-              :value="course"
+              :value="item.course_name"
               solo 
               label="نام درس" 
               clearable 
@@ -29,7 +29,7 @@
             </v-col>
             <v-col cols="5" >
               <v-text-field 
-              :value="course"
+              :value="item.orientation"
               solo 
               label="گرایش" 
               clearable 
@@ -42,7 +42,7 @@
           <v-row class="justify-center mb-n16">  
             <v-col cols="5" class="mr-n1">
               <v-text-field
-                :value="course"
+                :value="item.course_units"
                 solo 
                 label="تعداد واحد" 
                 clearable 
@@ -55,7 +55,7 @@
               <v-select
                 v-model="prerequisites"
                 color="#3F505E" 
-                :items="prerequisites"
+                :items="item.prerequisites"
                 chips
                 label="لیست پیش نیاز ها"
                 readonly
@@ -71,6 +71,8 @@
                 v-model="teacher"
                 color="#3F505E" 
                 :items="teachers"
+                :item-text="(prof) => `${prof.fname} ${prof.lname}`"
+                item-value="id"
                 label="نام استاد" 
                 solo
               ></v-select>
@@ -79,7 +81,7 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="show = false">افزودن</v-btn>
+          <v-btn text class="terminate_ticket mb-3" @click="editProfs">ویرایش</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -91,7 +93,13 @@
 export default {
   // TODO: add upload and download files
   props:{
-    visible:{type:Boolean}
+    visible:{type:Boolean},
+    item:{
+      type:Object,
+      default:() => {
+        
+      }
+    }
   },
   data () {
     return {
@@ -99,7 +107,6 @@ export default {
       course:"",
       orientation:"",
       course_units:"",
-      prerequisites:['sdfsf','sdfsdf','sdfsd'],
       teachers: [],
       teacher:""
     }
@@ -114,23 +121,52 @@ export default {
           this.$emit('close');
         }
       }
+    },
+    prerequisites:{
+      get(){
+        return ['sdfsf','sdfsdf','sdfsd'];
+        // return this.item.prerequisites;
+      }
     }
   },
   async mounted() {
-    await this.getCourses();
+    await this.getCourseProf();
+    await this.getPrerequisites();
+    await this.getProfs();
   },
   methods: {
-    async getCourses() {
+    getCourseProf() {
       try {
-        const courses = await this.$axios.$get('/get-courses');
-        this.courses = courses;
+        // const courseProf = await this.$axios.$get('/get-courses');
+        // this.course = courseProf.course;
+        // this.orientation = courseProf.orientation;
+        // this.course_units = courseProf.course_units;
+        // this.prerequisites = courseProf.prerequisites;
+        // this.teacher = courseProf.teacher;
       } catch (error) {
         console.log(error);
       }
     },
-    prerequisitesText(prerequisites){
-      return `${prerequisites.name_orientation}`;
+    getPrerequisites() {
+      try {
+        // const prerequisites = await this.$axios.$get('/');
+        // this.prerequisites = prerequisites;
+      } catch (error) {
+        console.log(error);
+      }
     },
+    async getProfs() {
+      try {
+        const profs = await this.$axios.$get('/get-professors');
+        this.teachers = profs;
+        console.log(profs);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    editProfs(){
+      this.show = false;
+    }
     
   }
 };

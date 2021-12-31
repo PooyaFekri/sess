@@ -1,5 +1,4 @@
 import colors from 'vuetify/es5/util/colors'
-import fa from 'vuetify/lib/locale/fa'
 
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head

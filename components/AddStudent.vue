@@ -49,6 +49,7 @@
             <v-col cols="5">
               <v-text-field
                 v-model="password"
+                type="password"
                 color="#3F505E"
                 clearable
                 label="کلمه عبور" 

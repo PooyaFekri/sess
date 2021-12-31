@@ -53,8 +53,14 @@
                     
                   </v-card-text>
 
+                  <v-row v-if="ticket_type === 'other'" class="mb-2">
+                    <v-col cols="12">
+                      <v-spacer>
+                      </v-spacer>
+                    </v-col>
+                  </v-row>
                   <!-- stepper -->                  
-                  <v-card-text class="justify-center">
+                  <v-card-text v-if="ticket_type !== 'other'" class="justify-center">
                     <v-row >
                       <v-col cols="12">
                       <v-stepper  alt-labels style="background: transparent; border: none;" outlined light  >
@@ -270,6 +276,7 @@ export default {
             ticket_subject: '',
             ticket_status_text: '',
             ticket_status_number: '',
+            ticket_type: '',
             
         }
     },
@@ -323,10 +330,15 @@ export default {
       viewTicket(ticket){
 
         this.dialogFlag = true;
+        this.ticket_type = ticket.ticketObject.type_ticket;
         this.current_ticket = ticket.ticketObject;
-        this.steps = ticket.ticketObject.all_steps;        
-        this.number_of_steps = Object.keys(this.steps).length;
-        this.current_step = Object.keys(this.current_ticket.current_step)[0];
+
+        // tickets
+        if(this.ticket_type !== 'other'){
+          this.steps = ticket.ticketObject.all_steps;        
+          this.number_of_steps = Object.keys(this.steps).length;
+          this.current_step = Object.keys(this.current_ticket.current_step)[0];
+        }
         
         // comments
         const commentsLength = Object.keys(this.current_ticket.descriptions).length;
@@ -342,7 +354,10 @@ export default {
         this.ticket_status_text = this.checkStatus(this.current_ticket.status_step)
         this.ticket_status_number = this.current_ticket.status_step
         
-        console.log(this.comments);
+
+        
+        // console.log(this.ticket_type);
+        // console.log(this.comments);
         // console.log(Object.values(this.steps)[0]);
         // console.log(Object.keys(this.current_ticket.current_step)[0]);
         // this.comments = ticket.ticketObject.descriptions;
@@ -433,6 +448,8 @@ export default {
             return " درخواست درس دانشجویان ارشد از بخش دیگر"; 
           case 'class_change_time': 
             return "درخواست تغییر ساعت کلاس";
+          case 'other':
+            return "متفرقه";
         }
       },
       
@@ -443,7 +460,6 @@ export default {
         else {
           return this.nonStudHeader
         }
-        // return this.nonStudHeader
       }
       
     }

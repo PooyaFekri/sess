@@ -57,7 +57,7 @@
       </template>
 
       <template>
-        <v-row style="height: 30%">
+        <v-row style="height: 25%">
           <v-spacer></v-spacer>
         </v-row>
       </template>

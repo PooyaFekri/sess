@@ -115,13 +115,13 @@ export default {
         case 3:
           this.CourseFromAnotherOrientation = true;
           break;
+        // case 4:
+        //   this.LessonFromAnotherSection = true;
+        //   break;
         case 4:
-          this.LessonFromAnotherSection = true;
-          break;
-        case 5:
           this.MasterCourseRequest = true;
           break;
-        case 6:
+        case 5:
           this.NormalTicket = true;
           break;
         default:

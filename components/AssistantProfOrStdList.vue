@@ -8,7 +8,7 @@
         <v-col cols="11">
           <v-data-table
             :headers="headers"
-            :items="type === 'bachelor' ? bachelorItems : masterItems"
+            :items="items"
             sort-by="rowNum"
             class="elevation-1 mb-3"
             item-key="item.name"
@@ -24,7 +24,7 @@
                   mdi-pencil
                 </v-icon>
 
-                <v-icon color="black" small @click="deleteCourse(item)">
+                <v-icon color="black" small @click="deleteItem(item)">
                   mdi-delete
                 </v-icon>
               </v-row>
@@ -72,13 +72,18 @@ export default {
   },
   data() {
     return {
-      headers: [
+      stdHeadrs: [
         { text: 'ردیف', align: 'start', value: 'rowNum' },
-        { text: 'نام درس', value: 'courseName', sortable: false },
-        { text: 'نام گرایش', value: 'orientationName', sortable: false },
-        { text: 'تعداد واحد', value: 'uniteNumber', sortable: false },
-        { text: 'نام استاد', value: 'professorName', sortable: false },
-        { text: 'تعداد دانشجو‌ها', value: 'takenNumber', sortable: false },
+        { text: 'نام دانشجو', value: 'stdName', sortable: false },
+        { text: 'شماره دانشجویی', value: 'stdNum', sortable: false },
+        { text: 'سال ورود', value: 'entryYear', sortable: false },
+        { text: 'مقطع', value: 'section', sortable: false },
+        { text: 'Actions', value: 'actions', sortable: false },
+      ],
+      profHeaders: [
+        { text: 'ردیف', align: 'start', value: 'rowNum' },
+        { text: 'نام استاد', value: 'profName', sortable: false },
+        { text: 'ایمیل', value: 'email', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       // studHeader: [
@@ -107,74 +112,30 @@ export default {
     },
 
     items() {
-      return this.type === 'bachelor' ? this.bachelorItems : this.masterItems
+      return this.type === 'std'
+        ? this.$store.getters['assistant/students']
+        : this.$store.getters['assistant/profs']
+      // console.log(this.type);
+      // return this.$store.getters['assistant/students']
+    },
+    headers() {
+      return this.type === 'std' ? this.stdHeadrs : this.profHeaders
     },
   },
 
   async mounted() {
-    await this.getItems()
   },
-  updated() {
-    console.log(this.selects)
-  },
+  updated() {},
 
   methods: {
-    async getItems() {
-      this.bachelorItems = []
-      this.masterItems = []
-      try {
-        const res = await this.$axios.$get('/get-permitted-course')
-        // this.loading = false
-        let rowNum = 1
-        res.data.forEach((element) => {
-          if (
-            element.course_section === this.type &&
-            this.type === 'bachelor'
-          ) {
-            this.bachelorItems.push({
-              rowNum: rowNum++,
-              courseName: element.course_name,
-              orientationName: element.orientation,
-              uniteNumber: element.unit_numbers,
-              professorName: element.name_professor,
-              id_permitted_course: element.id_permitted_course,
-              takenNumber: element.number_get_it_in_initial_course_this_term,
-              courseSection: element.course_section,
-            })
-          } else if (
-            element.course_section === this.type &&
-            this.type === 'master'
-          ) {
-            this.masterItems.push({
-              rowNum: rowNum++,
-              courseName: element.course_name,
-              orientationName: element.orientation,
-              uniteNumber: element.unit_numbers,
-              professorName: element.name_professor,
-              id_permitted_course: element.id_permitted_course,
-              takenNumber: element.number_get_it_in_initial_course_this_term,
-              courseSection: element.course_section,
-            })
-          }
-        })
-      } catch (e) {
-        console.log(e.response.data.status)
+
+    deleteItem(item){
+      if (this.type === 'std'){
+        
+      }else{
+
       }
-    },
-    async deleteCourse(item) {
-      if (confirm(`آيا از حذف درس  ${item.courseName} مطمئن هستید؟`)) {
-        try{
-          await this.$axios.$post('/delete-permitted-course', {
-            permitted_course_id: item.id_permitted_course,
-          })
-          this.$root.appSnackbar.show({message: `درس با موفقیت حذف شد.`})
-          await this.getItems();
-        }
-        catch (e){
-          console.log(e.response.data.message);
-        }
-      }
-    },
+    }
   },
 }
 </script>

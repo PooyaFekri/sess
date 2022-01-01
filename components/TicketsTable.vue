@@ -53,30 +53,36 @@
                     
                   </v-card-text>
 
-                  <!-- stepper -->
-                  <v-card-text class="justify-center">
+                  <v-row v-if="ticket_type === 'other'" class="mb-2">
+                    <v-col cols="12">
+                      <v-spacer>
+                      </v-spacer>
+                    </v-col>
+                  </v-row>
+                  <!-- stepper -->                  
+                  <v-card-text v-if="ticket_type !== 'other'" class="justify-center">
                     <v-row >
                       <v-col cols="12">
-                      <v-stepper  alt-labels style="background: transparent; border: none;" outlined >
+                      <v-stepper  alt-labels style="background: transparent; border: none;" outlined light  >
                         <v-stepper-header>
-                          <template v-for="(n,index) in steps">
+                          <template v-for="(n,index) in steps">                            
                             <v-stepper-step
-                            
+                              :rules="[() => !(ticket_status_number===4 && current_step===index)]"                                                     
                               :key="`${index}-step`"
                               :step="`${index}`"
-                              complete-icon="$complete"
                               :complete="(current_step > index) || (ticket_status_number === 7)"
                               color="#366991"
                               style="font-size: 1em"
                             >
                                 {{ n }}
                             </v-stepper-step>
-
+                            
                             <v-divider
                               v-if="(index < number_of_steps-1)"
                               :key="`${index}-divider`"
                             ></v-divider>
                           </template>
+                                  
                         </v-stepper-header>                        
                       </v-stepper>
                       </v-col>
@@ -95,7 +101,6 @@
                             </v-card> -->
 
                             <v-textarea
-                              v-model="description"
                               disabled
                               :placeholder="comment"
                               class="pt-5 pr-2 mb-n16 mt-n3"
@@ -271,6 +276,7 @@ export default {
             ticket_subject: '',
             ticket_status_text: '',
             ticket_status_number: '',
+            ticket_type: '',
             
         }
     },
@@ -324,25 +330,35 @@ export default {
       viewTicket(ticket){
 
         this.dialogFlag = true;
+        this.ticket_type = ticket.ticketObject.type_ticket;
         this.current_ticket = ticket.ticketObject;
-        this.steps = ticket.ticketObject.all_steps;        
-        this.number_of_steps = Object.keys(this.steps).length;
-        this.current_step = Object.keys(this.current_ticket.current_step)[0];
+
+        // tickets
+        if(this.ticket_type !== 'other'){
+          this.steps = ticket.ticketObject.all_steps;        
+          this.number_of_steps = Object.keys(this.steps).length;
+          this.current_step = Object.keys(this.current_ticket.current_step)[0];
+        }
         
         // comments
         const commentsLength = Object.keys(this.current_ticket.descriptions).length;
         this.comments = []
-        this.comments[0] = ticket.ticketObject.message;      
+        this.comments[0] = 'دانشجو : ' + ticket.ticketObject.message;      
         for (let i = 0; i < commentsLength; i++ ){
-          this.comments[i+1] = Object.values(this.current_ticket.descriptions)[i];
+          if(Object.values(this.current_ticket.descriptions)[i] !== null && Object.values(this.current_ticket.descriptions)[i] !== ""){
+            this.comments.push(Object.values(this.steps)[i+1] + " : " + Object.values(this.current_ticket.descriptions)[i]);
+          }
         }
         
         this.ticket_subject = this.current_ticket.course;
         this.ticket_status_text = this.checkStatus(this.current_ticket.status_step)
         this.ticket_status_number = this.current_ticket.status_step
-           
+        
 
-
+        
+        // console.log(this.ticket_type);
+        // console.log(this.comments);
+        // console.log(Object.values(this.steps)[0]);
         // console.log(Object.keys(this.current_ticket.current_step)[0]);
         // this.comments = ticket.ticketObject.descriptions;
         // this.comments = ticket.message;
@@ -402,23 +418,7 @@ export default {
           console.log(error);
         }
         this.dialogFlag = false;
-      },
-
-        // async rejectTicket(){
-        //   const body = {
-        //     step: 'reject',
-        //     message:"رد شد",
-        //     id_ticket: this.current_ticket.id,
-        //   }
-        //   try{
-        //     const {data} = await this.$axios.post('/step-ticket', body);
-        //     console.log(data);
-        //   }
-        //   catch(error){
-        //     console.log(error);
-        //   }
-        //   this.dialogFlag = false;
-        // },
+      },      
 
       async finishTicket(){
         const body = {
@@ -448,6 +448,8 @@ export default {
             return " درخواست درس دانشجویان ارشد از بخش دیگر"; 
           case 'class_change_time': 
             return "درخواست تغییر ساعت کلاس";
+          case 'other':
+            return "متفرقه";
         }
       },
       
@@ -458,7 +460,6 @@ export default {
         else {
           return this.nonStudHeader
         }
-        // return this.nonStudHeader
       }
       
     }

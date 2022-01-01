@@ -20,7 +20,8 @@
               <v-text-field
                 v-model="subject"
                 solo
-                :label="selected_ticket_name"
+                disabled
+                label="متفرقه"
                 clearable
                 color="#3F505E"
               ></v-text-field>
@@ -174,7 +175,7 @@ export default {
       console.log(`${this.course}`);
       const body = {
         receiver_id : this.receiver,
-        subject : this.subject,
+        subject : 'other',
         description: this.description,
         course_id : this.orientation
       }

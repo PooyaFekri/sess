@@ -7,9 +7,13 @@
       </v-col>
     </v-row>
 
-    <EditTeacher :visible="EditTeacher" @close="EditTeacher=false"/>
+    <EditCourseProf :visible="EditCourseProf" :item="{}" @close="EditCourseProf=false"/>
     <AddCourse :visible="AddCourse" @close="AddCourse=false"/>
     <AddStudent :visible="AddStudent" @close="AddStudent=false"/>
+    <AddProfessor :visible="AddProfessor" @close="AddProfessor=false" />
+    <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="false" @close="AddCourseToElementary=false" />
+    <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="true" @close="AddCourseToElementary=false" />
+
 
 
     <ChooseTicket v-if="role === 'student'" justify="end" @ticket-selected="ticketHandler" />
@@ -50,9 +54,10 @@ import CourseFromAnotherOrientation from "@/components/CourseFromAnotherOrientat
 import LessonFromAnotherSection from "@/components/LessonFromAnotherSection.vue"
 import MasterCourseRequest from "@/components/MasterCourseRequest.vue"
 import NormalTicket from "@/components/NormalTicket.vue"
-import EditTeacher from "@/components/EditTeacher.vue"
+import EditCourseProf from "@/components/EditCourseProf.vue"
 import AddCourse from "@/components/AddCourse.vue"
 import AddStudent from "@/components/AddStudent.vue"
+import AddCourseToElementary from "@/components/AddCourseToElementary.vue"
 
 export default {
   components: {
@@ -65,9 +70,11 @@ export default {
     LessonFromAnotherSection,
     MasterCourseRequest,
     NormalTicket,
-    EditTeacher,
+
+    EditCourseProf,
     AddCourse,
-    AddStudent
+    AddStudent,
+    AddCourseToElementary
   },
   data (){
     return {
@@ -80,9 +87,11 @@ export default {
       NormalTicket:false,
 
 
-      EditTeacher:false,
+      EditCourseProf:false,
       AddCourse:false,
-      AddStudent:false
+      AddStudent:false,
+      AddProfessor:false,
+      AddCourseToElementary:false,
     }
   },
   
@@ -115,13 +124,13 @@ export default {
         case 3:
           this.CourseFromAnotherOrientation = true;
           break;
+        // case 4:
+        //   this.LessonFromAnotherSection = true;
+        //   break;
         case 4:
-          this.LessonFromAnotherSection = true;
-          break;
-        case 5:
           this.MasterCourseRequest = true;
           break;
-        case 6:
+        case 5:
           this.NormalTicket = true;
           break;
         default:

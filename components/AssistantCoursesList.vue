@@ -18,8 +18,8 @@
                 <v-icon
                   color="black"
                   small
-                  @click="editCourseProf=true"
                   class="mx-2"
+                  @click="editCourseProf=true"
                 >
                   mdi-pencil
                 </v-icon>
@@ -31,10 +31,24 @@
             </template>
           </v-data-table>
 
-          <v-row >
+          <v-row>
             <v-col>
+              
               <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="type==='master' ? true : false" @close="AddCourseToElementary=false" />
               <EditCourseProf :visible="editCourseProf" :item="{}" @close="editCourseProf=false"/>
+            </v-col>
+          </v-row>
+          <v-row justify="end">
+            <v-col>
+              <v-btn icon class="add_ticket_btn">
+                <v-icon           
+                  circle
+                  color="white"
+                  @click="AddCourseToElementary=true"                            
+                >
+                  mdi-plus
+                </v-icon>
+              </v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -45,7 +59,10 @@
 
 <script>
 export default {
-  props: ['title', 'type'],
+  props: {
+    title:{type:String, default: () => ""}, 
+    type:{type:String, default: () => ""}
+  },
   data() {
     return {
       headrs: [
@@ -70,6 +87,7 @@ export default {
       bachelorItems: [],
       masterItems: [],
       editCourseProf: false,
+      AddCourseToElementary:false
 
     }
   },

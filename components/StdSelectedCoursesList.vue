@@ -7,7 +7,7 @@
       <v-row justify="center">
         <v-col cols="11">
           <v-data-table
-            :headers="headrs"
+            :headers="headers"
             :items="items"
             sort-by="rowNum"
             class="elevation-1 mb-3"
@@ -28,7 +28,7 @@
 export default {
   data() {
     return {
-      headrs: [
+      headers: [
         { text: 'ردیف', align: 'start', value: 'rowNum' },
         { text: 'نام درس', value: 'courseName', sortable: false },
         { text: 'نام گرایش', value: 'orientationName', sortable: false },

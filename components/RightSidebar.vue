@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-navigation-drawer
-      absolute
       permanent
       right
       app
@@ -57,14 +56,14 @@
       </template>
 
       <template>
-        <v-row style="height: 25%">
+        <v-row style="height: 10%">
           <v-spacer></v-spacer>
         </v-row>
       </template>
 
       <template>
         <v-row justify="start">
-          <v-col cols="7" class="mr-10">
+          <v-col class="mr-4" cols="7">
             <v-list dense>
               <v-list-item @click="logout" class="v-clickable" justify="center">
                 <v-list-item-icon>
@@ -177,7 +176,12 @@ export default {
             icon: 'mdi-account-group-outline',
             link: 'elementray-selection',
           },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
+          {
+            title: 'لیست دروس',
+            icon: 'mdi-account-group-outline',
+            link: 'course-list',
+          },
+          { title: 'دانشحویان و اساتید', icon: 'mdi-account', link: 'std-prof-list' },
           {
             title: 'تیکت',
             icon: 'mdi-account-group-outline',

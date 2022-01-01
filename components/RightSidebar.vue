@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-navigation-drawer
-      absolute
       permanent
       right
       app
@@ -116,6 +115,11 @@ export default {
         ],
         professor: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
+          {
+            title: 'انتخاب واحد مقدماتی',
+            icon: 'mdi-account-group-outline',
+            link: 'elementray-selection',
+          },
           { title: 'چارت', icon: 'mdi-account', link: '' },
           {
             title: 'تیکت',
@@ -191,7 +195,12 @@ export default {
             icon: 'mdi-account-group-outline',
             link: 'elementray-selection',
           },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
+          {
+            title: 'لیست دروس',
+            icon: 'mdi-account-group-outline',
+            link: 'course-list',
+          },
+          { title: 'دانشحویان و اساتید', icon: 'mdi-account', link: 'std-prof-list' },
           {
             title: 'تیکت',
             icon: 'mdi-account-group-outline',

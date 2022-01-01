@@ -38,8 +38,9 @@
               <EditCourseProf :visible="editCourseProf" :item="{}" @close="editCourseProf=false"/>
             </v-col>
           </v-row>
+          
           <v-row justify="end">
-            <v-col>
+            <v-col cols="1">
               <v-btn icon class="add_ticket_btn">
                 <v-icon           
                   circle

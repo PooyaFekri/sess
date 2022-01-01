@@ -57,14 +57,28 @@
       </template>
 
       <template>
-        <v-row style="height: 25%">
+        <v-row style="height: 15%">
           <v-spacer></v-spacer>
         </v-row>
       </template>
 
       <template>
-        <v-row justify="start">
-          <v-col cols="7" class="mr-10">
+        <v-row justify="center" v-if="role==='student'">
+          <v-col cols="10" class="mr-5">            
+            <v-list dense>
+              <v-list-item @click="gotoPage('changePassword')" class="v-clickable" justify="center">
+                <v-list-item-icon>
+                  <v-icon class="sidebar_text">mdi-lock-reset</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content class="sidebar_text">
+                  <p>تغییر کلمه عبور</p>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-col>
+        </v-row>
+        <v-row justify="center" class="mt-n8">
+          <v-col cols="7" >
             <v-list dense>
               <v-list-item @click="logout" class="v-clickable" justify="center">
                 <v-list-item-icon>
@@ -208,6 +222,7 @@ export default {
         advisers_supervisors: 'استاد مشاور،استاد راهنما',
         educationAssistants: 'کارشناس بخش',
         departmentHead: 'رئیس بخش',
+        studentEditPasswordDialog: false,
       },
     }
   },

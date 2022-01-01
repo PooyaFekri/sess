@@ -15,7 +15,7 @@
         </v-card-title>
 
         <v-container>
-          <v-row class="mb-n12 " justify="center">
+          <v-row class="mb-n13" justify="center">
             <v-col cols="5" >
               <v-text-field
               :value="item.course_name"
@@ -39,7 +39,7 @@
               </v-text-field>
             </v-col>
           </v-row>
-          <v-row class="justify-center mb-n16">  
+          <v-row class="justify-center mb-n13">  
             <v-col cols="5" class="mr-n1">
               <v-text-field
                 :value="item.course_units"
@@ -65,7 +65,7 @@
             </v-col>
           </v-row>
 
-          <v-row class="justify-center">
+          <v-row class="justify-center mb-n6">
             <v-col cols="10">
               <v-select
                 v-model="teacher"

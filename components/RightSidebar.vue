@@ -106,12 +106,12 @@ export default {
             icon: 'mdi-account-group-outline',
             link: 'elementray-selection',
           },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         professor: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
@@ -120,106 +120,99 @@ export default {
             icon: 'mdi-account-group-outline',
             link: 'elementray-selection',
           },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
         ],
         responsibleTrainings: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         advisers: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         supervisors: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         advisers_supervisors: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         educationAssistants: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
           {
             title: 'انتخاب واحد مقدماتی',
-            icon: 'mdi-account-group-outline',
+            icon: 'mdi-book-edit-outline',
             link: 'elementray-selection',
           },
           {
             title: 'لیست دروس',
-            icon: 'mdi-account-group-outline',
+            icon: 'mdi-clipboard-list-outline',
             link: 'course-list',
           },
-          { title: 'دانشحویان و اساتید', icon: 'mdi-account', link: 'std-prof-list' },
-          {
-            title: 'تیکت',
+          { 
+            title: 'دانشحویان و اساتید',
             icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
+            link: 'std-prof-list'
           },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-progress-wrench',
+          //   link: 'TicketTable',
+          // },
         ],
         departmentHead: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
         ],
       },
       persianRoleTitles: {

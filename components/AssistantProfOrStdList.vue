@@ -24,9 +24,9 @@
                   mdi-pencil
                 </v-icon>
 
-                <v-icon color="black" small @click="deleteItem(item)">
+                <!-- <v-icon color="black" small @click="deleteItem(item)">
                   mdi-delete
-                </v-icon>
+                </v-icon> -->
               </v-row>
             </template>
           </v-data-table>
@@ -129,13 +129,34 @@ export default {
 
   methods: {
 
-    deleteItem(item){
-      if (this.type === 'std'){
-        
-      }else{
-
-      }
-    }
+    // deleteItem(item){
+    //   if (this.type === 'std'){
+    //     if (confirm(`آيا از حذف دانشجوی ${item.stdNum} مطمئن هستید؟`)) {
+    //     try{
+    //       await this.$axios.$post('/delete-permitted-course', {
+    //         permitted_course_id: item.id_permitted_course,
+    //       })
+    //       this.$root.appSnackbar.show({message: `درس با موفقیت حذف شد.`})
+    //       await this.getItems();
+    //     }
+    //     catch (e){
+    //       console.log(e.response.data.message);
+    //     }
+    //   }
+    //   }else{
+    //     if (confirm(`آيا از حذف استاد ${item.email} مطمئن هستید؟`)) {
+    //     try{
+    //       await this.$axios.$post('/delete-permitted-course', {
+    //         permitted_course_id: item.id_permitted_course,
+    //       })
+    //       this.$root.appSnackbar.show({message: `درس با موفقیت حذف شد.`})
+    //       await this.getItems();
+    //     }
+    //     catch (e){
+    //       console.log(e.response.data.message);
+    //     }
+    //   }
+    // }
   },
 }
 </script>

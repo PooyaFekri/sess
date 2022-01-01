@@ -58,8 +58,8 @@
               
             </v-col>
           </v-row>
-          <v-row>
-            <v-col cols="10">
+          <v-row justify="center">
+            <v-col cols="3" class="mr-16 mb-3">
                 <v-checkbox
                     v-model="headOfDepartment"
                     label="رییس بخش"

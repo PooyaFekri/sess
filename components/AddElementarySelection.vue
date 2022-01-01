@@ -53,7 +53,7 @@
 
             
           </v-row>
-          <v-row>
+          <v-row justify="center" class="mt-5 mb-5">
             <v-col cols="5">
               <p>تاریخ شروع:</p>
               <client-only>

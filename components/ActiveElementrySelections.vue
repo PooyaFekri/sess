@@ -11,19 +11,7 @@
             :items="items"
             sort-by="rowNum"
             class="elevation-1 mb-3"
-            item-key="item.name"
           >
-            <template v-slot:[`item.actions`]="{ item }">
-              <v-row>
-                <v-icon color="black" small @click="viewTicket(item)" class="mx-2">
-                  mdi-pencil
-                </v-icon>
-
-                <v-icon color="black" small @click="viewTicket(item)">
-                  mdi-delete
-                </v-icon>
-              </v-row>
-            </template>
           </v-data-table>
         </v-col>
       </v-row>
@@ -37,12 +25,11 @@ export default {
     return {
       headrs: [
         { text: 'ردیف', align: 'start', value: 'rowNum' },
-        { text: 'نام درس', value: 'courseName', sortable: false },
-        { text: 'نام گرایش', value: 'orientationName', sortable: false },
-        { text: 'تعداد واحد', value: 'uniteNumber', sortable: false },
-        { text: 'نام استاد', value: 'professorName', sortable: false },
-        { text: 'تعداد دانشجو‌ها', value: 'takenNumber', sortable: false},
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'سال تحصیلی', value: 'educatoinYear', sortable: false },
+        { text: 'مقطع', value: 'section', sortable: false },
+        { text: 'ترم', value: 'term', sortable: false },
+        { text: 'تاریخ شروع', value: 'startDate', sortable: false },
+        { text: 'تاریخ پایان', value: 'endDate', sortable: false},
       ],
       // studHeader: [
       //     { text: 'ردیف', align: 'start', value: 'rowNum', },
@@ -55,14 +42,6 @@ export default {
 
       selects: [],
       items: [
-        {
-          rowNum: '۱',
-          courseName: 'ریاضی مهندسی',
-          orientationName: 'کارشناسی',
-          uniteNumber: '۳',
-          professorName: 'محمد طاهری',
-          takenNumber: '۱۰'
-        },
       ],
     }
   },
@@ -84,14 +63,7 @@ export default {
   },
 
   methods: {
-    getHeaderByRole() {
-      if (this.role === 'student') {
-        return this.studHeader
-      } else {
-        return this.nonStudHeader
-      }
-      // return this.nonStudHeader
-    },
+    
   },
 }
 </script>

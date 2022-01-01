@@ -13,19 +13,40 @@
       </v-row>
     </div>
 
-    <div v-if="role=='educationAssistants'">
+    <div v-if="role == 'educationAssistants'">
       <v-row justify="center" class="mt-1">
         <v-col cols="11">
           <AssistantCoursesList
-          :type="'bachelor'"
-          :title="'لیست دروس کارشناسی'" />
+            :type="'bachelor'"
+            :title="'لیست دروس کارشناسی'"
+          />
         </v-col>
       </v-row>
       <v-row justify="center" class="mt-1">
         <v-col cols="11">
           <AssistantCoursesList
-          :title="'لیست دروس کارشناسی ارشد'"
-          :type="'master'" />
+            :title="'لیست دروس کارشناسی ارشد'"
+            :type="'master'"
+          />
+        </v-col>
+      </v-row>
+    </div>
+
+    <div v-if="role == 'professor'">
+      <v-row justify="center" class="mt-1">
+        <v-col cols="11">
+          <ProElementrySelectionCourses
+            :type="'bachelor'"
+            :title="'لیست دروس کارشناسی'"
+          />
+        </v-col>
+      </v-row>
+      <v-row justify="center" class="mt-1">
+        <v-col cols="11">
+          <ProElementrySelectionCourses
+            :title="'لیست دروس کارشناسی ارشد'"
+            :type="'master'"
+          />
         </v-col>
       </v-row>
     </div>
@@ -36,12 +57,13 @@
 import StdCourseListTable from '~/components/StdCourseListTable.vue'
 import StdSelectedCoursesList from '~/components/StdSelectedCoursesList.vue'
 import AssistantCoursesList from '~/components/AssistantCoursesList.vue'
-
+import ProElementrySelectionCourses from '~/components/ProElementrySelectionCourses.vue'
 export default {
   components: {
     StdCourseListTable,
     AssistantCoursesList,
-    StdSelectedCoursesList
+    StdSelectedCoursesList,
+    ProElementrySelectionCourses,
   },
   data() {
     return {

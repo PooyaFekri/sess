@@ -133,7 +133,9 @@
 export default {
   // TODO: add upload and download files
   props:{
-    visible:{type:Boolean}
+    visible:{type:Boolean},
+    itemObj:{type:Object, default:() => {}},
+    edit:{type:Boolean}
   },
   data () {
         return {
@@ -170,6 +172,7 @@ export default {
     }
   },
   async mounted() {
+    console.log(this.item);
     await this.getProfs();
     await this.getOrientations();
   },

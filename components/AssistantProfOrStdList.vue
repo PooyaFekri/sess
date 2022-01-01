@@ -13,13 +13,13 @@
             class="elevation-1 mb-3"
             item-key="item.name"
           >
-            <template v-slot:[`item.actions`]="{ item }">
+            <template #[`item.actions`]="{ item }">
               <v-row>
                 <v-icon
                   color="black"
                   small
                   class="mx-2"
-                  @click="editCourseProf = true"
+                  @click="editRow(item)"
                 >
                   mdi-pencil
                 </v-icon>
@@ -28,30 +28,34 @@
                   mdi-delete
                 </v-icon> -->
               </v-row>
+              <v-row>
+                <v-col>
+                  <AddProfessor 
+                  v-if="stdOrProf" 
+                  :visible="AddProfessor" 
+                  :item-obj="item" 
+                  :edit="edit"
+                  @close="closeProf"
+                  />
+                  <AddStudent 
+                  v-else 
+                  :visible="AddStudent" 
+                  :item-obj="item"
+                  :edit="edit"
+                  @close="closeStd"
+                  />
+                </v-col>
+              </v-row>
             </template>
           </v-data-table>
 
-          <v-row>
-            <v-col>
-              <AddCourseToElementary
-                :visible="AddCourseToElementary"
-                :masterOrBachelor="type === 'master' ? true : false"
-                @close="AddCourseToElementary = false"
-              />
-              <EditCourseProf
-                :visible="editCourseProf"
-                :item="{}"
-                @close="editCourseProf = false"
-              />
-            </v-col>
-          </v-row>
           <v-row justify="end">
             <v-col>
               <v-btn icon class="add_ticket_btn">
                 <v-icon
                   circle
                   color="white"
-                  @click="AddCourseToElementary = true"
+                  @click="activeComponent"
                 >
                   mdi-plus
                 </v-icon>
@@ -98,8 +102,9 @@ export default {
       selects: [],
       bachelorItems: [],
       masterItems: [],
-      editCourseProf: false,
-      AddCourseToElementary: false,
+      edit: false,
+      AddProfessor: false,
+      AddStudent: false
     }
   },
   computed: {
@@ -121,6 +126,9 @@ export default {
     headers() {
       return this.type === 'std' ? this.stdHeadrs : this.profHeaders
     },
+    stdOrProf(){
+      return this.type === 'prof';
+    }
   },
 
   async mounted() {
@@ -128,7 +136,32 @@ export default {
   updated() {},
 
   methods: {
+    activeComponent(){
+      if (this.type === 'prof')
+        this.AddProfessor = true;
+      else
+        this.AddStudent = true;
 
+      this.edit = false;
+    },
+    editRow(item){
+      this.edit = true;
+      console.log(item);
+      if (this.type === 'prof')
+        this.AddProfessor = true;
+      else 
+        this.AddStudent = true;
+    },
+    closeStd(){
+      this.AddStudent = false;
+      this.edit = false;
+      this.item.action = false;
+    },
+    closeProf(){
+      this.AddProfessor = false;
+      this.edit = false;
+      this.item.action = false;
+    }
     // deleteItem(item){
     //   if (this.type === 'std'){
     //     if (confirm(`آيا از حذف دانشجوی ${item.stdNum} مطمئن هستید؟`)) {

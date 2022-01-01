@@ -11,9 +11,10 @@
             :items="items"
             sort-by="rowNum"
             class="elevation-1 mb-3"
+            :loading="loading"
           >
             <template v-slot:[`item.actions`]="{ item }">
-              <v-icon color="black" small @click="viewTicket(item)">
+              <v-icon color="black" @click="deleteCourse(item)" small>
                 mdi-delete
               </v-icon>
             </template>
@@ -34,7 +35,7 @@ export default {
         { text: 'نام گرایش', value: 'orientationName', sortable: false },
         { text: 'تعداد واحد', value: 'uniteNumber', sortable: false },
         { text: 'نام استاد', value: 'professorName', sortable: false },
-        { text: 'Actions', value: 'actions', sortable: false, },
+        { text: 'Actions', value: 'actions', sortable: false },
       ],
       // studHeader: [
       //     { text: 'ردیف', align: 'start', value: 'rowNum', },
@@ -46,15 +47,7 @@ export default {
       // ],
 
       selects: [],
-      items: [
-        {
-          rowNum: '۱',
-          courseName: 'ریاضی مهندسی',
-          orientationName: 'کارشناسی',
-          uniteNumber: '۳',
-          professorName: 'محمد طاهری',
-        },
-      ],
+      loading: true,
     }
   },
   computed: {
@@ -65,23 +58,33 @@ export default {
     role() {
       return this.user.role.name_role
     },
+    items() {
+      return this.$store.getters['stdCourseList/takenCourses']
+    },
   },
 
-  mounted() {
-    console.log(this.role)
+  async mounted() {
+    await this.$store.dispatch('stdCourseList/getTakenCourses')
+    this.loading = false;
   },
   updated() {
     console.log(this.selects)
   },
 
   methods: {
-    getHeaderByRole() {
-      if (this.role === 'student') {
-        return this.studHeader
-      } else {
-        return this.nonStudHeader
+    async deleteCourse(item) {
+      if (confirm(`آيا از حذف درس  ${item.courseName} مطمئن هستید؟`)) {
+        try {
+          await this.$axios.$post('/delete-initial-course-selection', {
+            id_initial_course_selection: item.id_initial_course_selection,
+          })
+          this.$root.appSnackbar.show({ message: `درس با موفقیت حذف شد.` })
+          await this.$store.dispatch('stdCourseList/getTakenCourses')
+          await this.$store.dispatch('stdCourseList/getCourses')
+        } catch (e) {
+          console.log(e.response.data.message)
+        }
       }
-      // return this.nonStudHeader
     },
   },
 }

@@ -19,12 +19,12 @@
                   color="black"
                   small
                   class="mx-2"
-                  @click="editCourseProf=true"
+                  @click="editCourseProf = true"
                 >
                   mdi-pencil
                 </v-icon>
 
-                <v-icon color="black" small @click="viewTicket(item)">
+                <v-icon color="black" small @click="deleteCourse(item)">
                   mdi-delete
                 </v-icon>
               </v-row>
@@ -33,18 +33,25 @@
 
           <v-row>
             <v-col>
-              
-              <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="type==='master' ? true : false" @close="AddCourseToElementary=false" />
-              <EditCourseProf :visible="editCourseProf" :item="{}" @close="editCourseProf=false"/>
+              <AddCourseToElementary
+                :visible="AddCourseToElementary"
+                :masterOrBachelor="type === 'master' ? true : false"
+                @close="AddCourseToElementary = false"
+              />
+              <EditCourseProf
+                :visible="editCourseProf"
+                :item="{}"
+                @close="editCourseProf = false"
+              />
             </v-col>
           </v-row>
           <v-row justify="end">
             <v-col>
               <v-btn icon class="add_ticket_btn">
-                <v-icon           
+                <v-icon
                   circle
                   color="white"
-                  @click="AddCourseToElementary=true"                            
+                  @click="AddCourseToElementary = true"
                 >
                   mdi-plus
                 </v-icon>
@@ -60,8 +67,8 @@
 <script>
 export default {
   props: {
-    title:{type:String, default: () => ""}, 
-    type:{type:String, default: () => ""}
+    title: { type: String, default: () => '' },
+    type: { type: String, default: () => '' },
   },
   data() {
     return {
@@ -87,8 +94,7 @@ export default {
       bachelorItems: [],
       masterItems: [],
       editCourseProf: false,
-      AddCourseToElementary:false
-
+      AddCourseToElementary: false,
     }
   },
   computed: {
@@ -114,6 +120,8 @@ export default {
 
   methods: {
     async getItems() {
+      this.bachelorItems = []
+      this.masterItems = []
       try {
         const res = await this.$axios.$get('/get-permitted-course')
         // this.loading = false
@@ -133,7 +141,10 @@ export default {
               takenNumber: element.number_get_it_in_initial_course_this_term,
               courseSection: element.course_section,
             })
-          } else if (element.course_section === this.type && this.type === 'master') {
+          } else if (
+            element.course_section === this.type &&
+            this.type === 'master'
+          ) {
             this.masterItems.push({
               rowNum: rowNum++,
               courseName: element.course_name,
@@ -148,6 +159,20 @@ export default {
         })
       } catch (e) {
         console.log(e.response.data.status)
+      }
+    },
+    async deleteCourse(item) {
+      if (confirm(`آيا از حذف درس  ${item.courseName} مطمئن هستید؟`)) {
+        try{
+          await this.$axios.$post('/delete-permitted-course', {
+            permitted_course_id: item.id_permitted_course,
+          })
+          this.$root.appSnackbar.show({message: `درس با موفقیت حذف شد.`})
+          await this.getItems();
+        }
+        catch (e){
+          console.log(e.response.data.message);
+        }
       }
     },
   },

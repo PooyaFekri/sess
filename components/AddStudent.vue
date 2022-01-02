@@ -135,7 +135,7 @@ export default {
   props:{
     visible:{type:Boolean},
     itemObj:{type:Object, default:() => {}},
-    edit:{type:Boolean}
+    edit:{type:Boolean, default: () => false}
   },
   data () {
         return {
@@ -172,7 +172,8 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.item);
+    // setInterval(function () {console.log(`this is item ${this.itemObj}`);}, 1000);
+    // console.log(`this is item ${this.itemObj}`);
     await this.getProfs();
     await this.getOrientations();
   },

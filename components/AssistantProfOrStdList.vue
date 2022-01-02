@@ -28,26 +28,24 @@
                   mdi-delete
                 </v-icon> -->
               </v-row>
-              <v-row>
-                <v-col>
-                  <AddProfessor 
-                  v-if="stdOrProf" 
-                  :visible="AddProfessor" 
-                  :item-obj="item" 
-                  :edit="edit"
-                  @close="closeProf"
-                  />
-                  <AddStudent 
-                  v-else 
-                  :visible="AddStudent" 
-                  :item-obj="item"
-                  :edit="edit"
-                  @close="closeStd"
-                  />
-                </v-col>
-              </v-row>
             </template>
           </v-data-table>
+          <v-row>
+            <v-col>
+              <AddProfessor 
+              v-if="stdOrProf" 
+              :visible="AddProfessor"
+              :item-obj="itemForEdit"
+              @close="closeProf"
+              />
+              <AddStudent 
+              v-else 
+              :visible="AddStudent" 
+              :item-obj="itemForEdit"
+              @close="closeStd"
+              />
+            </v-col>
+          </v-row>
 
           <v-row justify="end">
             <v-col>
@@ -104,7 +102,8 @@ export default {
       masterItems: [],
       edit: false,
       AddProfessor: false,
-      AddStudent: false
+      AddStudent: false,
+      itemForEdit: {}
     }
   },
   computed: {
@@ -146,6 +145,7 @@ export default {
     },
     editRow(item){
       this.edit = true;
+      this.itemForEdit = item;
       console.log(item);
       if (this.type === 'prof')
         this.AddProfessor = true;

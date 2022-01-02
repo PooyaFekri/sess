@@ -26,13 +26,6 @@ export default {
   },
   data() {
     return {
-      CapacityIncrease: false,
-      ChangeClassTime: false,
-      ChangeExamTime: false,
-      CourseFromAnotherOrientation: false,
-      LessonFromAnotherSection: false,
-      MasterCourseRequest: false,
-      NormalTicket: false,
     }
   },
 

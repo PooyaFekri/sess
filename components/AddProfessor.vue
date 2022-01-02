@@ -71,7 +71,8 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="addProf">افزودن</v-btn>
+          <v-btn v-if="!edit" text class="terminate_ticket mb-3" @click="addProf">افزودن</v-btn>
+          <v-btn v-else text class="terminate_ticket mb-3" @click="addProf">ویرایش</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -85,11 +86,10 @@ export default {
   props:{
     visible:{type:Boolean},
     itemObj:{type:Object, default:() => {}},
-    edit:{type:Boolean}
+    edit:{type:Boolean, default: () => false}
   },
   data () {
         return {
-          selected_ticket_name:"افزودن استاد",
           name:"",
           familyName:"",
           email:"",
@@ -107,10 +107,33 @@ export default {
           this.$emit('close');
         }
       }
+    },
+    selected_ticket_name: {
+      get(){
+        if (this.edit)
+          return `ویرایش استاد`;
+        return `افزودن استاد`
+      }
     }
   },
   mounted(){
-    console.log(this.item);
+    // setInterval(function () {console.log(`this is item ${this.itemObj}`);}, 1000);
+    // console.log(`this is item ${this.itemObj}`);
+  },
+  updated(){
+    if (this.edit){
+      this.name=this.itemObj.firstName
+      this.familyName=this.itemObj.lastName
+      this.email=this.itemObj.email
+      this.orientation=this.itemObj.orientation
+      // this.headOfDepartment = is_departman_boss
+    } else {
+      this.name="";
+      this.familyName="";
+      this.email="";
+      this.password="";
+      this.headOfDepartment=false;
+    }
   },
   methods: {
     async addProf(){
@@ -123,8 +146,11 @@ export default {
       };
       console.log(data);
       try {
-        const {prof} = await this.$axios.$post('/add-professor', data);
-        console.log(prof);
+        if (this.edit){
+          await this.$axios.$put('/update-professor', data);
+        } else {
+          await this.$axios.$post('/add-professor', data);
+        }
       } catch (error) {
         console.log(error);
       }

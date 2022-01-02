@@ -56,7 +56,9 @@ export const actions = {
                     rowNum: rowNum++,
                     profName: element.fname + ' ' + element.lname,
                     email: element.id,
-                    // uniteNumber: element.unit_numbers,
+                    firstName: element.fname,
+                    lastName: element.lname
+                        // uniteNumber: element.unit_numbers,
                 })
             })
             commit('setProfs', items)
@@ -78,8 +80,11 @@ export const actions = {
                     stdNum: element.student_number,
                     entryYear: element.enter_year,
                     section: element.cross_section,
-
-                    // uniteNumber: element.unit_numbers,
+                    lastName: element.last_name,
+                    firstName: element.first_name,
+                    orientation: element.orientation,
+                    superviserId: element.superviser_id
+                        // uniteNumber: element.unit_numbers,
                 })
             })
             commit('setStudents', items)

@@ -18,7 +18,7 @@
       </v-row>
       
       <v-row justify="end">
-        <v-col cols="2">
+        <v-col cols="1" class="ml-7 mt-n5">
           <v-btn icon class="add_ticket_btn">
             <v-icon
               circle

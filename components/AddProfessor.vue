@@ -113,6 +113,12 @@ export default {
     // setInterval(function () {console.log(`this is item ${this.itemObj}`);}, 1000);
     // console.log(`this is item ${this.itemObj}`);
   },
+  updated(){
+    this.name=this.itemObj.firstName
+    this.familyName=this.itemObj.lastName
+    this.email=this.itemObj.email
+    this.orientation=this.itemObj.orientation
+  },
   methods: {
     async addProf(){
       const data = {

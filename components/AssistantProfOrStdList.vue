@@ -127,7 +127,7 @@ export default {
     },
     stdOrProf(){
       return this.type === 'prof';
-    }
+    },
   },
 
   async mounted() {
@@ -146,7 +146,6 @@ export default {
     editRow(item){
       this.edit = true;
       this.itemForEdit = item;
-      console.log(item);
       if (this.type === 'prof')
         this.AddProfessor = true;
       else 

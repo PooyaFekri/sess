@@ -177,6 +177,16 @@ export default {
     await this.getProfs();
     await this.getOrientations();
   },
+  updated(){
+    this.name=this.itemObj.firstName
+    this.familyName=this.itemObj.lastName
+    this.stdNum=this.itemObj.stdNum
+    this.orientation=this.itemObj.orientation
+    this.grade=this.itemObj.section
+    this.enteranceYear=this.itemObj.entryYear
+    this.advisor=this.itemObj.advisor
+    this.supervisor=this.itemObj.superviserId
+  },
   methods: {
     async getProfs() {
       try {

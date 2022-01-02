@@ -16,12 +16,36 @@
           </v-data-table>
         </v-col>
       </v-row>
+      
+      <v-row justify="end">
+        <v-col cols="2">
+          <v-btn icon class="add_ticket_btn">
+            <v-icon
+              circle
+              color="white"
+              @click="AddCourse=true"
+            >
+              mdi-plus
+            </v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+      
+      <AddCourse :visible="AddCourse" @close="AddCourse=false" />
+      
     </v-card>
   </v-container>
 </template>
 
 <script>
+import AddCourse from '@/components/AddCourse.vue'
+
 export default {
+
+  components: {
+    AddCourse,
+  },
+
   data() {
     return {
       headers: [
@@ -36,6 +60,7 @@ export default {
       masterItems: [],
       editCourseProf: false,
       AddCourseToElementary: false,
+      AddCourse: false,
     }
   },
   computed: {

@@ -18,7 +18,7 @@
           <v-row class="mb-n13" justify="center">
             <v-col cols="5" >
               <v-text-field
-              :value="item.course_name"
+              v-model="course"
               solo 
               label="نام درس" 
               clearable 
@@ -29,7 +29,7 @@
             </v-col>
             <v-col cols="5" >
               <v-text-field 
-              :value="item.orientation"
+              v-model="orientation"
               solo 
               label="گرایش" 
               clearable 
@@ -42,7 +42,7 @@
           <v-row class="justify-center mb-n13">  
             <v-col cols="5" class="mr-n1">
               <v-text-field
-                :value="item.course_units"
+                v-model="course_units"
                 solo 
                 label="تعداد واحد" 
                 clearable 
@@ -55,7 +55,7 @@
               <v-select
                 v-model="prerequisites"
                 color="#3F505E" 
-                :items="item.prerequisites"
+                :items="prerequisites"
                 chips
                 label="لیست پیش نیاز ها"
                 readonly
@@ -126,6 +126,9 @@ export default {
       get(){
         return ['sdfsf','sdfsdf','sdfsd'];
         // return this.item.prerequisites;
+      },
+      set(value){
+        
       }
     }
   },
@@ -135,10 +138,11 @@ export default {
     await this.getProfs();
   },
   updated(){
-      this.course = this.item.courseNme
+      console.log(`this is course prof: ${this.item}`);
+      this.course = this.item.courseName
       this.orientation = this.item.orientationName
       this.course_units = this.item.uniteNumber
-      this.teacher = this.item.professorName
+      // this.teacher = this.item.professorName
   },
   methods: {
     getCourseProf() {
@@ -170,7 +174,19 @@ export default {
         console.log(error);
       }
     },
-    editProfs(){
+    async editProfs(){
+      const data = {
+        permitted_course_id:this.item.id_permitted_course,
+        professor_id:this.teacher
+      } 
+      console.log(data);
+      try {
+        const profs = await this.$axios.$post('/update-permitted-course-professor',data);
+        this.teachers = profs;
+        console.log(profs);
+      } catch (error) {
+        console.log(error);
+      }
       this.show = false;
     }
     

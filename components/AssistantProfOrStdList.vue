@@ -155,12 +155,10 @@ export default {
     closeStd(){
       this.AddStudent = false;
       this.edit = false;
-      this.item.action = false;
     },
     closeProf(){
       this.AddProfessor = false;
       this.edit = false;
-      this.item.action = false;
     }
     // deleteItem(item){
     //   if (this.type === 'std'){

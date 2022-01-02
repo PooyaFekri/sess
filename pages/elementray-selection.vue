@@ -16,6 +16,12 @@
     <div v-if="role == 'educationAssistants'">
       <v-row justify="center" class="mt-1">
         <v-col cols="11">
+          <ActiveElementrySelectiont
+          />
+        </v-col>
+      </v-row>
+      <v-row justify="center" class="mt-1">
+        <v-col cols="11">
           <AssistantCoursesList
             :type="'bachelor'"
             :title="'لیست دروس کارشناسی'"
@@ -58,12 +64,14 @@ import StdCourseListTable from '~/components/StdCourseListTable.vue'
 import StdSelectedCoursesList from '~/components/StdSelectedCoursesList.vue'
 import AssistantCoursesList from '~/components/AssistantCoursesList.vue'
 import ProElementrySelectionCourses from '~/components/ProElementrySelectionCourses.vue'
+import ActiveElementrySelectiont from '~/components/ActiveElementrySelections.vue'
 export default {
   components: {
     StdCourseListTable,
     AssistantCoursesList,
     StdSelectedCoursesList,
     ProElementrySelectionCourses,
+    ActiveElementrySelectiont 
   },
   data() {
     return {

@@ -181,9 +181,8 @@ export default {
       } 
       console.log(data);
       try {
-        const profs = await this.$axios.$post('/update-permitted-course-professor',data);
-        this.teachers = profs;
-        console.log(profs);
+        const response = await this.$axios.$post('/update-permitted-course-professor',data);
+        console.log(response);
       } catch (error) {
         console.log(error);
       }

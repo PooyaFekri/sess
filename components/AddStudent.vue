@@ -121,7 +121,8 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="addStd">افزودن</v-btn>
+          <v-btn v-if="!edit" text class="terminate_ticket mb-3" @click="addStd">افزودن</v-btn>
+          <v-btn v-else text class="terminate_ticket mb-3" @click="addStd">ویرایش</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -139,7 +140,6 @@ export default {
   },
   data () {
         return {
-          selected_ticket_name:"افزودن دانشجو",
           courses:[],
           orientations:[],
           profs:[],
@@ -169,6 +169,13 @@ export default {
           this.$emit('close');
         }
       }
+    },
+    selected_ticket_name: {
+      get(){
+        if (this.edit)
+          return `ویرایش دانشجو`;
+        return `افزودن دانشجو`
+      }
     }
   },
   async mounted() {
@@ -178,14 +185,26 @@ export default {
     await this.getOrientations();
   },
   updated(){
-    this.name=this.itemObj.firstName
-    this.familyName=this.itemObj.lastName
-    this.stdNum=this.itemObj.stdNum
-    this.orientation=this.itemObj.orientation
-    this.grade=this.itemObj.section
-    this.enteranceYear=this.itemObj.entryYear
-    this.advisor=this.itemObj.advisor
-    this.supervisor=this.itemObj.superviserId
+    if (this.edit){
+      this.name=this.itemObj.firstName
+      this.familyName=this.itemObj.lastName
+      this.stdNum=this.itemObj.stdNum
+      this.orientation=this.itemObj.orientation
+      this.grade=this.itemObj.section
+      this.enteranceYear=this.itemObj.entryYear
+      this.advisor=this.itemObj.advisor
+      this.supervisor=this.itemObj.superviserId
+    } else {
+      this.name="";
+      this.familyName="";
+      this.stdNum="";
+      this.password="";
+      this.orientation="";
+      this.grade="";
+      this.enteranceYear="";
+      this.advisor="";
+      this.supervisor=null;
+    }
   },
   methods: {
     async getProfs() {
@@ -224,8 +243,11 @@ export default {
         superviser_id:this.supervisor
       };
       try {
-        const {std} = await this.$axios.$post('/add-student', data);
-        console.log(std);
+        if (this.edit){
+          await this.$axios.$put('/update-student-system', data);
+        } else {
+          await this.$axios.$post('/add-student', data);
+        }
       } catch (error) {
         console.log(error);
       }

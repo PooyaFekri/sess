@@ -35,12 +35,14 @@
               <AddProfessor 
               v-if="stdOrProf" 
               :visible="AddProfessor"
+              :edit="edit"
               :item-obj="itemForEdit"
               @close="closeProf"
               />
               <AddStudent 
               v-else 
               :visible="AddStudent" 
+              :edit="edit"
               :item-obj="itemForEdit"
               @close="closeStd"
               />

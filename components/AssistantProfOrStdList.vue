@@ -30,7 +30,7 @@
               </v-row>
             </template>
           </v-data-table>
-          <v-row>
+          <!--<v-row>
             <v-col>
               <AddProfessor 
               v-if="stdOrProf" 
@@ -47,7 +47,7 @@
               @close="closeStd"
               />
             </v-col>
-          </v-row>
+          </v-row>-->
 
           <v-row justify="end">
             <v-col>
@@ -65,6 +65,214 @@
         </v-col>
       </v-row>
     </v-card>
+    <v-row>
+    <v-dialog v-model="AddProfessor" width="700">
+      <!--<template v-slot:activator="{ on, attrs }">
+        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">{{selected_ticket_name}}</v-btn>
+      </template>-->
+
+      <v-card class="ticket_background">
+        <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
+          <v-spacer class="mr-10"></v-spacer>{{selected_ticket_name_prof}}
+          <v-spacer></v-spacer>
+          <v-btn class="ml-n2" icon dark @click="AddProfessor = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-container>
+          <v-row class="justify-center mb-n12">
+            <v-col cols="5">
+              <v-text-field
+              v-model="professorFields.name"
+              solo 
+              label="نام" 
+              clearable 
+              color="#3F505E"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="5">
+              <v-text-field
+                v-model="professorFields.familyName"
+                color="#3F505E"
+                clearable
+                label="نام خانوادگی" 
+                solo
+              ></v-text-field>
+              
+            </v-col>
+          </v-row>
+          <v-row class="justify-center mb-n12">
+            <v-col cols="5">
+              <v-text-field
+              v-model="professorFields.email"
+              solo 
+              label="ایمیل" 
+              clearable 
+              color="#3F505E"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="5">
+              <v-text-field
+                v-model="professorFields.password"
+                type="password"
+                color="#3F505E"
+                clearable
+                label="کلمه عبور" 
+                solo
+              ></v-text-field>
+              
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <v-col cols="3" class="mr-16 mb-3">
+                <v-checkbox
+                    v-model="professorFields.headOfDepartment"
+                    label="رییس بخش"
+                    color="orange"
+                    hide-details
+                ></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-container>
+
+        <v-card-actions class="justify-center">
+          <v-btn v-if="!edit" text class="terminate_ticket mb-3" @click="addProf">افزودن</v-btn>
+          <v-btn v-else text class="terminate_ticket mb-3" @click="addProf">ویرایش</v-btn>
+          <v-btn text class="cancel_ticket mb-3" @click="AddProfessor = false">لغو</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    </v-row>
+    <v-row>
+      <v-dialog v-model="AddStudent" width="700">
+      <!--<template v-slot:activator="{ on, attrs }">
+        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">{{selected_ticket_name}}</v-btn>
+      </template>-->
+
+      <v-card class="ticket_background">
+        <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
+          <v-spacer class="mr-10"></v-spacer>{{selected_ticket_name_std}}
+          <v-spacer></v-spacer>
+          <v-btn class="ml-n2" icon dark @click="AddStudent = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-container>
+          <v-row class="justify-center mb-n12">
+            <v-col cols="5">
+              <v-text-field
+              v-model="studentFields.name"
+              solo 
+              label="نام" 
+              clearable 
+              color="#3F505E"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="5">
+              <v-text-field
+                v-model="studentFields.familyName"
+                color="#3F505E"
+                clearable
+                label="نام خانوادگی" 
+                solo
+              ></v-text-field>
+              
+            </v-col>
+          </v-row>
+          <v-row class="justify-center mb-n12">
+            <v-col cols="5">
+              <v-text-field
+              v-model="studentFields.stdNum"
+              solo 
+              label="شماره دانشجویی" 
+              clearable 
+              color="#3F505E"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="5">
+              <v-text-field
+                v-model="studentFields.password"
+                type="password"
+                color="#3F505E"
+                clearable
+                label="کلمه عبور" 
+                solo
+              ></v-text-field>
+              
+            </v-col>
+          </v-row>
+          <v-row class="justify-center mb-n14">
+            <v-col cols="5">
+              <v-select
+                v-model="studentFields.orientation"
+                color="#3F505E" 
+                :item-text="orientationText"
+                :items="orientations"
+                item-value="name"
+                label="گرایش" 
+                solo
+              ></v-select>
+            </v-col>
+            <v-col cols="5">
+              <v-select
+                v-model="studentFields.grade"
+                color="#3F505E" 
+                :items="grades"
+                :item-text="(grade) => `${grade.persianName}`"
+                item-value="name"
+                label="مقطع" 
+                solo
+              ></v-select>
+            </v-col>
+          </v-row>
+          <v-row class="justify-center">
+            <v-col cols="10">
+                <v-text-field
+                v-model="studentFields.enteranceYear"
+                color="#3F505E"
+                clearable
+                label="سال ورود: مثلا 1401" 
+                solo
+              ></v-text-field>
+              
+            </v-col>
+          </v-row>
+          <v-row class="justify-center mb-n14">
+            <v-col cols="5">
+              <v-select
+                v-model="studentFields.advisor"
+                color="#3F505E" 
+                :items="profs"
+                :item-text="(prof) => `${prof.fname} ${prof.lname}`"
+                item-value="id"
+                label="استاد مشاور" 
+                solo
+              ></v-select>
+            </v-col>
+            <v-col cols="5">
+              <v-select
+                v-model="studentFields.supervisor"
+                color="#3F505E"
+                :items="profs"
+                :item-text="(prof) => `${prof.fname} ${prof.lname}`"
+                item-value="id"
+                label="استاد راهنما" 
+                solo
+              ></v-select>
+            </v-col>
+          </v-row>
+        </v-container>
+
+        <v-card-actions class="justify-center">
+          <v-btn v-if="!edit" text class="terminate_ticket mb-3" @click="addStd">افزودن</v-btn>
+          <v-btn v-else text class="terminate_ticket mb-3" @click="addStd">ویرایش</v-btn>
+          <v-btn text class="cancel_ticket mb-3" @click="AddStudent = false">لغو</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    </v-row>
   </v-container>
 </template>
 
@@ -105,7 +313,32 @@ export default {
       edit: false,
       AddProfessor: false,
       AddStudent: false,
-      itemForEdit: {}
+      itemForEdit: {},
+      professorFields:{
+        name:"",
+        familyName:"",
+        email:"",
+        password:"",
+        headOfDepartment:false
+      },
+      studentFields:{
+        name:"",
+        familyName:"",
+        stdNum:"",
+        password:"",
+        orientation:"",
+        grade:"",
+        enteranceYear:"",
+        advisor:"",
+        supervisor:null
+      },
+      courses:[],
+      orientations:[],
+      profs:[],
+      grades:[
+        {name:"master",persianName:"کارشناسی ارشد"},
+        {name:"bachelor",persianName:"کارشناسی"}
+      ],
     }
   },
   computed: {
@@ -130,9 +363,25 @@ export default {
     stdOrProf(){
       return this.type === 'prof';
     },
+    selected_ticket_name_prof: {
+      get(){
+        if (this.edit)
+          return `ویرایش استاد`;
+        return `افزودن استاد`
+      }
+    },
+    selected_ticket_name_std: {
+      get(){
+        if (this.edit)
+          return `ویرایش دانشجو`;
+        return `افزودن دانشجو`
+      }
+    }
   },
 
   async mounted() {
+    await this.getProfs();
+    await this.getOrientations(); 
   },
   updated() {},
 
@@ -143,15 +392,53 @@ export default {
       else
         this.AddStudent = true;
 
+      this.professorFields={
+        name:"",
+        familyName:"",
+        email:"",
+        password:"",
+        headOfDepartment:false
+      };
+      this.studentFields={
+        name:"",
+        familyName:"",
+        stdNum:"",
+        password:"",
+        orientation:"",
+        grade:"",
+        enteranceYear:"",
+        advisor:"",
+        supervisor:null
+      }
       this.edit = false;
     },
     editRow(item){
       this.edit = true;
       this.itemForEdit = item;
-      if (this.type === 'prof')
+      if (this.type === 'prof'){
         this.AddProfessor = true;
-      else 
+        const professor = {
+        name:item.firstName,
+        familyName:item.lastName,
+        email:item.email,
+        // headOfDepartment:item.
+      };
+        this.professorFields = professor;
+      }
+      else{
+        const student = {
+          name:item.firstName,
+          familyName:item.lastName,
+          stdNum:item.stdNum,
+          orientation:item.orientation,
+          grade:item.section,
+          enteranceYear:item.entryYear,
+          advisor:item.advisor,
+          supervisor:item.superviserId
+        };
         this.AddStudent = true;
+        this.studentFields = student;
+      } 
     },
     closeStd(){
       this.AddStudent = false;
@@ -160,6 +447,72 @@ export default {
     closeProf(){
       this.AddProfessor = false;
       this.edit = false;
+    },
+    courseText(course) {
+      return `${course.course}`;
+    },
+    orientationText(orientation){
+      return `${orientation.name}`;
+    },
+    async getProfs() {
+      try {
+        const profs = await this.$axios.$get('/get-professors');
+        this.profs = profs;
+        console.log(profs);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getOrientations() {
+      try {
+        const orientations = await this.$axios.$get('/get-orientations');
+        this.orientations = orientations;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async addProf(){
+      const data = {
+        first_name: this.professorFields.name,
+        last_name: this.professorFields.familyName,
+        pass: this.professorFields.password,
+        email: this.professorFields.email,
+        is_departman_boss: this.professorFields.headOfDepartment
+      };
+      console.log(data);
+      try {
+        if (this.edit){
+          await this.$axios.$put('/update-professor', data);
+        } else {
+          await this.$axios.$post('/add-professor', data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      this.AddProfessor = false;
+    },
+    async addStd(){
+      const data = {
+        first_name:this.studentFields.name,
+        last_name:this.studentFields.familyName,
+        student_number:this.studentFields.stdNum,
+        password:this.studentFields.password,
+        orientation:this.studentFields.orientation,
+        cross_section:this.studentFields.grade,
+        enter_year:this.studentFields.enteranceYear,
+        adviser_id:this.studentFields.advisor,
+        superviser_id:this.studentFields.supervisor
+      };
+      try {
+        if (this.edit){
+          await this.$axios.$put('/update-student-system', data);
+        } else {
+          await this.$axios.$post('/add-student', data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      this.AddStudent = false;
     }
     // deleteItem(item){
     //   if (this.type === 'std'){

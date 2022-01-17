@@ -109,6 +109,7 @@ export default {
             console.log(error);
         }
         this.show = false;
+        location.reload();
     }
   }
 };

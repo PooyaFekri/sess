@@ -19,7 +19,7 @@
                   color="black"
                   small
                   class="mx-2"
-                  @click="editCourseProf = true"
+                  @click="editCourseProfessor(item)"
                 >
                   mdi-pencil
                 </v-icon>
@@ -40,13 +40,14 @@
               />
               <EditCourseProf
                 :visible="editCourseProf"
-                :item="{}"
+                :item="itemsEditCourseProf"
                 @close="editCourseProf = false"
               />
             </v-col>
           </v-row>
+          
           <v-row justify="end">
-            <v-col>
+            <v-col cols="1">
               <v-btn icon class="add_ticket_btn">
                 <v-icon
                   circle
@@ -94,6 +95,7 @@ export default {
       bachelorItems: [],
       masterItems: [],
       editCourseProf: false,
+      itemsEditCourseProf:{},
       AddCourseToElementary: false,
     }
   },
@@ -119,6 +121,11 @@ export default {
   },
 
   methods: {
+    editCourseProfessor(item){
+      console.log(item);
+      this.itemsEditCourseProf = item;
+      this.editCourseProf = true;
+    },
     async getItems() {
       this.bachelorItems = []
       this.masterItems = []

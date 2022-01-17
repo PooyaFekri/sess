@@ -22,6 +22,7 @@ export default {
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
         { src: '@/plugins/axios.js' },
+        { src: "@/plugins/datePicker.js", mode: "client" },
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -53,7 +54,7 @@ export default {
     proxy: {
         '/api': {
             target: 'http://193.176.242.58:8081'
-                // target: 'http://127.0.0.1:5000/'
+            // target: 'http://127.0.0.1:5000/'
         }
     },
     middleware: [

@@ -2,12 +2,14 @@ export const state = () => ({
     courses: [],
     students: [],
     profs: [],
+    courseSections: [],
 })
 
 export const getters = {
     courses: (state) => state.courses,
     students: (state) => state.students,
     profs: (state) => state.profs,
+    courseSections: (state) => state.courseSections,
 }
 export const mutations = {
     setCourses(state, courses) {
@@ -18,6 +20,9 @@ export const mutations = {
     },
     setProfs(state, profs) {
         state.profs = profs
+    },
+    setCourseSections(state, courseSections) {
+        state.courseSections = courseSections
     },
 }
 
@@ -56,6 +61,9 @@ export const actions = {
                     rowNum: rowNum++,
                     profName: element.fname + ' ' + element.lname,
                     email: element.id,
+                    firstName: element.fname,
+                    lastName: element.lname,
+                    is_dep_head: element.is_dep_head,
                     // uniteNumber: element.unit_numbers,
                 })
             })
@@ -78,11 +86,24 @@ export const actions = {
                     stdNum: element.student_number,
                     entryYear: element.enter_year,
                     section: element.cross_section,
-
+                    lastName: element.last_name,
+                    firstName: element.first_name,
+                    orientation: element.orientation,
+                    superviserId: element.superviser_id,
                     // uniteNumber: element.unit_numbers,
                 })
             })
             commit('setStudents', items)
+        } catch (e) {
+            console.log(e.response.data.status)
+        }
+    },
+
+    async getCourseSections({ commit }) {
+        commit('setCourseSections', [])
+        try {
+            const res = await this.$axios.$get('/time-of-course-section')
+            commit('setCourseSections', res.data)
         } catch (e) {
             console.log(e.response.data.status)
         }

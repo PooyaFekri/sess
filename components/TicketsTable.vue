@@ -3,7 +3,7 @@
         
       <v-card width="100%" justify="center" style="background: #DCE4EB;">
           <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5" >
-          تیکت های
+          تیکت ها
           </v-card-title>
           <!-- <template v-slot:activator="{ on, attrs }">
             <v-btn

@@ -56,14 +56,28 @@
       </template>
 
       <template>
-        <v-row style="height: 10%">
+        <v-row style="height: 15%">
           <v-spacer></v-spacer>
         </v-row>
       </template>
 
       <template>
-        <v-row justify="start">
-          <v-col class="mr-4" cols="7">
+        <v-row justify="center" v-if="role==='student'">
+          <v-col cols="10" class="mr-5">            
+            <v-list dense>
+              <v-list-item @click="gotoPage('changePassword')" class="v-clickable" justify="center">
+                <v-list-item-icon>
+                  <v-icon class="sidebar_text">mdi-lock-reset</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content class="sidebar_text">
+                  <p>تغییر کلمه عبور</p>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-col>
+        </v-row>
+        <v-row justify="center" class="mt-n8">
+          <v-col cols="7" >
             <v-list dense>
               <v-list-item @click="logout" class="v-clickable" justify="center">
                 <v-list-item-icon>
@@ -92,12 +106,12 @@ export default {
             icon: 'mdi-account-group-outline',
             link: 'elementray-selection',
           },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         professor: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
@@ -106,106 +120,99 @@ export default {
             icon: 'mdi-account-group-outline',
             link: 'elementray-selection',
           },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
         ],
         responsibleTrainings: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         advisers: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         supervisors: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         advisers_supervisors: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // { title: 'چارت', icon: 'mdi-account', link: '' },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
+          // {
+          //   title: 'درخواست گریدری',
+          //   icon: 'mdi-account-group-outline',
+          //   link: '',
+          // },
         ],
         educationAssistants: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
           {
             title: 'انتخاب واحد مقدماتی',
-            icon: 'mdi-account-group-outline',
+            icon: 'mdi-book-edit-outline',
             link: 'elementray-selection',
           },
           {
             title: 'لیست دروس',
-            icon: 'mdi-account-group-outline',
+            icon: 'mdi-clipboard-list-outline',
             link: 'course-list',
           },
-          { title: 'دانشحویان و اساتید', icon: 'mdi-account', link: 'std-prof-list' },
-          {
-            title: 'تیکت',
+          { 
+            title: 'دانشحویان و اساتید',
             icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
+            link: 'std-prof-list'
           },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-progress-wrench',
+          //   link: 'TicketTable',
+          // },
         ],
         departmentHead: [
           { title: 'صفحه اصلی', icon: 'mdi-home-city', link: '' },
-          { title: 'چارت', icon: 'mdi-account', link: '' },
-          {
-            title: 'تیکت',
-            icon: 'mdi-account-group-outline',
-            link: 'TicketTable',
-          },
-          {
-            title: 'درخواست گریدری',
-            icon: 'mdi-account-group-outline',
-            link: '',
-          },
+          // {
+          //   title: 'تیکت',
+          //   icon: 'mdi-account-group-outline',
+          //   link: 'TicketTable',
+          // },
         ],
       },
       persianRoleTitles: {
@@ -217,6 +224,7 @@ export default {
         advisers_supervisors: 'استاد مشاور،استاد راهنما',
         educationAssistants: 'کارشناس بخش',
         departmentHead: 'رئیس بخش',
+        studentEditPasswordDialog: false,
       },
     }
   },

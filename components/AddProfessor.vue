@@ -1,9 +1,9 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="show" width="700">
-      <template v-slot:activator="{ on, attrs }">
+      <!--<template v-slot:activator="{ on, attrs }">
         <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">{{selected_ticket_name}}</v-btn>
-      </template>
+      </template>-->
 
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
@@ -58,8 +58,8 @@
               
             </v-col>
           </v-row>
-          <v-row>
-            <v-col cols="10">
+          <v-row justify="center">
+            <v-col cols="3" class="mr-16 mb-3">
                 <v-checkbox
                     v-model="headOfDepartment"
                     label="رییس بخش"
@@ -71,7 +71,8 @@
         </v-container>
 
         <v-card-actions class="justify-center">
-          <v-btn text class="terminate_ticket mb-3" @click="addProf">افزودن</v-btn>
+          <v-btn v-if="!edit" text class="terminate_ticket mb-3" @click="addProf">افزودن</v-btn>
+          <v-btn v-else text class="terminate_ticket mb-3" @click="addProf">ویرایش</v-btn>
           <v-btn text class="cancel_ticket mb-3" @click="show = false">لغو</v-btn>
         </v-card-actions>
       </v-card>
@@ -83,11 +84,12 @@
 export default {
   // TODO: add upload and download files
   props:{
-    visible:{type:Boolean}
+    visible:{type:Boolean},
+    itemObj:{type:Object, default:() => {}},
+    edit:{type:Boolean, default: () => false}
   },
   data () {
         return {
-          selected_ticket_name:"افزودن استاد",
           name:"",
           familyName:"",
           email:"",
@@ -105,6 +107,32 @@ export default {
           this.$emit('close');
         }
       }
+    },
+    selected_ticket_name: {
+      get(){
+        if (this.edit)
+          return `ویرایش استاد`;
+        return `افزودن استاد`
+      }
+    }
+  },
+  mounted(){
+    // setInterval(function () {console.log(`this is item ${this.itemObj}`);}, 1000);
+    // console.log(`this is item ${this.itemObj}`);
+  },
+  updated(){
+    if (this.edit){
+      this.name=this.itemObj.firstName
+      this.familyName=this.itemObj.lastName
+      this.email=this.itemObj.email
+      this.orientation=this.itemObj.orientation
+      // this.headOfDepartment = is_departman_boss
+    } else {
+      this.name="";
+      this.familyName="";
+      this.email="";
+      this.password="";
+      this.headOfDepartment=false;
     }
   },
   methods: {
@@ -118,8 +146,11 @@ export default {
       };
       console.log(data);
       try {
-        const {prof} = await this.$axios.$post('/add-professor', data);
-        console.log(prof);
+        if (this.edit){
+          await this.$axios.$put('/update-professor', data);
+        } else {
+          await this.$axios.$post('/add-professor', data);
+        }
       } catch (error) {
         console.log(error);
       }

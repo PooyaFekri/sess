@@ -11,8 +11,8 @@
     <AddCourse :visible="AddCourse" @close="AddCourse=false"/>
     <AddStudent :visible="AddStudent" @close="AddStudent=false"/>
     <AddProfessor :visible="AddProfessor" @close="AddProfessor=false" />
-    <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="false" @close="AddCourseToElementary=false" />
-    <AddCourseToElementary :visible="AddCourseToElementary" :masterOrBachelor="true" @close="AddCourseToElementary=false" />
+    <AddElementarySelection :visible="AddElementarySelection" @close="AddElementarySelection=false" />
+    
 
 
 
@@ -57,7 +57,7 @@ import NormalTicket from "@/components/NormalTicket.vue"
 import EditCourseProf from "@/components/EditCourseProf.vue"
 import AddCourse from "@/components/AddCourse.vue"
 import AddStudent from "@/components/AddStudent.vue"
-import AddCourseToElementary from "@/components/AddCourseToElementary.vue"
+import AddElementarySelection from "@/components/AddElementarySelection.vue"
 
 export default {
   components: {
@@ -74,7 +74,7 @@ export default {
     EditCourseProf,
     AddCourse,
     AddStudent,
-    AddCourseToElementary
+    AddElementarySelection
   },
   data (){
     return {
@@ -91,7 +91,7 @@ export default {
       AddCourse:false,
       AddStudent:false,
       AddProfessor:false,
-      AddCourseToElementary:false,
+      AddElementarySelection:false
     }
   },
   

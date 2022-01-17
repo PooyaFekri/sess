@@ -25,11 +25,9 @@ export default {
     return {
       headers: [
         { text: 'ردیف', align: 'start', value: 'rowNum' },
-        { text: 'سال تحصیلی', value: 'educatoinYear', sortable: false },
         { text: 'مقطع', value: 'section', sortable: false },
-        { text: 'ترم', value: 'term', sortable: false },
         { text: 'تاریخ شروع', value: 'startDate', sortable: false },
-        { text: 'تاریخ پایان', value: 'endDate', sortable: false},
+        { text: 'تاریخ پایان', value: 'endDate', sortable: false },
       ],
       // studHeader: [
       //     { text: 'ردیف', align: 'start', value: 'rowNum', },
@@ -41,8 +39,6 @@ export default {
       // ],
 
       selects: [],
-      items: [
-      ],
     }
   },
   computed: {
@@ -53,18 +49,32 @@ export default {
     role() {
       return this.user.role.name_role
     },
+
+    items() {
+      const temp = this.$store.getters['assistant/courseSections']
+      let rowNum = 1
+      const items = []
+      temp.forEach((element) => {
+        items.push({
+          rowNum: rowNum++,
+          startDate: element.start_date,
+          endDate: element.end_date,
+          section: element.course_section
+        })
+      })
+      return items
+    },
   },
 
-  mounted() {
+  async mounted() {
     console.log(this.role)
+    await this.$store.dispatch('assistant/getCourseSections')
   },
   updated() {
     console.log(this.selects)
   },
 
-  methods: {
-    
-  },
+  methods: {},
 }
 </script>
 

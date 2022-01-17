@@ -193,6 +193,15 @@
             </v-col>
             <v-col cols="5">
               <v-text-field
+              v-if="edit"
+              v-model="studentFields.new_student_number"
+              solo 
+              label="شماره دانشجویی جدید" 
+              clearable 
+              color="#3F505E"
+              ></v-text-field>
+              <v-text-field
+                v-else
                 v-model="studentFields.password"
                 type="password"
                 color="#3F505E"
@@ -200,7 +209,18 @@
                 label="کلمه عبور" 
                 solo
               ></v-text-field>
-              
+            </v-col>
+          </v-row>
+          <v-row v-if="edit" class="justify-center mb-n14" >
+            <v-col cols="10">
+              <v-text-field
+                v-model="studentFields.password"
+                type="password"
+                color="#3F505E"
+                clearable
+                label="کلمه عبور" 
+                solo
+              ></v-text-field>
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n14">
@@ -318,18 +338,19 @@ export default {
         name:"",
         familyName:"",
         email:"",
-        password:"",
+        password:null,
         headOfDepartment:false
       },
       studentFields:{
         name:"",
         familyName:"",
         stdNum:"",
-        password:"",
+        password:null,
         orientation:"",
+        new_student_number:"",
         grade:"",
         enteranceYear:"",
-        advisor:"",
+        advisor:null,
         supervisor:null
       },
       courses:[],
@@ -396,18 +417,19 @@ export default {
         name:"",
         familyName:"",
         email:"",
-        password:"",
+        password:null,
         headOfDepartment:false
       };
       this.studentFields={
         name:"",
         familyName:"",
         stdNum:"",
-        password:"",
+        new_student_number:"",
+        password:null,
         orientation:"",
         grade:"",
         enteranceYear:"",
-        advisor:"",
+        advisor:null,
         supervisor:null
       }
       this.edit = false;
@@ -421,7 +443,8 @@ export default {
         name:item.firstName,
         familyName:item.lastName,
         email:item.email,
-        // headOfDepartment:item.
+        password:null,
+        headOfDepartment:item.is_dep_head
       };
         this.professorFields = professor;
       }
@@ -433,8 +456,10 @@ export default {
           orientation:item.orientation,
           grade:item.section,
           enteranceYear:item.entryYear,
-          advisor:item.advisor,
-          supervisor:item.superviserId
+          advisor:item.advisor || null,
+          password:null,
+          supervisor:item.superviserId,
+          new_student_number:""
         };
         this.AddStudent = true;
         this.studentFields = student;
@@ -505,7 +530,20 @@ export default {
       };
       try {
         if (this.edit){
-          await this.$axios.$put('/update-student-system', data);
+          const dataEdit = {
+            first_name:this.studentFields.name,
+            last_name:this.studentFields.familyName,
+            student_number:this.studentFields.stdNum,
+            password:this.studentFields.password,
+            orientation:this.studentFields.orientation,
+            cross_section:this.studentFields.grade,
+            enter_year:this.studentFields.enteranceYear,
+            adviser_id:this.studentFields.advisor,
+            superviser_id:this.studentFields.supervisor,
+            new_student_number:this.studentFields.new_student_number
+          };
+          console.log(dataEdit);
+          await this.$axios.$put('/update-student-system', dataEdit);
         } else {
           await this.$axios.$post('/add-student', data);
         }

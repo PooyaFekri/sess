@@ -90,7 +90,8 @@ export const actions = {
                     firstName: element.first_name,
                     orientation: element.orientation,
                     superviserId: element.superviser_id,
-                    // uniteNumber: element.unit_numbers,
+                    adviserId: element.adviser_id
+                        // uniteNumber: element.unit_numbers,
                 })
             })
             commit('setStudents', items)

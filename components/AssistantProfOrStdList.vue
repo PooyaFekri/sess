@@ -188,6 +188,7 @@
               solo 
               label="شماره دانشجویی" 
               clearable 
+              :disabled=editStdNumButton
               color="#3F505E"
               ></v-text-field>
             </v-col>
@@ -347,7 +348,7 @@ export default {
         stdNum:"",
         password:null,
         orientation:"",
-        new_student_number:"",
+        new_student_number:null,
         grade:"",
         enteranceYear:"",
         advisor:null,
@@ -397,6 +398,9 @@ export default {
           return `ویرایش دانشجو`;
         return `افزودن دانشجو`
       }
+    },
+    editStdNumButton(){
+      return this.edit;
     }
   },
 
@@ -424,7 +428,7 @@ export default {
         name:"",
         familyName:"",
         stdNum:"",
-        new_student_number:"",
+        new_student_number:null,
         password:null,
         orientation:"",
         grade:"",
@@ -456,10 +460,10 @@ export default {
           orientation:item.orientation,
           grade:item.section,
           enteranceYear:item.entryYear,
-          advisor:item.advisor || null,
+          advisor:item.advisorId,
           password:null,
           supervisor:item.superviserId,
-          new_student_number:""
+          new_student_number:null
         };
         this.AddStudent = true;
         this.studentFields = student;

@@ -1,10 +1,6 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="show" width="700">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">{{selected_ticket_name}}</v-btn>
-      </template>
-
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
           <v-spacer class="mr-10"></v-spacer>{{selected_ticket_name}}

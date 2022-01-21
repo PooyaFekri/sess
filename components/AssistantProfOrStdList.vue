@@ -460,7 +460,7 @@ export default {
           orientation:item.orientation,
           grade:item.section,
           enteranceYear:item.entryYear,
-          advisor:item.advisorId,
+          advisor:item.adviserId,
           password:null,
           supervisor:item.superviserId,
           new_student_number:null

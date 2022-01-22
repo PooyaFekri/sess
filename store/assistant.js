@@ -74,6 +74,10 @@ export const actions = {
     },
     async getStudents({ commit }) {
         const items = []
+        const grades = {
+            "master": "کارشناسی ارشد",
+            "bachelor": "کارشناسی"
+        }
         commit('setStudents', [])
         try {
             const res = await this.$axios.$get('/get-students')
@@ -90,7 +94,8 @@ export const actions = {
                     firstName: element.first_name,
                     orientation: element.orientation,
                     superviserId: element.superviser_id,
-                    adviserId: element.adviser_id
+                    adviserId: element.adviser_id,
+                    grade: grades[element.cross_section]
                         // uniteNumber: element.unit_numbers,
                 })
             })

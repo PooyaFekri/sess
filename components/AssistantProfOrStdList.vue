@@ -310,7 +310,7 @@ export default {
         { text: 'نام دانشجو', value: 'stdName', sortable: false },
         { text: 'شماره دانشجویی', value: 'stdNum', sortable: false },
         { text: 'سال ورود', value: 'entryYear', sortable: false },
-        { text: 'مقطع', value: 'section', sortable: false },
+        { text: 'مقطع', value: 'grade', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       profHeaders: [
@@ -458,7 +458,7 @@ export default {
           familyName:item.lastName,
           stdNum:item.stdNum,
           orientation:item.orientation,
-          grade:item.section,
+          grade: item.section,
           enteranceYear:item.entryYear,
           advisor:item.adviserId,
           password:null,

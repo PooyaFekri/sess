@@ -3,7 +3,8 @@
     <v-dialog v-model="show" width="700">
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
-          <v-spacer class="mr-10"></v-spacer>{{selected_ticket_name}}
+          <v-spacer class="mr-10"></v-spacer>
+          {{selected_ticket_name}}
           <v-spacer></v-spacer>
           <v-btn class="ml-n2" icon dark @click="show = false">
             <v-icon>mdi-close</v-icon>
@@ -11,43 +12,40 @@
         </v-card-title>
 
         <v-container>
-          <v-row class="mb-n12 " justify="center">
-            <v-col cols="5" >
+          <v-row class="mb-n12" justify="center">
+            <v-col cols="5">
               <v-select
                 v-model="grade"
-                color="#3F505E" 
+                color="#3F505E"
                 :items="grades"
                 :item-text="(grade) => `${grade.persianName}`"
                 item-value="name"
-                label="مقطع" 
+                label="مقطع"
                 solo
               ></v-select>
             </v-col>
-            <v-col cols="5" >
-              <v-text-field 
-              v-model="year"
-              solo 
-              label="سال تحصیلی : مثلا 1401" 
-              clearable 
-              color="#3F505E"
-              >
-              </v-text-field>
+            <v-col cols="5">
+              <v-text-field
+                v-model="year"
+                solo
+                label="سال تحصیلی : مثلا 1401"
+                clearable
+                color="#3F505E"
+              ></v-text-field>
             </v-col>
           </v-row>
-          <v-row class="justify-center mb-n16">  
+          <v-row class="justify-center mb-n16">
             <v-col cols="10" class="mr-n1">
               <v-select
                 v-model="semester"
-                color="#3F505E" 
+                color="#3F505E"
                 :item-text="(semester) => semester.name"
                 :items="semesters"
                 item-value="id"
-                label="ترم" 
+                label="ترم"
                 solo
               ></v-select>
             </v-col>
-
-            
           </v-row>
           <v-row justify="center" class="mt-5 mb-5">
             <v-col cols="5">
@@ -131,7 +129,9 @@ export default {
       console.log(data);
       try {
         const {response} = await this.$axios.$post('/add-course-selection-period', data);
+
         console.log(response);
+        await this.$store.dispatch('assistant/getCourseSections');
       } catch (error) {
         console.log(error);
       }

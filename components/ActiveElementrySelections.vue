@@ -1,26 +1,34 @@
 <template>
   <v-container>
     <v-card width="100%" justify="center" style="background: #dce4eb">
-      <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
-        لیست انتخاب واحد‌های فعال
-      </v-card-title>
+      <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">لیست انتخاب واحد‌های فعال</v-card-title>
       <v-row justify="center">
         <v-col cols="11">
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            sort-by="rowNum"
-            class="elevation-1 mb-3"
-          >
-          </v-data-table>
+          <v-data-table :headers="headers" :items="items" sort-by="rowNum" class="elevation-1 mb-3"></v-data-table>
         </v-col>
       </v-row>
+      <v-row justify="end">
+        <v-col cols="1" class="ml-7 mt-n5">
+          <v-btn icon class="add_ticket_btn">
+            <v-icon circle color="white" @click="AddElementarySelection=true">mdi-plus</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+
+      <AddElementarySelection
+        :visible="AddElementarySelection"
+        @close="AddElementarySelection=false"
+      />
     </v-card>
   </v-container>
 </template>
 
 <script>
+import AddElementarySelection from '@/components/AddElementarySelection.vue'
 export default {
+  components:{
+    AddElementarySelection
+  },
   data() {
     return {
       headers: [
@@ -39,6 +47,11 @@ export default {
       // ],
 
       selects: [],
+      AddElementarySelection: false,
+      grades:{
+        "master" :"کارشناسی ارشد",
+        "bachelor":"کارشناسی"
+      },
     }
   },
   computed: {
@@ -59,7 +72,7 @@ export default {
           rowNum: rowNum++,
           startDate: element.start_date,
           endDate: element.end_date,
-          section: element.course_section
+          section: this.grades[element.course_section]
         })
       })
       return items

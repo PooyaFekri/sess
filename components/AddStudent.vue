@@ -7,7 +7,8 @@
 
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
-          <v-spacer class="mr-10"></v-spacer>{{selected_ticket_name}}
+          <v-spacer class="mr-10"></v-spacer>
+          {{selected_ticket_name}}
           <v-spacer></v-spacer>
           <v-btn class="ml-n2" icon dark @click="show = false">
             <v-icon>mdi-close</v-icon>
@@ -17,34 +18,21 @@
         <v-container>
           <v-row class="justify-center mb-n12">
             <v-col cols="5">
-              <v-text-field
-              v-model="name"
-              solo 
-              label="نام" 
-              clearable 
-              color="#3F505E"
-              ></v-text-field>
+              <v-text-field v-model="name" solo label="نام" clearable color="#3F505E"></v-text-field>
             </v-col>
             <v-col cols="5">
               <v-text-field
                 v-model="familyName"
                 color="#3F505E"
                 clearable
-                label="نام خانوادگی" 
+                label="نام خانوادگی"
                 solo
               ></v-text-field>
-              
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n12">
             <v-col cols="5">
-              <v-text-field
-              v-model="stdNum"
-              solo 
-              label="شماره دانشجویی" 
-              clearable 
-              color="#3F505E"
-              ></v-text-field>
+              <v-text-field v-model="stdNum" solo label="شماره دانشجویی" clearable color="#3F505E"></v-text-field>
             </v-col>
             <v-col cols="5">
               <v-text-field
@@ -52,57 +40,55 @@
                 type="password"
                 color="#3F505E"
                 clearable
-                label="کلمه عبور" 
+                label="کلمه عبور"
                 solo
               ></v-text-field>
-              
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n14">
             <v-col cols="5">
               <v-select
                 v-model="orientation"
-                color="#3F505E" 
+                color="#3F505E"
                 :item-text="orientationText"
                 :items="orientations"
                 item-value="name"
-                label="گرایش" 
+                label="گرایش"
                 solo
               ></v-select>
             </v-col>
             <v-col cols="5">
               <v-select
                 v-model="grade"
-                color="#3F505E" 
+                color="#3F505E"
                 :items="grades"
                 :item-text="(grade) => `${grade.persianName}`"
                 item-value="name"
-                label="مقطع" 
+                label="مقطع"
                 solo
               ></v-select>
             </v-col>
           </v-row>
           <v-row class="justify-center">
             <v-col cols="10">
-                <v-text-field
+              <v-text-field
                 v-model="enteranceYear"
                 color="#3F505E"
                 clearable
-                label="سال ورود: مثلا 1401" 
+                label="سال ورود: مثلا 1401"
                 solo
               ></v-text-field>
-              
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n14">
             <v-col cols="5">
               <v-select
                 v-model="advisor"
-                color="#3F505E" 
+                color="#3F505E"
                 :items="profs"
                 :item-text="(prof) => `${prof.fname} ${prof.lname}`"
                 item-value="id"
-                label="استاد مشاور" 
+                label="استاد مشاور"
                 solo
               ></v-select>
             </v-col>
@@ -113,7 +99,7 @@
                 :items="profs"
                 :item-text="(prof) => `${prof.fname} ${prof.lname}`"
                 item-value="id"
-                label="استاد راهنما" 
+                label="استاد راهنما"
                 solo
               ></v-select>
             </v-col>
@@ -258,11 +244,11 @@ export default {
 </script>
 
 <style scoped>
-.v-list-item--theme--light{
+.v-list-item--theme--light {
   background-color: black !important;
 }
-.v-list-item--link--theme--light{
-    background-color: black !important;
+.v-list-item--link--theme--light {
+  background-color: black !important;
 }
 
 .ticket_title_background {

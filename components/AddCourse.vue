@@ -1,19 +1,15 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="show" width="700">
-
-    <!--<template v-slot:activator="{ on, attrs }">
+      <!--<template v-slot:activator="{ on, attrs }">
         <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">{{selected_ticket_name}}</v-btn>
       </template>-->
       <v-card class="ticket_background">
         <v-card-title class="text-h5 lighten-2 ticket_title_background mb-5">
-          <v-spacer class="mr-10"></v-spacer>{{selected_ticket_name}}
+          <v-spacer class="mr-10"></v-spacer>
+          {{selected_ticket_name}}
           <v-spacer></v-spacer>
-          <v-btn 
-          class="ml-n2" 
-          icon 
-          dark 
-          @click="show=false">
+          <v-btn class="ml-n2" icon dark @click="show=false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -21,34 +17,27 @@
         <v-container>
           <v-row class="justify-center mb-n12">
             <v-col cols="5">
-              <v-text-field
-              v-model="course"
-              solo 
-              label="نام درس" 
-              clearable 
-              color="#3F505E"
-              ></v-text-field>
+              <v-text-field v-model="course" solo label="نام درس" clearable color="#3F505E"></v-text-field>
             </v-col>
             <v-col cols="5">
               <v-text-field
                 v-model="course_units"
                 color="#3F505E"
                 clearable
-                label="تعداد واحد" 
+                label="تعداد واحد"
                 solo
               ></v-text-field>
-              
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n14">
             <v-col cols="5">
               <v-select
                 v-model="prerequisites"
-                color="#3F505E" 
+                color="#3F505E"
                 :items="courses"
                 :item-text="courseOrientationText"
                 item-value="id_course"
-                label="لیست پیش نیاز ها" 
+                label="لیست پیش نیاز ها"
                 chips
                 multiple
                 solo
@@ -57,18 +46,17 @@
             <v-col cols="5">
               <v-select
                 v-model="orientation"
-                color="#3F505E" 
+                color="#3F505E"
                 :items="orientations"
                 :item-text="orientationName"
                 item-value="id"
-                label="گرایش" 
+                label="گرایش"
                 solo
               ></v-select>
             </v-col>
           </v-row>
           <v-row class="justify-center">
-            <v-col cols="10">
-            </v-col>
+            <v-col cols="10"></v-col>
           </v-row>
         </v-container>
 
@@ -149,6 +137,7 @@ export default {
         }
         try {
             const {courses} = await this.$axios.$post('/add-course', data);
+            await this.$store.dispatch('assistant/getCourses')
             console.log(courses)
         } catch (error) {
             console.log(error);
@@ -160,7 +149,6 @@ export default {
 </script>
 
 <style scoped>
-
 .ticket_title_background {
   background: #3f505e;
   color: white;

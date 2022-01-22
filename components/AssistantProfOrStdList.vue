@@ -515,6 +515,7 @@ export default {
         } else {
           await this.$axios.$post('/add-professor', data);
         }
+        await this.$store.dispatch('assistant/getProfs')
       } catch (error) {
         console.log(error);
       }
@@ -551,6 +552,7 @@ export default {
         } else {
           await this.$axios.$post('/add-student', data);
         }
+        await this.$store.dispatch('assistant/getStudents');
       } catch (error) {
         console.log(error);
       }

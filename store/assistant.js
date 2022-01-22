@@ -56,6 +56,7 @@ export const actions = {
             const res = await this.$axios.$get('/get-professors')
                 // this.loading = false
             let rowNum = 1
+
             res.forEach((element) => {
                 items.push({
                     rowNum: rowNum++,
@@ -75,8 +76,8 @@ export const actions = {
     async getStudents({ commit }) {
         const items = []
         const grades = {
-            "master": "کارشناسی ارشد",
-            "bachelor": "کارشناسی"
+            master: 'کارشناسی ارشد',
+            bachelor: 'کارشناسی',
         }
         commit('setStudents', [])
         try {
@@ -95,8 +96,8 @@ export const actions = {
                     orientation: element.orientation,
                     superviserId: element.superviser_id,
                     adviserId: element.adviser_id,
-                    grade: grades[element.cross_section]
-                        // uniteNumber: element.unit_numbers,
+                    grade: grades[element.cross_section],
+                    // uniteNumber: element.unit_numbers,
                 })
             })
             commit('setStudents', items)
@@ -109,7 +110,7 @@ export const actions = {
         commit('setCourseSections', [])
         try {
             const res = await this.$axios.$get('/time-of-course-section')
-            commit('setCourseSections', res.data)
+            commit('setCourseSections', res.data || [])
         } catch (e) {
             console.log(e.response.data.status)
         }

@@ -144,6 +144,8 @@ export default {
       console.log(body);
       try {
         const {data} = await this.$axios.post('/create-ticket', body)
+        await this.$store.dispatch('ticket/getTickets');
+
         console.log(data);
       } catch (error) {
         console.log(error);

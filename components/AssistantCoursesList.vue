@@ -76,8 +76,8 @@ export default {
       headers: [
         { text: 'ردیف', align: 'start', value: 'rowNum' },
         { text: 'نام درس', value: 'courseName', sortable: false },
-        { text: 'نام گرایش', value: 'orientationName', sortable: false },
-        { text: 'تعداد واحد', value: 'uniteNumber', sortable: false },
+        { text: 'نام گرایش', value: 'orientationName', sortable: true },
+        { text: 'تعداد واحد', value: 'uniteNumber', sortable: true },
         { text: 'نام استاد', value: 'professorName', sortable: false },
         { text: 'تعداد دانشجو‌ها', value: 'takenNumber', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false },

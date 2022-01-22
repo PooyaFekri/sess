@@ -309,8 +309,8 @@ export default {
         { text: 'ردیف', align: 'start', value: 'rowNum' },
         { text: 'نام دانشجو', value: 'stdName', sortable: false },
         { text: 'شماره دانشجویی', value: 'stdNum', sortable: false },
-        { text: 'سال ورود', value: 'entryYear', sortable: false },
-        { text: 'مقطع', value: 'grade', sortable: false },
+        { text: 'سال ورود', value: 'entryYear', sortable: true },
+        { text: 'مقطع', value: 'grade', sortable: true },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       profHeaders: [

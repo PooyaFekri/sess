@@ -244,26 +244,25 @@ export default {
         return {
             nonStudHeader: [
                 { text: 'ردیف', align: 'start', value: 'rowNum', },
-                { text: 'نوع تیکت', value: 'ticketType', },
+                { text: 'نوع تیکت', value: 'ticketType', sortable: true},
                 { text: 'نام درس', value: 'ticket_course'},
                 { text: 'تاریخ', value: 'date',  },
                 { text: 'نام فرستنده', value: 'senderName', sortable: false  },
                 { text: 'شماره دانشجویی', value: 'senderNum'},
                 // { text: 'توضیحات', value: 'caption', sortable: false  },
-                // { text: 'وضعیت', value: 'status', sortable: false },
+                { text: 'وضعیت', value: 'status', sortable: false },
                 { text: 'Actions', value: 'actions', sortable: false }
             ],
             studHeader: [
                 { text: 'ردیف', align: 'start', value: 'rowNum', },
-                { text: 'نوع تیکت', value: 'ticketType', sortable: false  },
+                { text: 'نوع تیکت', value: 'ticketType', sortable: true  },
                 { text: 'تاریخ', value: 'date',  },
                 { text: 'نام درس', value: 'ticket_course'},          
                 // { text: 'توضیحات', value: 'caption', sortable: false  },
-                // { text: 'وضعیت', value: 'status', sortable: false },
+                { text: 'وضعیت', value: 'status', sortable: true },
                 { text: 'Actions', value: 'actions', sortable: false }
             ],
 
-            tickets: [],
             dialogFlag: false,
             current_ticket: null,
             comments: [],
@@ -287,46 +286,20 @@ export default {
 
       role(){
         return this.user.role.name_role;
+      },
+      tickets (){
+        return this.$store.getters['ticket/tickets']
       }
     },
 
     async mounted() {
-      await this.getTickets();
+      await this.$store.dispatch('ticket/getTickets');
       console.log(this.role)
     },
 
 
     methods: {
-      async getTickets() {
-        try {
-          const tickets = await this.$axios.$get('/get-tickets');
-          const ticketsList = tickets
-          
-          // console.log((ticketsList[0]).all_steps)
-          // console.log(Object.keys((ticketsList[0]).all_steps).length)
-          let rowIndex = 1
-          ticketsList.forEach(ticket => {
-            
-            // console.log(this.determineTicketType(ticket.type_ticket));
-            this.tickets.push({
-              ticketObject: ticket,
-              rowNum: rowIndex,
-              ticketType: this.determineTicketType(ticket.type_ticket),
-              date: ticket.created_date,
-              senderName: ticket.sender_lname + ' ' + ticket.sender_fname,
-              senderNum: ticket.sender_id,
-              allSteps: ticket.all_steps,
-              ticket_course: ticket.course,
-              // caption: 'waitForBack',
-              // status: 'درحال انجام',              
-            })
-            rowIndex += 1;
-          });
-        }
-        catch(error) {
-          console.log(error);
-        }
-      },
+      
       viewTicket(ticket){
 
         this.dialogFlag = true;
@@ -396,6 +369,8 @@ export default {
         }
         try{
           const {data} = await this.$axios.put('/step-ticket', body);
+          await this.$store.dispatch('ticket/getTickets');
+
           console.log(data);
         }
         catch (error) {
@@ -412,6 +387,8 @@ export default {
         }
         try{
           const {data} = await this.$axios.put('/step-ticket', body);
+          await this.$store.dispatch('ticket/getTickets');
+
           console.log(data);
         }
         catch (error) {
@@ -426,6 +403,7 @@ export default {
         }
         try{
           const {data} = await this.$axios.post('/step-ticket', body);
+          await this.$store.dispatch('ticket/getTickets');
           console.log(data);
         }
         catch(error){

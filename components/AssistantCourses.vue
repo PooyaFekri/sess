@@ -52,7 +52,7 @@ export default {
         { text: 'ردیف', align: 'start', value: 'rowNum' },
         { text: 'نام درس', value: 'courseName', sortable: false },
         // { text: 'تعداد واحد', value: 'uniteNumber', sortable: false },
-        { text: 'گرایش', value: 'orientationName', sortable: false },
+        { text: 'گرایش', value: 'orientationName', sortable: true },
       ],
 
       selects: [],

@@ -40,7 +40,7 @@
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n13">  
-            <v-col cols="5" class="mr-n1">
+            <v-col cols="10" class="mr-n1">
               <v-text-field
                 v-model="course_units"
                 solo 
@@ -49,20 +49,7 @@
                 disabled 
                 color="#3F505E"
               ></v-text-field>
-            </v-col>
-
-            <v-col cols="5" class="mr-n1">
-              <v-select
-                v-model="prerequisites"
-                color="#3F505E" 
-                :items="prerequisites"
-                chips
-                label="لیست پیش نیاز ها"
-                readonly
-                multiple
-                solo
-            ></v-select>
-            </v-col>
+            </v-col> 
           </v-row>
 
           <v-row class="justify-center mb-n6">

@@ -29,6 +29,13 @@
                 </v-icon> -->
               </v-row>
             </template>
+
+            <template #[`item.is_dep_head`]="{ item }">
+              <v-simple-checkbox
+                v-model="item.is_dep_head"
+                disabled
+              ></v-simple-checkbox>
+            </template>
           </v-data-table>
           <!--<v-row>
             <v-col>
@@ -317,6 +324,7 @@ export default {
         { text: 'ردیف', align: 'start', value: 'rowNum' },
         { text: 'نام استاد', value: 'profName', sortable: false },
         { text: 'ایمیل', value: 'email', sortable: false },
+        { text: 'رئيس بخش', value: 'is_dep_head', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       // studHeader: [
@@ -340,7 +348,7 @@ export default {
         familyName:"",
         email:"",
         password:null,
-        headOfDepartment:false
+        headOfDepartment:false,
       },
       studentFields:{
         name:"",

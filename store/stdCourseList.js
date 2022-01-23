@@ -55,6 +55,7 @@ export const actions = {
                     uniteNumber: element.unit_numbers,
                     professorName: element.name_professor,
                     id_permitted_course: element.id_permitted_course,
+                    email: element.email
                 })
             })
             commit('setCourses', items)

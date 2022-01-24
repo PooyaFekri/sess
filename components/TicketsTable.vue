@@ -257,7 +257,14 @@
                   ></v-text-field>
                 </td>
                 <template v-if="role !== 'student'">
-                  <td colspan="3"></td>
+                  <td colspan="2"></td>
+                  <td>
+                    <v-text-field
+                      v-model="filStdNum"
+                      label="شماره دانشجویی"
+                      type="number"
+                    ></v-text-field>
+                  </td>
                   <td width="25%%">
                     <v-select
                       :items="ticketStatus"
@@ -322,6 +329,7 @@
 export default {
   data() {
     return {
+      filStdNum: '',
       nonStudHeader: [
         { text: 'ردیف', align: 'start', value: 'rowNum' },
         {
@@ -343,7 +351,15 @@ export default {
         },
         { text: 'تاریخ', value: 'date' },
         { text: 'نام فرستنده', value: 'senderName', sortable: false },
-        { text: 'شماره دانشجویی', value: 'senderNum', sortable: false },
+        {
+          text: 'شماره دانشجویی',
+          value: 'senderNum',
+          sortable: false,
+          filter: (value) => {
+            if (!this.filStdNum) return true
+            return value.includes(this.filStdNum)
+          },
+        },
         // { text: 'توضیحات', value: 'caption', sortable: false  },
         {
           text: 'وضعیت',

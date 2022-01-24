@@ -262,7 +262,7 @@
                       :items="ticketStatus"
                       v-model="tickStat"
                       :menu-props="{ maxHeight: '100', maxWidth: '100%' }"
-                      label="Standard"
+                      label="وضعیت"
                       multiple
                       attach
                       chips

@@ -528,7 +528,7 @@ export default {
         last_name: this.professorFields.familyName,
         pass: this.professorFields.password,
         email: this.professorFields.email,
-        new_email: this.professorFields.new_email,
+        new_email: this.professorFields.new_email || '',
         is_departman_boss: this.professorFields.headOfDepartment
       };
       console.log(data);

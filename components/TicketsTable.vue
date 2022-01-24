@@ -311,7 +311,7 @@ export default {
         },
         { text: 'تاریخ', value: 'date' },
         { text: 'نام فرستنده', value: 'senderName', sortable: false },
-        { text: 'شماره دانشجویی', value: 'senderNum' },
+        { text: 'شماره دانشجویی', value: 'senderNum', sortable: false },
         // { text: 'توضیحات', value: 'caption', sortable: false  },
         { text: 'وضعیت', value: 'status', sortable: true },
         { text: 'Actions', value: 'actions', sortable: false },

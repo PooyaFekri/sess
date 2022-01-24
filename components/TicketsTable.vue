@@ -256,8 +256,9 @@
                     label="نام درس"
                   ></v-text-field>
                 </td>
-                <td colspan="3"></td>
-                <td width="25%%">
+                <template v-if="role !== 'student'">
+                  <td colspan="3"></td>
+                  <td width="25%%">
                     <v-select
                       :items="ticketStatus"
                       v-model="tickStat"
@@ -269,8 +270,26 @@
                       dense
                       id="vSelect"
                     ></v-select>
-                </td>
-                <td></td>
+                  </td>
+                  <td></td>
+                </template>
+                <template v-else>
+                  <td colspan="1"></td>
+                  <td width="25%%">
+                    <v-select
+                      :items="ticketStatus"
+                      v-model="tickStat"
+                      :menu-props="{ maxHeight: '100', maxWidth: '100%' }"
+                      label="وضعیت"
+                      multiple
+                      attach
+                      chips
+                      dense
+                      id="vSelect"
+                    ></v-select>
+                  </td>
+                  <td></td>
+                </template>
               </tr>
             </template>
 
@@ -332,7 +351,7 @@ export default {
           sortable: false,
           filter: (value) => {
             if (!this.tickStat || !this.tickStat.length) return true
-            console.log(this.tickStat);
+            console.log(this.tickStat)
             return this.tickStat.includes(value)
           },
         },
@@ -346,10 +365,9 @@ export default {
           sortable: true,
           filter: (value) => {
             if (!this.filTickets) return true
-            return this.tickStat.includes(value)
+            return value.includes(this.filTickets)
           },
         },
-        { text: 'تاریخ', value: 'date' },
         {
           text: 'نام درس',
           value: 'ticket_course',
@@ -359,6 +377,7 @@ export default {
             return value.includes(this.filCourseName)
           },
         },
+        { text: 'تاریخ', value: 'date' },
         // { text: 'توضیحات', value: 'caption', sortable: false  },
         {
           text: 'وضعیت',
@@ -391,7 +410,7 @@ export default {
         'در جریان',
         'درخواست رد شده',
         'خاتمه یافته توسط دانشجو',
-        'با درخواست شما موافقت شده'
+        'با درخواست شما موافقت شده',
       ],
       tickStat: '',
     }
@@ -638,5 +657,4 @@ export default {
 #vSelect {
   z-index: 1002 !important;
 }
-
 </style>

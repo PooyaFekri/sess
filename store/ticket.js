@@ -66,8 +66,9 @@ export const actions = {
                     allSteps: ticket.all_steps,
                     ticket_course: ticket.course,
                     status: checkStatus(ticket.status_step),
-                    // caption: 'waitForBack',
-                    // status: 'درحال انجام',
+                    canChange: ticket.can_change
+                        // caption: 'waitForBack',
+                        // status: 'درحال انجام',
                 })
                 rowIndex += 1
             })

@@ -142,6 +142,7 @@
                 <v-col cols="10">
                   <v-card-text class="justify-center">
                     <v-textarea
+                      v-if="canChange"
                       v-model="step_message"
                       placeholder="در صورت لزوم متن اضافه کنید."
                       class="pt-5 pr-2 mt-n2"
@@ -201,6 +202,8 @@
                       text
                       class="terminate_ticket mb-3"
                       @click="approveTicket()"
+                      :disabled="!canChange"
+
                     >
                       تایید
                     </v-btn>
@@ -220,6 +223,7 @@
                       text
                       class="terminate_ticket mb-3"
                       @click="rejectTicket()"
+                      :disabled="!canChange"
                     >
                       رد
                     </v-btn>
@@ -429,6 +433,7 @@ export default {
         'با درخواست شما موافقت شده',
       ],
       tickStat: '',
+      canChange: false
     }
   },
   computed: {
@@ -454,7 +459,7 @@ export default {
       this.dialogFlag = true
       this.ticket_type = ticket.ticketObject.type_ticket
       this.current_ticket = ticket.ticketObject
-
+      this.canChange = ticket.canChange
       // tickets
       if (this.ticket_type !== 'other') {
         this.steps = ticket.ticketObject.all_steps

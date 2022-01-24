@@ -313,7 +313,7 @@ export default {
         { text: 'نام فرستنده', value: 'senderName', sortable: false },
         { text: 'شماره دانشجویی', value: 'senderNum' },
         // { text: 'توضیحات', value: 'caption', sortable: false  },
-        { text: 'وضعیت', value: 'status', sortable: false },
+        { text: 'وضعیت', value: 'status', sortable: true },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       studHeader: [

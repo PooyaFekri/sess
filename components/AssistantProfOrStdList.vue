@@ -110,23 +110,14 @@
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n12">
-            <v-col cols="5">
+            <v-col cols="10">
               <v-text-field
               v-model="professorFields.email"
               solo 
               label="ایمیل" 
               clearable 
               color="#3F505E"
-              disabled
-              ></v-text-field>
-            </v-col>
-            <v-col cols="5">
-              <v-text-field
-              v-model="professorFields.new_email"
-              solo 
-              label="ایمیل جدید" 
-              clearable 
-              color="#3F505E"
+              :disabled="edit"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -202,7 +193,7 @@
             </v-col>
           </v-row>
           <v-row class="justify-center mb-n12">
-            <v-col cols="5">
+            <v-col cols="10">
               <v-text-field
               v-model="studentFields.stdNum"
               solo 
@@ -212,27 +203,8 @@
               color="#3F505E"
               ></v-text-field>
             </v-col>
-            <v-col cols="5">
-              <v-text-field
-              v-if="edit"
-              v-model="studentFields.new_student_number"
-              solo 
-              label="شماره دانشجویی جدید" 
-              clearable 
-              color="#3F505E"
-              ></v-text-field>
-              <v-text-field
-                v-else
-                v-model="studentFields.password"
-                type="password"
-                color="#3F505E"
-                clearable
-                label="کلمه عبور" 
-                solo
-              ></v-text-field>
-            </v-col>
           </v-row>
-          <v-row v-if="edit" class="justify-center mb-n14" >
+          <v-row class="justify-center mb-n14" >
             <v-col cols="10">
               <v-text-field
                 v-model="studentFields.password"

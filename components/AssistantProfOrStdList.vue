@@ -117,9 +117,22 @@
               label="ایمیل" 
               clearable 
               color="#3F505E"
+              disabled
               ></v-text-field>
             </v-col>
             <v-col cols="5">
+              <v-text-field
+              v-model="professorFields.new_email"
+              solo 
+              label="ایمیل جدید" 
+              clearable 
+              color="#3F505E"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row class="justify-center mb-n12">
+
+            <v-col cols="10">
               <v-text-field
                 v-model="professorFields.password"
                 type="password"
@@ -430,7 +443,8 @@ export default {
         familyName:"",
         email:"",
         password:null,
-        headOfDepartment:false
+        headOfDepartment:false,
+        new_email: ''
       };
       this.studentFields={
         name:"",
@@ -514,6 +528,7 @@ export default {
         last_name: this.professorFields.familyName,
         pass: this.professorFields.password,
         email: this.professorFields.email,
+        new_email: this.professorFields.new_email,
         is_departman_boss: this.professorFields.headOfDepartment
       };
       console.log(data);

@@ -129,7 +129,6 @@ export default {
       this.course = this.item.courseName
       this.orientation = this.item.orientationName
       this.course_units = this.item.uniteNumber
-      // this.teacher = this.item.professorName
   },
   methods: {
     getCourseProf() {

@@ -147,6 +147,7 @@ export default {
               id_permitted_course: element.id_permitted_course,
               takenNumber: element.number_get_it_in_initial_course_this_term,
               courseSection: element.course_section,
+              email:element.email
             })
           } else if (
             element.course_section === this.type &&
@@ -161,6 +162,7 @@ export default {
               id_permitted_course: element.id_permitted_course,
               takenNumber: element.number_get_it_in_initial_course_this_term,
               courseSection: element.course_section,
+              email:element.email
             })
           }
         })

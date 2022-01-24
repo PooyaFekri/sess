@@ -239,6 +239,7 @@
             :items="tickets"
             sort-by="rowNum"
             class="elevation-1 mb-3"
+            id="table"
           >
             <template v-slot:[`body.prepend`]>
               <tr>
@@ -255,7 +256,21 @@
                     label="نام درس"
                   ></v-text-field>
                 </td>
-                <td colspan="5"></td>
+                <td colspan="3"></td>
+                <td width="25%%">
+                    <v-select
+                      :items="ticketStatus"
+                      v-model="tickStat"
+                      :menu-props="{ maxHeight: '100', maxWidth: '100%' }"
+                      label="Standard"
+                      multiple
+                      attach
+                      chips
+                      dense
+                      id="vSelect"
+                    ></v-select>
+                </td>
+                <td></td>
               </tr>
             </template>
 
@@ -296,7 +311,6 @@ export default {
           sortable: true,
           filter: (value) => {
             if (!this.filTickets) return true
-
             return value.includes(this.filTickets)
           },
         },
@@ -305,7 +319,6 @@ export default {
           value: 'ticket_course',
           filter: (value) => {
             if (!this.filCourseName) return true
-
             return value.includes(this.filCourseName)
           },
         },
@@ -313,7 +326,16 @@ export default {
         { text: 'نام فرستنده', value: 'senderName', sortable: false },
         { text: 'شماره دانشجویی', value: 'senderNum', sortable: false },
         // { text: 'توضیحات', value: 'caption', sortable: false  },
-        { text: 'وضعیت', value: 'status', sortable: true },
+        {
+          text: 'وضعیت',
+          value: 'status',
+          sortable: false,
+          filter: (value) => {
+            if (!this.tickStat || !this.tickStat.length) return true
+            console.log(this.tickStat);
+            return this.tickStat.includes(value)
+          },
+        },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       studHeader: [
@@ -324,8 +346,7 @@ export default {
           sortable: true,
           filter: (value) => {
             if (!this.filTickets) return true
-
-            return value.includes(this.filTickets)
+            return this.tickStat.includes(value)
           },
         },
         { text: 'تاریخ', value: 'date' },
@@ -339,7 +360,15 @@ export default {
           },
         },
         // { text: 'توضیحات', value: 'caption', sortable: false  },
-        { text: 'وضعیت', value: 'status', sortable: true },
+        {
+          text: 'وضعیت',
+          value: 'status',
+          sortable: true,
+          filter: (value) => {
+            if (!this.tickStat || !this.tickStat.length) return true
+            return this.tickStat.includes(value)
+          },
+        },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
 
@@ -357,7 +386,14 @@ export default {
       ticket_status_number: '',
       ticket_type: '',
       filTickets: '',
-      filCourseName: ''
+      filCourseName: '',
+      ticketStatus: [
+        'در جریان',
+        'درخواست رد شده',
+        'خاتمه یافته توسط دانشجو',
+        'با درخواست شما موافقت شده'
+      ],
+      tickStat: '',
     }
   },
   computed: {
@@ -598,4 +634,9 @@ export default {
   color: #3f505e;
   font-size: 24px;
 }
+
+#vSelect {
+  z-index: 1002 !important;
+}
+
 </style>

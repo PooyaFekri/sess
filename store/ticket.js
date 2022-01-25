@@ -66,7 +66,8 @@ export const actions = {
                     allSteps: ticket.all_steps,
                     ticket_course: ticket.course,
                     status: checkStatus(ticket.status_step),
-                    canChange: ticket.can_change
+                    canChange: ticket.can_change,
+                    stepName: ticket.receiver_user
                         // caption: 'waitForBack',
                         // status: 'درحال انجام',
                 })

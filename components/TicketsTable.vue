@@ -299,7 +299,7 @@
                       id="vSelect"
                     ></v-select>
                   </td>
-                  <td></td>
+                  <td colspan="2"></td>
                 </template>
               </tr>
             </template>
@@ -408,7 +408,14 @@ export default {
             return this.tickStat.includes(value)
           },
         },
+        {
+          text: 'نیاز به تایید',
+          value: 'stepName',
+          sortable: true,
+
+        },
         { text: 'Actions', value: 'actions', sortable: false },
+
       ],
 
       dialogFlag: false,
